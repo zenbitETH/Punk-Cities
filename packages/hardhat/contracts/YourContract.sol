@@ -10,7 +10,7 @@ pragma solidity ^0.8.0;
 // need a way to keep track of existing places [x]
 // verify existing places. based on what? done via FE. keep track of the number of verifications via mapping  [x]
 // keep track of two variables for both places and users: energy & bolts [x]
-// upgrade function requires check on validation, energy and bolts []
+// upgrade function requires check on validation, energy and bolts [x]
 // transfer functions for energy and bolts. [x]
 
 contract Punk_Cities {
@@ -25,6 +25,10 @@ contract Punk_Cities {
     uint256 public placeId;
     uint256 private energy;
     uint256 private bolt;
+    // the use of constant is not coherent if there can be more than one upgrade possible
+    uint256 constant public energyPerPlaceTreshold = 20;
+    uint256 constant public boltPerPlaceTreshold = 20;
+    uint256 public placeLevel = 1;
 
     enum Type {
         type0,
@@ -50,7 +54,9 @@ contract Punk_Cities {
     mapping(address => uint256) public energyPerAddress;
     mapping(address => uint256) public boltPerAddress;
     mapping(uint256 => uint256) public energyPerPlace;
-    mapping(uint256 => uint256) public boltPerPlace;    
+    mapping(uint256 => uint256) public boltPerPlace;
+    // mapping to track place level
+    mapping(uint256 => uint256) public placeIdLevel;    
 
     modifier isUserRegistered(address _address) {
         require(userRegistered[_address], "This user is not registered");
@@ -150,5 +156,15 @@ contract Punk_Cities {
         
         boltPerPlace[_placeId] += _bolts;
         boltPerAddress[msg.sender] -= _bolts;                
+    }
+
+    function upgradePlace(uint256 _placeId) public placeIdExists(_placeId) {
+
+        require(placeIdToVerificationTimes[_placeId] >= 25, "This place can't be upgraded because there are not enough verifications");
+        require(energyPerPlace[_placeId] >= energyPerPlaceTreshold, "This place can't be upgraded because there is not enough energy depositted");
+        require(boltPerPlace[_placeId] >= boltPerPlaceTreshold, "This place can't be upgraded because there are not enough bolts depositted");  
+
+        placeIdLevel[_placeId] += 1;    
+
     }        
 }
