@@ -9,9 +9,9 @@ pragma solidity ^0.8.0;
 // register place(type, name, map coord, city) [x]
 // need a way to keep track of existing places [x]
 // verify existing places. based on what? done via FE. keep track of the number of verifications via mapping  [x]
-// keep track of two variables for both places and users: energy & bolts
-// upgrade function requires check on validation, energy and bolts
-// transfer functions for energy and bolts. need to mint
+// keep track of two variables for both places and users: energy & bolts [x]
+// upgrade function requires check on validation, energy and bolts []
+// transfer functions for energy and bolts. [x]
 
 contract Punk_Cities {
 
@@ -24,7 +24,7 @@ contract Punk_Cities {
 
     uint256 public placeId;
     uint256 private energy;
-    uint256 private bots;
+    uint256 private bolt;
 
     enum Type {
         type0,
@@ -46,9 +46,20 @@ contract Punk_Cities {
     mapping(uint => Place) public placeIdToPlaceDetail;
     mapping(uint => address) public placeIdToRegisterAddress;
     mapping(uint256 => uint256) public placeIdToVerificationTimes;
+    // mappings to track energy and bolts per user + place
+    mapping(address => uint256) public energyPerAddress;
+    mapping(address => uint256) public boltPerAddress;
+    mapping(uint256 => uint256) public energyPerPlace;
+    mapping(uint256 => uint256) public boltPerPlace;    
 
     modifier isUserRegistered(address _address) {
         require(userRegistered[_address], "This user is not registered");
+        _;
+    }
+
+    // this modifier doesn't look like a solid solution. doesn't work with place id 0 
+    modifier placeIdExists(uint256 _placeId) {
+        require(_placeId <= placeId, "This place id doesn't exist");
         _;
     }
 
@@ -118,8 +129,26 @@ contract Punk_Cities {
 
     //Upgrade place
 
+    //WARNING! just for the sake of testing. a better behavior should be found to specify how energy and bolts are transferred among users
+    function transferEnergyAndBolts(address _to, uint256 _energy, uint256 _bolts) public {
 
+        energyPerAddress[_to] += _energy;
+        boltPerAddress[_to] += _bolts;
+    }
 
-    
+    function depositEnergy(uint256 _placeId, uint256 _energy) public placeIdExists(_placeId) {
 
+        require(energyPerAddress[msg.sender] >= _energy, "You don't have enough energy");
+        
+        energyPerPlace[_placeId] += _energy;
+        energyPerAddress[msg.sender] -= _energy;                
+    }
+
+    function depositBolts(uint256 _placeId, uint256 _bolts) public placeIdExists(_placeId) {
+
+        require(energyPerAddress[msg.sender] >= _bolts, "You don't have enough bolts");
+        
+        boltPerPlace[_placeId] += _bolts;
+        boltPerAddress[msg.sender] -= _bolts;                
+    }        
 }
