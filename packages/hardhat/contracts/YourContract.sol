@@ -1,7 +1,5 @@
 //SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
-
 // user registration by using input: social tag, hometown, country [x]
 // keep track of the registered users [x]
 // keep track of the user details. function to retrieve input(?), mapping(?) [x]
@@ -12,8 +10,18 @@ pragma solidity ^0.8.0;
 // keep track of two variables for both places and users: energy & bolts [x]
 // upgrade function requires check on validation, energy and bolts [x]
 // transfer functions for energy and bolts. [x]
+// enable minting nft erc1155 [x]
+// fix the ip to be used for the erc1155 contract []
+// mint function should be called inside the registration and assign it to owner [x]
+// mint function should be called inside the upgrade and create NFT copy to assign to validators []
+// add events 
 
-contract Punk_Cities {
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+
+
+contract YourContract is ERC1155 {
 
     struct User {
         string name;
@@ -28,7 +36,8 @@ contract Punk_Cities {
     // the use of constant is not coherent if there can be more than one upgrade possible
     uint256 constant public energyPerPlaceTreshold = 20;
     uint256 constant public boltPerPlaceTreshold = 20;
-    uint256 public placeLevel = 1;
+    uint256 constant public verificationPerPlaceTreshold = 2;
+    address[] public registeredUsers;
 
     enum Type {
         type0,
@@ -56,7 +65,10 @@ contract Punk_Cities {
     mapping(uint256 => uint256) public energyPerPlace;
     mapping(uint256 => uint256) public boltPerPlace;
     // mapping to track place level
-    mapping(uint256 => uint256) public placeIdLevel;    
+    mapping(uint256 => uint256) public placeIdLevel;
+
+    //mapping to track the validators per place
+    mapping(address => mapping(uint256 => bool)) verifiersPerPlaceId;    
 
     modifier isUserRegistered(address _address) {
         require(userRegistered[_address], "This user is not registered");
@@ -69,7 +81,8 @@ contract Punk_Cities {
         _;
     }
 
-    constructor() {
+    //the ip for the contract needs to be modified
+    constructor() ERC1155("https://...") {
         placeId = 0;
     }    
 
@@ -77,7 +90,12 @@ contract Punk_Cities {
 
     function registerUser(string memory _name, string memory _hometown, string memory _country) public {
 
+        require(userRegistered[msg.sender] == false, "You are already registered");
+
         userRegistered[msg.sender] = true;
+
+        // if this array is ocnfirmed then the previous mapping can be deleted
+        registeredUsers.push(msg.sender);        
 
         addressToUserDetail[msg.sender].name = _name;
         addressToUserDetail[msg.sender].hometown = _hometown;
@@ -107,6 +125,9 @@ contract Punk_Cities {
 
         placeIdToRegisterAddress[placeId] = msg.sender;
 
+        //registration results in the place being minted as an nft. the nft id will be the same as the placeId
+        mint(msg.sender, placeId, 1, "");
+
         placeId += 1;
     }
 
@@ -130,7 +151,13 @@ contract Punk_Cities {
 
     function verifyPlace(uint256 _placeId) public isUserRegistered(msg.sender) {
 
-        placeIdToVerificationTimes[_placeId] += 1;     
+        require(_placeId < placeId, "This placeId doesn't exist yet");
+        require(verifiersPerPlaceId[msg.sender][_placeId] == false, "You can't verify twice");
+
+        placeIdToVerificationTimes[_placeId] += 1;
+
+        // with this we know the address that verify a certain place id
+        verifiersPerPlaceId[msg.sender][_placeId] = true;     
     }
 
     //Upgrade place
@@ -160,11 +187,44 @@ contract Punk_Cities {
 
     function upgradePlace(uint256 _placeId) public placeIdExists(_placeId) {
 
-        require(placeIdToVerificationTimes[_placeId] >= 25, "This place can't be upgraded because there are not enough verifications");
-        require(energyPerPlace[_placeId] >= energyPerPlaceTreshold, "This place can't be upgraded because there is not enough energy depositted");
-        require(boltPerPlace[_placeId] >= boltPerPlaceTreshold, "This place can't be upgraded because there are not enough bolts depositted");  
+        require(placeIdToVerificationTimes[_placeId] >= verificationPerPlaceTreshold, "This place can't be upgraded because there are not enough verifications");
+        require(energyPerPlace[_placeId] >= energyPerPlaceTreshold, "This place can't be upgraded because there is not enough energy deposited");
+        require(boltPerPlace[_placeId] >= boltPerPlaceTreshold, "This place can't be upgraded because there are not enough bolts deposited");
 
-        placeIdLevel[_placeId] += 1;    
+        placeIdLevel[_placeId] += 1;  
 
-    }        
+    }
+
+    function getVerifiers(uint256 _placeId) public view returns(address[] memory) {
+
+        address[] memory result = new address[](placeIdToVerificationTimes[_placeId]);
+        uint counter = 0;
+
+        for (uint256 i = 0; i < registeredUsers.length; i++) {
+            if(verifiersPerPlaceId[registeredUsers[i]][_placeId] == true) {
+                result[counter] = (registeredUsers[i]);
+                counter++;
+            }
+        }
+
+        return result;
+    }   
+
+    // erc1155; changed visibility to private so that it can only be called by internal functions
+
+    function setURI(string memory newuri) public {
+        _setURI(newuri);
+    }
+
+    function mint(address account, uint256 id, uint256 amount, bytes memory data)
+        private
+    {
+        _mint(account, id, amount, data);
+    }
+
+    function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
+        private
+    {
+        _mintBatch(to, ids, amounts, data);
+    }         
 }
