@@ -11,10 +11,10 @@
 // upgrade function requires check on validation, energy and bolts [x]
 // transfer functions for energy and bolts. [x]
 // enable minting nft erc1155 [x]
-// fix the ip to be used for the erc1155 contract []
 // mint function should be called inside the registration and assign it to owner [x]
-// mint function should be called inside the upgrade and create NFT copy to assign to validators []
-// add events 
+// mint function should be called inside the upgrade and create NFT copy to assign to validators [x]
+// fix the ip to be used for the erc1155 contract []
+// add events for main functions []
 
 pragma solidity ^0.8.0;
 
@@ -191,7 +191,14 @@ contract YourContract is ERC1155 {
         require(energyPerPlace[_placeId] >= energyPerPlaceTreshold, "This place can't be upgraded because there is not enough energy deposited");
         require(boltPerPlace[_placeId] >= boltPerPlaceTreshold, "This place can't be upgraded because there are not enough bolts deposited");
 
-        placeIdLevel[_placeId] += 1;  
+        placeIdLevel[_placeId] += 1;
+
+        // new nfts of the same token id are minted and shared amond verifiers.
+        mint(msg.sender, _placeId, placeIdToVerificationTimes[_placeId], "");
+        address[] memory verifiers = getVerifiers(_placeId);
+        for(uint i = 0; i < verifiers.length; i++) {
+            safeTransferFrom(msg.sender, verifiers[i], placeId, 1, "");
+        }
 
     }
 
