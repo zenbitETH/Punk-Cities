@@ -125,7 +125,18 @@ describe("My Dapp", function () {
       expect(await myContract.getPlaceCity(0)).to.equal("bari");
     });
 
-    it("Should return the right number of verifications", async () => {
+    it("Should return the right number of verifications + verifiers", async () => {
+      const accounts = await ethers.getSigners();
+      const signer1 = accounts[0];
+      const signer2 = accounts[1];
+      const signer3 = accounts[2];
+
+      const verifiers = await myContract.getVerifiers(0);
+
+      expect(verifiers[0]).to.equal(`${signer1.address}`);
+      expect(verifiers[1]).to.equal(`${signer2.address}`);
+      expect(verifiers[2]).to.equal(`${signer3.address}`);
+      expect(verifiers.length).to.equal(3);
       expect(await myContract.placeIdToVerificationTimes(0)).to.equal(2);
     });
 
@@ -181,78 +192,8 @@ describe("My Dapp", function () {
         signer2
       );
 
-      console.log(
-        `energy for signer1: ${await myContract.energyPerAddress(
-          signer1.address
-        )}`
-      );
-      console.log(
-        `chip for signer1: ${await myContract.chipPerAddress(signer1.address)}`
-      );
-      console.log(
-        `energy for signer2: ${await myContract.energyPerAddress(
-          signer2.address
-        )}`
-      );
-      console.log(
-        `chip for signer2: ${await myContract.chipPerAddress(signer2.address)}`
-      );
-      console.log(
-        `energy for signer3: ${await myContract.energyPerAddress(
-          signer3.address
-        )}`
-      );
-      console.log(
-        `chip for signer3: ${await myContract.chipPerAddress(signer3.address)}`
-      );
-      console.log("------------------------------------------------------");
-      console.log(
-        `chip deposited by signer 1: ${await myContract.playerChipDepositedPerPlaceId(
-          signer1.address,
-          0
-        )}`
-      );
-      console.log(
-        `calculate rewards for signer1: ${await myContract.assignReward(
-          signer1.address,
-          0
-        )}`
-      );
-      console.log("------------------------------------------------------");
-
       const txUpgradePlace = await myContractSigner2.upgradePlace(0);
       await txUpgradePlace.wait();
-
-      console.log(
-        `AFTER: energy for signer1: ${await myContract.energyPerAddress(
-          signer1.address
-        )}`
-      );
-      console.log(
-        `AFTER: chip for signer1: ${await myContract.chipPerAddress(
-          signer1.address
-        )}`
-      );
-      console.log(
-        `AFTER: energy for signer2: ${await myContract.energyPerAddress(
-          signer2.address
-        )}`
-      );
-      console.log(
-        `AFTER: chip for signer2: ${await myContract.chipPerAddress(
-          signer2.address
-        )}`
-      );
-      console.log(
-        `AFTER: energy for signer3: ${await myContract.energyPerAddress(
-          signer3.address
-        )}`
-      );
-      console.log(
-        `AFTER: chip for signer3: ${await myContract.chipPerAddress(
-          signer3.address
-        )}`
-      );
 
       //signer 1 deposited. so x2 the amount deposited +1
       expect(await myContract.energyPerAddress(signer1.address)).to.equal(
@@ -277,24 +218,37 @@ describe("My Dapp", function () {
       );
     });
 
-    // describe("setPurpose()", function () {
-    //   it("Should be able to set a new purpose", async function () {
-    //     const newPurpose = "Test Purpose";
+    it("Registration should assign a new 1155NFT to the sender", async () => {
+      const accounts = await ethers.getSigners();
+      const signer1 = accounts[0];
 
-    //     await myContract.setPurpose(newPurpose);
-    //     expect(await myContract.purpose()).to.equal(newPurpose);
-    //   });
+      const balanceNFT0 = await myContract.balanceOf(signer1.address, 0);
 
-    // Uncomment the event and emit lines in YourContract.sol to make this test pass
+      expect(balanceNFT0).to.equal(1);
+    });
 
-    /*it("Should emit a SetPurpose event ", async function () {
-        const [owner] = await ethers.getSigners();
+    it("Registration should assign an existing  new 1155NFT to the sender", async () => {
+      const accounts = await ethers.getSigners();
+      const signer1 = accounts[0];
+      const signer2 = accounts[1];
+      const signer3 = accounts[2];
 
-        const newPurpose = "Another Test Purpose";
+      const YourContract = await ethers.getContractFactory("YourContract");
+      const myContractSigner2 = await new ethers.Contract(
+        myContract.address,
+        YourContract.interface,
+        signer2
+      );
+      const txUpgradePlace = await myContractSigner2.upgradePlace(0);
+      await txUpgradePlace.wait();
 
-        expect(await myContract.setPurpose(newPurpose)).to.
-          emit(myContract, "SetPurpose").
-            withArgs(owner.address, newPurpose);
-      });*/
+      const balanceNFTUser1 = await myContract.balanceOf(signer1.address, 0);
+      const balanceNFTUser2 = await myContract.balanceOf(signer2.address, 0);
+      const balanceNFTUser3 = await myContract.balanceOf(signer3.address, 0);
+
+      expect(balanceNFTUser1).to.equal(1); // register receiving one nft
+      expect(balanceNFTUser2).to.equal(1); // verifier receiving one nft
+      expect(balanceNFTUser3).to.equal(1); // verifier receiving one nft
+    });
   });
 });

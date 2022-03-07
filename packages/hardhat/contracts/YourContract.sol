@@ -222,21 +222,36 @@ contract YourContract is ERC1155 {
         // calculate rewards
         address[] memory verifiers = getVerifiers(_placeId);
         for(uint i = 0; i < verifiers.length; i++) {
-            safeTransferFrom(msg.sender, verifiers[i], _placeId, 1, "");
-            if(verifiers[i] == msg.sender) {
-                // person that upgrades receives 5x the units deposited
-                uint256 energyReward = playerEnergyDepositedPerPlaceId[verifiers[i]][_placeId] * 5;
-                uint256 chipReward = playerChipDepositedPerPlaceId[verifiers[i]][_placeId] * 5;
-                energyPerAddress[verifiers[i]] += (energyReward + 1);
-                chipPerAddress[verifiers[i]] += (chipReward + 1);                            
+            // an nft should not be sent to the regster
+            if(verifiers[i] == placeIdToRegisterAddress[_placeId]) {
+                if(verifiers[i] == msg.sender) {
+                    // person that upgrades receives 5x the units deposited
+                    uint256 energyReward = playerEnergyDepositedPerPlaceId[verifiers[i]][_placeId] * 5;
+                    uint256 chipReward = playerChipDepositedPerPlaceId[verifiers[i]][_placeId] * 5;
+                    energyPerAddress[verifiers[i]] += (energyReward + 1);
+                    chipPerAddress[verifiers[i]] += (chipReward + 1);                            
+                } else {
+                    // verifiers received double the amount of units deposited after upgrade
+                    (uint256 energyReward1, uint256 chipReward1) = assignReward(verifiers[i], _placeId);
+                    energyPerAddress[verifiers[i]] += (energyReward1 + 1);
+                    chipPerAddress[verifiers[i]] += (chipReward1 + 1);                   
+                }        
             } else {
-                // verifiers received double the amount of units deposited after upgrade
-                (uint256 energyReward1, uint256 chipReward1) = assignReward(verifiers[i], _placeId);
-                energyPerAddress[verifiers[i]] += (energyReward1 + 1);
-                chipPerAddress[verifiers[i]] += (chipReward1 + 1);                   
-            }         
+                safeTransferFrom(msg.sender, verifiers[i], _placeId, 1, "");
+                if(verifiers[i] == msg.sender) {
+                    // person that upgrades receives 5x the units deposited
+                    uint256 energyReward = playerEnergyDepositedPerPlaceId[verifiers[i]][_placeId] * 5;
+                    uint256 chipReward = playerChipDepositedPerPlaceId[verifiers[i]][_placeId] * 5;
+                    energyPerAddress[verifiers[i]] += (energyReward + 1);
+                    chipPerAddress[verifiers[i]] += (chipReward + 1);                            
+                } else {
+                    // verifiers received double the amount of units deposited after upgrade
+                    (uint256 energyReward1, uint256 chipReward1) = assignReward(verifiers[i], _placeId);
+                    energyPerAddress[verifiers[i]] += (energyReward1 + 1);
+                    chipPerAddress[verifiers[i]] += (chipReward1 + 1);                   
+                }                  
+            }     
         }
-
         //upgrade next level
         placeIdLevel[_placeId] += 1;        
 
@@ -244,7 +259,7 @@ contract YourContract is ERC1155 {
 
     function getVerifiers(uint256 _placeId) public view returns(address[] memory) {
 
-        //adding 1 because refister is also added among the verifiers
+        //adding 1 because register is also added among the verifiers
         address[] memory result = new address[](placeIdToVerificationTimes[_placeId]+1);
         uint counter = 0;
 
