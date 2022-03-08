@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,500;0,800;1,400&display=swap');
+
+Nav {
+  font-family: 'Exo 2';
+}
+  
+.topHud{
+  position: fixed;
+  top: 0;
+  overflow: hidden;
+  width: 100%;
+  font-size: 1em;
+  z-index: 2;
+}
+  
+.topGrid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.bottomHud {
+  display: grid;
+  width:100%;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  font-size: 1em;
+  font-family: "Exo 2";
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+  margin-left: 0;
+  align-self: center;
+}
+  
+.hud0{
+  color:#01304E !important;
+  background: linear-gradient(180deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
+  background-size: 100% 100%;
+  z-index: 1;
+  padding: 0.25em 0.5em 0.25em 0.5em;
+  border-radius: 0 0 0 25px ;
+}
+
+.hud1 {
+  color: #fff !important;
+  background: linear-gradient(180deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
+  background-size: 100% 100%;
+  z-index: 1;
+  padding: 0.25em 0.5em 0.25em 0.5em ;
+  border-radius:  0 0 0 0;
+}
+
+.hud1:hover {
+  cursor: pointer;
+  background-size: 200% 200%;
+  animation: gradient 2s ease infinite;
+  color: #fff !important;
+}
+
+.hud2 {
+  color: #fff !important;
+  background: linear-gradient(180deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
+  background-size: 100% 100%;
+  z-index: 1;
+  padding: 0.25em 0.5em 0.25em 0.5em ;
+  border-radius:  0 0 0 0;
+}
+
+.hud3 {
+  color: #ffffff;
+  background: linear-gradient(180deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
+  background-size: 100% 100%;
+  z-index: 1;
+  padding: 0.25em 0.5em 0.25em 0.5em ;
+  border-radius:  0 0 25px 0px;
+}
+
+.hud4 {
+  color: #fff !important;
+  background: linear-gradient(0deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
+  background-size: 100% 100%;
+  z-index: 1;
+  padding: 0.25em 0.5em 0.25em 0.5em ;
+  border-radius:  25px 0 0 0;
+  font-size: 1.3em;
+}
+
+.hud4:hover {
+  cursor: pointer;
+  background-size: 200% 200%;
+  animation: gradient 2s ease infinite;
+  color: #fff !important;
+}
+
+.hud5 {
+  color: #fff !important;
+  background: linear-gradient(180deg,  #f6b0559d, #f6b0559d,#f6b0559d, #b3803e85);
+  background-size: 100% 100%;
+  z-index: 1;
+  padding: 0.25em 0.5em 0.25em 0.5em ;
+  border-radius:  0 0 0 0;
+  font-size: 1.3em;
+}
+
+.hud5:hover {
+  cursor: pointer;
+  background-size: 200% 200%;
+  animation: gradient 2s ease infinite;
+  color: #fff !important;
+}
+
+.hud6 {
+  color: #fff !important;
+  background: linear-gradient(0deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
+  background-size: 100% 100%;
+  z-index: 1;
+  padding: 0.25em 0.5em 0.25em 0.5em ;
+  border-radius:  0 25px 0 0;
+  font-size: 1.3em;
+}
+
+.hud6:hover {
+  cursor: pointer;
+  background-size: 200% 200%;
+  animation: gradient 2s ease infinite;
+  color: #fff !important;
+}
+
+@media only screen and (min-width: 1200px) {
+  .bottomHud {
+    width: 60%;
+    font-size: 1em;
+    margin-left: 20%;
+      
+  }
+  
+  .topHud {
+      width: 60%;
+      font-size: 1.5em;
+      margin-left: 20%;
+  }
+}

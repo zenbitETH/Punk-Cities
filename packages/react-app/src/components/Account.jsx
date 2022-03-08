@@ -1,10 +1,8 @@
-import { Button } from "antd";
 import React from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 
 import Address from "./Address";
 import Balance from "./Balance";
-import Wallet from "./Wallet";
 
 /** 
   ~ What it does? ~
@@ -62,28 +60,28 @@ export default function Account({
   if (web3Modal) {
     if (web3Modal.cachedProvider) {
       modalButtons.push(
-        <Button
+        <div
           key="logoutbutton"
-          style={{ verticalAlign: "top", marginLeft: 8, marginTop: 4 }}
+      
           shape="round"
           size="large"
           onClick={logoutOfWeb3Modal}
         >
-          logout
-        </Button>,
+        🔌 Logout
+        </div>,
       );
     } else {
       modalButtons.push(
-        <Button
+        <div
           key="loginbutton"
-          style={{ verticalAlign: "top", marginLeft: 8, marginTop: 4 }}
+          
           shape="round"
           size="large"
           /* type={minimized ? "default" : "primary"}     too many people just defaulting to MM and having a bad time */
           onClick={loadWeb3Modal}
         >
-          connect
-        </Button>,
+        🎮 Connect
+        </div>,
       );
     }
   }
@@ -94,22 +92,14 @@ export default function Account({
       {web3Modal && web3Modal.cachedProvider ? (
         <>
           {address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}
-          <Balance address={address} provider={localProvider} price={price} />
-          <Wallet
-            address={address}
-            provider={localProvider}
-            signer={userSigner}
-            ensProvider={mainnetProvider}
-            price={price}
-            color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
-          />
+
         </>
       ) : useBurner ? (
         ""
       ) : isContract ? (
         <>
           {address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}
-          <Balance address={address} provider={localProvider} price={price} />
+          
         </>
       ) : (
         ""
@@ -117,15 +107,7 @@ export default function Account({
       {useBurner && web3Modal && !web3Modal.cachedProvider ? (
         <>
           <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />
-          <Balance address={address} provider={localProvider} price={price} />
-          <Wallet
-            address={address}
-            provider={localProvider}
-            signer={userSigner}
-            ensProvider={mainnetProvider}
-            price={price}
-            color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
-          />
+  
         </>
       ) : (
         <></>
@@ -134,9 +116,24 @@ export default function Account({
   );
 
   return (
-    <div>
-      {display}
-      {modalButtons}
-    </div>
+
+    <div class="center">
+    <nav class="topHud">
+      <div class="topGrid">
+        <div class="hud0"><a href='/Home' class="hudBalance">@playerTW</a></div>
+        <div class="hud1">My city</div>
+        <div class="hud1"> {display}</div>
+        <div class="hud1"><Balance address={address} provider={localProvider} price={price} /></div>
+        <div class="hud2"> ⚡ 20</div>
+        <div class="hud3"> 💽 10</div>
+      </div>       
+    </nav>
+    <nav class="bottomHud">
+      <div class="hud4" ><a href="https://github.com/zenbitETH/Punk-Cities" class="hudBalance">Docs</a></div>
+      <div class="hud5">{modalButtons}</div>
+      <div class="hud6" ><a href="" class="hudBalance">Discord</a></div>
+    </nav>
+  </div>
+ 
   );
 }
