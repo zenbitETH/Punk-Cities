@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,500;0,800;1,400&display=swap');
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.App {
+  text-align: center;
+  font-family: 'Exo 2';
+}
+
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Exo 2';
+}
+
+.NewGame {
+  width: 100vw;
+  height: 80vh;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  place-items: center;
+  display: flex;
+  font-family: 'Exo 2';
+}
+
+.container {
+  position: relative;
+  width: 50vh;
+  height: 70vh;
+  border-radius: 20px;
+  padding: 40px;
+  box-sizing: border-box;
+  background: #f6b055;
+}
+
+.container2 {
+  position: relative;
+  width: 100vh;
+  height: 70vh;
+  border-radius: 20px;
+  padding: 2em;
+  box-sizing: border-box;
+  background: #119195;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+
+.NewPlayer {
+  height: 100px;
+  width: 100px;
+  background: url("https://cdn-icons-png.flaticon.com/512/1586/1586547.png");
+  background-size: 100px;
+  margin: auto;
+  border-radius: 50%;
+  box-sizing: border-box;
+  box-shadow: 7px 7px 10px #be8943, -7px -7px 10px #ffb34f;
+}
+
+.NewPlace {
+  height: 100px;
+  width: 100px;
+  background: url("https://cdn-icons-png.flaticon.com/512/1586/1586547.png");
+  background-size: 100px;
+  margin: auto;
+  border-radius: 50%;
+  box-sizing: border-box;
+  box-shadow: 7px 7px 10px #0f6164, -7px -7px 10px #13a7ac;
+}
+
+.NewGame-title {
+  margin-top: 10px;
+  font-weight: 900;
+  font-size: 2em;
+  color: #01304E;
+}
+
+.inputs {
+  text-align: left;
+  margin-top:2em;
+  color: #01304E;
+}
+
+.inputs2 {
+  text-align: left;
+  color: #01304E;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2em;
+}
+
+label, input {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+label {
+  color: #01304E;
+  font-size: 1.5em;
+}
+
+input::placeholder {
+  color: gray;
+}
+
+input {
+  margin-bottom: 1em !important;
+  background: #ecf0f3;
+  padding: 10px;
+  padding-left: 20px;
+  height: 50px;
+  font-size: 1em;
+  border-radius: 50px;
+  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+  color: #01304E;
+}
+
+.CreateAcc {
+  color: white;
+  margin-top: 2em;
+  padding: 0.4em;
+  background: #01304E;
+  height: 50px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.5s;
+  font-size: 1.5em;
+}
+
+.CreateAcc:hover {
+  background-color: #124b6e;
+}
+
+.CreatePL {
+  color: white;
+  margin-top: 1.5em;
+  padding: 0.4em;
+  background: #01304E;
+  height: 50px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.5s;
+  font-size: 1.5em;
+}
+
+.CreatePL:hover {
+  background-color: #124b6e;
+}
+
+h1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+/* Places grid */
+
+.Solarpunk {
+  font-size: 1.5em;
+  color: #f6b055;
+}
+
+.Cyberpunk {
+  font-size: 1.5em;
+  color: #119195;
+}
+
+.CityDiv {
+  display: grid;
+  grid-template-columns: 3fr 4.5fr 4.5fr;
+  grid-template-rows: 0.3fr 10fr;
+  padding: 3em 5em 5em 5em ;
+  border-radius: 25px;
+  height: 95vh;
+  margin-top: -3em;
+}
+
+.CityMenu {
+  background-color: #aaa6a170;
+  border-radius: 25px 0px 0px 25px;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(50px, 1fr));
+  grid-gap: 1em;
+  align-items: center;
+  padding: 2em;
+  position: relative;
+}
+
+.CityPlaces {
+  background-color: #f6b05599;
+  border-radius: 0px 0px 0px 0px;
+  display: grid;
+  align-items: center;  
+  padding: 2em;
+  grid-gap: 1em;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.CityPlaces2 {
+  background-color: #11919599;
+  border-radius: 0px 25px 25px 0px;
+  display: grid;
+  align-items: center;  
+  padding: 2em;
+  grid-gap: 1em;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.CityBT {
+  color: #fff;
+  padding: 0.4em;
+  height: 100%;
+  background: #01304E;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.5s;
+  font-size: 1.5em;
+}
+
+.CityBT:hover {
+  background-color: #124b6e;
+}
+
+.PLheader {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  padding: 0 1em 0 0;
+  border-radius: 25px 25px 0px 0px;
+}
+
+.PLheaderLv1 {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  padding: 0 1em 0 0;
+  border-radius: 25px 25px 0px 0px;
+}
+
+.PLimage {
+  width: 150px;
+}
+
+.PLfooter {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0.5em 0.25em 1em 0.5em;
+  bottom: 0px;
+  width: 100%;
+  position: absolute;
+  background: #01304E;
+  border-radius: 0 0px 25px 25px;
+  font-size: 0.8em;
+}
+
+.PLfooterCP {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0.5em 0.25em 1em 0.5em;
+  bottom: 0px;
+  width: 100%;
+  position: absolute;
+  background: #119195;
+  border-radius: 0 0px 25px 25px;
+  font-size: 0.8em;
+}
+
+.PLfooterSP {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0.5em 0.25em 1em 0.5em;
+  bottom: 0px;
+  width: 100%;
+  position: absolute;
+  background: #f6b055;
+  border-radius: 0 0px 25px 25px;
+  font-size: 0.8em;
+  color: #01304E;
+}
+
+.PLfooterUn {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 0.5em 0.5em 1em 0.5em;
+  bottom: 0px;
+  width: 100%;
+  position: absolute;
+  background: #cbced1;
+  border-radius: 0 0px 25px 25px;
+  font-size: 0.8em;
+  color: #01304E;
+}
+
+.PLfooterUp {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 0.25em 0.5em 1em 0.25em;
+  bottom: 0px;
+  width: 100%;
+  position: absolute;
+  background: linear-gradient(45deg, #01304E, #01304E,#119195, #119195);
+  background-size: 200% 200%;
+  animation: gradient 2s ease-in-out infinite;
+  border-radius: 0 0px 25px 25px;
+  font-size: 0.8em;
+  color: #fff;
+}
+
+.CityPL {
+  background-color: #01314e79;
+  border-radius: 25px;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  position: relative;
+}
+
+.CityPL2 {
+  background-color: #01314e79;
+  border-radius: 25px;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+}
+
+
+
