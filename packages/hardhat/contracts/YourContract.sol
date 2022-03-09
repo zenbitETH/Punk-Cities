@@ -1,29 +1,15 @@
 //SPDX-License-Identifier: MIT
 
-// user registration by using input: social tag, hometown, country [x]
-// keep track of the registered users [x]
-// keep track of the user details. function to retrieve input(?), mapping(?) [x]
-// if players are registered, they can play: modifier [x]
-// register place(type, name, map coord, city) [x]
-// need a way to keep track of existing places [x]
-// verify existing places. based on what? done via FE. keep track of the number of verifications via mapping  [x]
-// keep track of two variables for both places and users: energy & chips [x]
-// upgrade function requires check on validation, energy and chips [x]
-// transfer functions for energy and chips. [x]
-// enable minting nft erc1155 [x]
-// mint function should be called inside the registration and assign it to owner [x]
-// mint function should be called inside the upgrade and create NFT copy to assign to validators [x]
-// players choose which quest for each place during registration or verification. Need to track players' choice [x]
-// review the upgrade logic [x]
 // store metadata per tokenid in ipfs []
-// fix the ip to be used for the erc1155 contract []
+// fix the ip to be used for the erc1155 contract [x]
 // add events for main functions []
-// create multiple contracts to separate the code in a logical place []
+
+// mark a place after upgarde as solarpunk or cyberpunk []
+// revenue stream to verifiers after upgrade []
 
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
-
 
 contract YourContract is ERC1155 {
 
@@ -78,7 +64,9 @@ contract YourContract is ERC1155 {
     mapping(address => mapping(uint256 => Quest)) playerQuestTypePerPlaceId; 
     //mapping to track the amount of energy & chips deposited in the place id
     mapping(address => mapping(uint256 => uint256)) public playerEnergyDepositedPerPlaceId; 
-    mapping(address => mapping(uint256 => uint256)) public playerChipDepositedPerPlaceId;         
+    mapping(address => mapping(uint256 => uint256)) public playerChipDepositedPerPlaceId;   
+    // track the tokenID with uris
+    mapping (uint256 => string) public uris;      
 
 
     modifier isUserRegistered(address _address) {
@@ -92,12 +80,13 @@ contract YourContract is ERC1155 {
         _;
     }
 
-    //the ip for the contract needs to be modified
-    constructor() ERC1155("https://...") {
+    constructor() ERC1155("") {
         placeId = 0;
     }    
 
-    // Register user
+    /**
+     * @dev Registering user in the game
+     */
 
     function registerUser(string memory _name, string memory _hometown, string memory _country) public {
 
@@ -113,21 +102,11 @@ contract YourContract is ERC1155 {
         addressToUserDetail[msg.sender].country = _country;
     }
 
-    function getUserName(address _address) public view returns(string memory) {
-        return(addressToUserDetail[_address].name);
-    }
+    /**
+     * @dev User is registering a place in the game
+     */
 
-    function getUserHometown(address _address) public view returns(string memory) {
-        return(addressToUserDetail[_address].hometown);
-    }
-
-    function getUserCountry(address _address) public view returns(string memory) {
-        return(addressToUserDetail[_address].country);
-    }
-
-    //Verification places.
-
-    function registerPlace(uint256 _placeType, uint256 _questType, string memory _city) public isUserRegistered(msg.sender) {
+    function registerPlace(uint256 _placeType, uint256 _questType, string memory _city, string memory _ipfsuri) public isUserRegistered(msg.sender) {
 
         // updating the place struct
         placeIdToPlaceDetail[placeId].placeType = Type(_placeType);
@@ -143,19 +122,19 @@ contract YourContract is ERC1155 {
 
         //registration results in the place being minted as an nft. the nft id will be the same as the placeId
         mint(msg.sender, placeId, 1, "");
+        setTokenUri(placeId, _ipfsuri);
 
         placeId += 1;
-    }
-
-    function getPlaceType(uint256 _placeId) public view returns(Type) {
-        return(placeIdToPlaceDetail[_placeId].placeType);
     }
 
     function getPlaceCity(uint256 _placeId) public view returns(string memory) {
         return(placeIdToPlaceDetail[_placeId].city);
     }
 
-    //Verify place
+    /**
+     * @dev User is verifying a place in the game. Place register is not allowed to verify its own place
+     */
+
     function verifyPlace(uint256 _placeId, uint256 _questType) public isUserRegistered(msg.sender) {
 
         require(_placeId < placeId, "This placeId doesn't exist yet");
@@ -199,7 +178,10 @@ contract YourContract is ERC1155 {
         chipPerAddress[msg.sender] -= _chips;                
     }
 
-    //Upgrade place
+     /**
+     * @dev User can upgrade a place after some conditions are met. As a result, rewards are shared among verifiers
+     */
+
     function assignReward(address _player, uint256 _placeId) public view returns(uint256, uint256) {
 
         uint256 energyReward = 0;
@@ -272,10 +254,7 @@ contract YourContract is ERC1155 {
         return result;
     }   
 
-    // erc1155; changed visibility to private so that it can only be called by internal functions
-    function setURI(string memory newuri) public {
-        _setURI(newuri);
-    }
+// Minting and metadata part
 
     function mint(address account, uint256 id, uint256 amount, bytes memory data)
         private
@@ -283,9 +262,12 @@ contract YourContract is ERC1155 {
         _mint(account, id, amount, data);
     }
 
-    function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
-        private
-    {
-        _mintBatch(to, ids, amounts, data);
+    function uri(uint256 _tokenId) override public view returns (string memory) {
+        return(uris[_tokenId]);
+    } 
+
+    function setTokenUri(uint256 _tokenId, string memory _uri) internal {
+        require(bytes(uris[_tokenId]).length == 0, "Cannot set uri twice"); 
+        uris[_tokenId] = _uri; 
     }         
 }
