@@ -1,6 +1,12 @@
 const { ethers } = require("hardhat");
 const { use, expect } = require("chai");
 const { solidity } = require("ethereum-waffle");
+const fs = require("fs");
+const axios = require("axios");
+const mime = require("mime/lite");
+const path = require("path");
+const { NFTStorage, File } = require("nft.storage");
+require("dotenv").config();
 
 use(solidity);
 
@@ -52,8 +58,18 @@ describe("My Dapp", function () {
     await txRegisteringUser2.wait();
     await txRegisteringUser3.wait();
 
-    const txRegisterPlace = await myContract.registerPlace(0, 0, "bari");
-    const txRegisterPlace2 = await myContract.registerPlace(0, 1, "turi");
+    const txRegisterPlace = await myContract.registerPlace(
+      0,
+      0,
+      "bari",
+      "ipfs"
+    );
+    const txRegisterPlace2 = await myContract.registerPlace(
+      0,
+      1,
+      "turi",
+      "ipfs"
+    );
 
     await txRegisterPlace.wait();
     await txRegisterPlace2.wait();
@@ -100,27 +116,6 @@ describe("My Dapp", function () {
   });
 
   describe("YourContract", function () {
-    it("Should return the right user name and address", async () => {
-      const accounts = await ethers.getSigners();
-      const signer1 = accounts[0]; // this should be the same as the signer used in the deployed contract
-      const signer2 = accounts[1];
-      const signer3 = accounts[2];
-
-      const nameUser1 = "alice";
-      const nameUser2 = "bob";
-      const nameUser3 = "carol";
-
-      expect(await myContract.getUserName(`${signer1.address}`)).to.equal(
-        nameUser1
-      );
-      expect(await myContract.getUserName(`${signer2.address}`)).to.equal(
-        nameUser2
-      );
-      expect(await myContract.getUserName(`${signer3.address}`)).to.equal(
-        nameUser3
-      );
-    });
-
     it("Should return the right name for the registered place", async () => {
       expect(await myContract.getPlaceCity(0)).to.equal("bari");
     });
@@ -227,7 +222,7 @@ describe("My Dapp", function () {
       expect(balanceNFT0).to.equal(1);
     });
 
-    it("Registration should assign an existing  new 1155NFT to the sender", async () => {
+    it("Upgrade should create copies of 1155NFT and send to verifiers", async () => {
       const accounts = await ethers.getSigners();
       const signer1 = accounts[0];
       const signer2 = accounts[1];
@@ -249,6 +244,46 @@ describe("My Dapp", function () {
       expect(balanceNFTUser1).to.equal(1); // register receiving one nft
       expect(balanceNFTUser2).to.equal(1); // verifier receiving one nft
       expect(balanceNFTUser3).to.equal(1); // verifier receiving one nft
+    });
+
+    it("Try to mint a place and add the proper metadata to the nft", async () => {
+      const YourContract = await ethers.getContractFactory("YourContract");
+      const accounts = await ethers.getSigners();
+      const signer2 = accounts[1];
+      const myContractSigner2 = await new ethers.Contract(
+        myContract.address,
+        YourContract.interface,
+        signer2
+      );
+
+      const fileFromPath = async (filePath) => {
+        const content = await fs.promises.readFile(filePath);
+        const type = mime.getType(filePath);
+        return new File([content], path.basename(filePath), { type });
+      };
+
+      const NFT_STORAGE_TOKEN = process.env.NFT_STORAGE_TOKEN;
+      const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
+      const image = await fileFromPath("./test/files/contract.PNG");
+      const placeId = (await myContract.placeId()).toString();
+
+      const metadata = await client.store({
+        tokenID: placeId,
+        name: "My sweet NFT",
+        description: "Just try to funge it. You can't do it.",
+        image: image,
+      });
+
+      console.log(metadata.url);
+
+      const txRegisterPlace = await myContractSigner2.registerPlace(
+        0,
+        0,
+        "turi",
+        metadata.url
+      );
+      await txRegisterPlace.wait();
+      expect(await myContract.uris(placeId)).to.equal(metadata.url);
     });
   });
 });
