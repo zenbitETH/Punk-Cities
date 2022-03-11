@@ -28,7 +28,7 @@ import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
-import { Home, ExampleUI, Hints, Subgraph, NewGame, MyPlaces, NewPlace } from "./views";
+import { Home, ExampleUI, Hints, Subgraph, NewGame, MyPlaces, NewPlace, PlaceDetail } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 
 const { ethers } = require("ethers");
@@ -245,9 +245,8 @@ function App(props) {
 
   return (
     <div className="App">
-      {/* ✏️ Edit the header and change the title to your project name */}
-      
-      <NetworkDisplay
+      {/* ✏️ Edit the header and change the title to your project name
+            <NetworkDisplay
         NETWORKCHECK={NETWORKCHECK}
         localChainId={localChainId}
         selectedChainId={selectedChainId}
@@ -255,7 +254,10 @@ function App(props) {
         logoutOfWeb3Modal={logoutOfWeb3Modal}
         USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
       />
-      <Menu style={{ textAlign: "center", paddingTop: 40, border:"none"}} selectedKeys={[location.pathname]} mode="horizontal">
+       */}
+      
+
+      <Menu style={{ textAlign: "center", paddingTop: 40, border:"none", background:"none"}} selectedKeys={[location.pathname]} mode="horizontal">
         <Menu.Item key="/">
           <Link to="/">New game</Link>
         </Menu.Item>
@@ -306,13 +308,17 @@ function App(props) {
           <NewPlace/>
         </Route>
 
+        <Route exact path="/PlaceDetail">
+          <PlaceDetail/>
+        </Route>
 
-        <Route exact path="/debug">
-          {/*
+
+         {/*<Route exact path="/debug">
+         
                 🎛 this scaffolding is full of commonly used components
                 this <Contract/> component will automatically parse your ABI
                 and give you a form to interact with it locally
-            */}
+          
 
           <Contract
             name="YourContract"
@@ -366,7 +372,7 @@ function App(props) {
               address={address}
               blockExplorer="https://etherscan.io/"
             />
-            */}
+           
         </Route>
         <Route path="/subgraph">
           <Subgraph
@@ -375,7 +381,7 @@ function App(props) {
             writeContracts={writeContracts}
             mainnetProvider={mainnetProvider}
           />
-        </Route>
+        </Route> */}
       </Switch>
 
       <ThemeSwitch />

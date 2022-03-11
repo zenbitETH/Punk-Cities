@@ -3,6 +3,7 @@ import { useThemeSwitcher } from "react-css-theme-switcher";
 
 import Address from "./Address";
 import Balance from "./Balance";
+import NetworkDisplay from "./NetworkDisplay";
 
 /** 
   ~ What it does? ~
@@ -39,6 +40,8 @@ import Balance from "./Balance";
   - Provide blockExplorer={blockExplorer}, click on address and get the link
               (ex. by default "https://etherscan.io/" or for xdai "https://blockscout.com/poa/xdai/")
 **/
+
+
 
 export default function Account({
   useBurner,
