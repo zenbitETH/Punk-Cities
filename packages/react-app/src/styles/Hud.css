@@ -39,6 +39,7 @@ Nav {
   z-index: 1;
   padding: 0.25em 0.5em 0.25em 0.5em;
   border-radius: 0 0 0 25px ;
+  font-size: 0.8em;
 }
 
 .hud1 {
@@ -48,7 +49,10 @@ Nav {
   z-index: 1;
   padding: 0.25em 0.5em 0.25em 0.5em ;
   border-radius:  0 0 0 0;
+  font-size: 0.8em;
 }
+
+
 
 .hud1:hover {
   cursor: pointer;
