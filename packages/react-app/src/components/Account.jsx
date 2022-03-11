@@ -4,6 +4,7 @@ import { useThemeSwitcher } from "react-css-theme-switcher";
 import Address from "./Address";
 import Balance from "./Balance";
 import NetworkDisplay from "./NetworkDisplay";
+import Wallet from "./Wallet";
 
 /** 
   ~ What it does? ~
@@ -129,6 +130,14 @@ export default function Account({
         <div class="hud1"><Balance address={address} provider={localProvider} price={price} /></div>
         <div class="hud2"> ⚡ 20</div>
         <div class="hud3"> 💽 10</div>
+        <Wallet
+            address={address}
+            provider={localProvider}
+            signer={userSigner}
+            ensProvider={mainnetProvider}
+            price={price}
+            color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
+          />
       </div>       
     </nav>
     <nav class="bottomHud">
