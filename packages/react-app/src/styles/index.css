@@ -23,6 +23,7 @@ body {
   height: 100vh;
   overflow: hidden;
   font-family: 'Exo 2';
+  background-image: url(https://punkcities.mypinata.cloud/ipfs/QmQDqAE5aHtQNwuP9kXKkHQeP1Q7Hkgz2xmUUnVVBBKmLL);
 }
 
 .NewGame {
@@ -187,16 +188,16 @@ h1 {
 
 .CityDiv {
   display: grid;
-  grid-template-columns: 3fr 4.5fr 4.5fr;
+  grid-template-columns: 2fr 5fr 5fr;
   grid-template-rows: 0.3fr 10fr;
-  padding: 3em 5em 5em 5em ;
+  padding: 5em 5em 5em 5em ;
   border-radius: 25px;
   height: 95vh;
   margin-top: -3em;
 }
 
 .CityMenu {
-  background-color: #aaa6a170;
+  background-color: #cbced10c;
   border-radius: 25px 0px 0px 25px;
   display: grid;
   grid-template-rows: repeat(auto-fit, minmax(50px, 1fr));
@@ -207,7 +208,7 @@ h1 {
 }
 
 .CityPlaces {
-  background-color: #f6b05599;
+  background-color: #f6b05552;
   border-radius: 0px 0px 0px 0px;
   display: grid;
   align-items: center;  
@@ -218,7 +219,7 @@ h1 {
 }
 
 .CityPlaces2 {
-  background-color: #11919599;
+  background-color: #11919552;
   border-radius: 0px 25px 25px 0px;
   display: grid;
   align-items: center;  
@@ -228,19 +229,131 @@ h1 {
   grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 
-.CityBT {
-  color: #fff;
-  padding: 0.4em;
+.PlaceAsset {
+  background-color: #cbced10c;
+}
+
+.AssetTl {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 3fr 1fr;
+  padding-top: 1em;
+  font-size: 2em;
+  text-align: left;
+}
+
+.AssetData {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 25px;
+  font-size: 1.5em;
+  grid-gap: 1em;
+  margin-bottom: 1.3em;
+}
+
+.GMaps {
+  background-color: #cbced11e;
+  border-radius: 25px;
+  padding-top: 0.5em;
+}
+
+.RgAddress {
+  background-color: #cbced11e;
+  border-radius: 25px;
+}
+
+.SolVer {
+  background-color: #f6b05552;
+  border-radius: 25px 25px 0px 0;
+  padding: 0.8em 0em 0.8em 0em;
+  font-size: 1.5em;
+  border-radius: 25px;
+}
+
+.CybVer {
+  background-color: #11919552;
+  border-radius: 25px;
+  padding: 0.8em 0em 0.8em 0em;
+  font-size: 1.5em;
+}
+
+.VerBt {
+  background-color: #cbced11e;
+  border-radius: 25px;
+  padding: 1.em 0em 1.4em 0em;
+  font-size: 1.5em;
+}
+
+.AssetRg {
+  font-size: 0.7em;
+}
+
+.AssetLv {
+  grid-row: span 2;
+  background-color: #11919552;
+  background-size: 200% 200%;
+  animation: gradient 2s ease-in-out infinite;
+  padding-top: 0.75em;
+  text-align: center;
+}
+
+.PlaceVer {
+  background-color: #cbced10c;
+  border-radius: 0px 25px 25px 0px;
+  display: grid;
+  align-items: center;  
+  padding: 2em;
+  grid-gap: 1em;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 0.5fr .5fr 3fr;
+}
+
+.Verigrid {
+  display: grid;
+  grid-template-columns: 3fr 1fr 0.5fr 0.5fr 0.5fr;
+  grid-column: span 3;
+  font-size: 1.5em;
+  background-color: #cbced10c;
+  border-radius: 25px;
   height: 100%;
-  background: #01304E;
+  grid-gap: 1em;
+}
+
+.VeriTl {
+  grid-column: span 5;
+}
+
+.PLDetail {
+  height: 50em;
+  margin-top: -6em;
+}
+
+.CityBT {
+  padding: 0.5em;
+  height: 100%;
+  background: #cbced11e;
   border-radius: 20px;
   cursor: pointer;
   transition: 0.5s;
   font-size: 1.5em;
+  text-align: left;
+}
+
+.PlaceQuest {
+  padding: 0.5em;
+  height: 100%;
+  border-radius: 20px;
+  transition: 0.5s;
+  font-size: 1.4em;
+}
+
+.QuestIc{
+  font-size: 3em;
 }
 
 .CityBT:hover {
-  background-color: #124b6e;
+  background-color: #0a79beb7;
+  color: #fff;
 }
 
 .PLheader {
@@ -258,7 +371,7 @@ h1 {
 }
 
 .PLimage {
-  width: 150px;
+  height: 11em;
 }
 
 .PLfooter {
@@ -268,7 +381,7 @@ h1 {
   bottom: 0px;
   width: 100%;
   position: absolute;
-  background: #01304E;
+  background: #01314eb2;
   border-radius: 0 0px 25px 25px;
   font-size: 0.8em;
 }
@@ -280,7 +393,7 @@ h1 {
   bottom: 0px;
   width: 100%;
   position: absolute;
-  background: #119195;
+  background: #119195b2;
   border-radius: 0 0px 25px 25px;
   font-size: 0.8em;
 }
@@ -292,7 +405,7 @@ h1 {
   bottom: 0px;
   width: 100%;
   position: absolute;
-  background: #f6b055;
+  background: #f6b055b2;
   border-radius: 0 0px 25px 25px;
   font-size: 0.8em;
   color: #01304E;
@@ -301,13 +414,13 @@ h1 {
 .PLfooterUn {
   display: grid;
   grid-template-columns: 1fr;
-  padding: 0.5em 0.5em 1em 0.5em;
+  padding: 0.25em 0.5em .65em 0.5em;
   bottom: 0px;
   width: 100%;
   position: absolute;
-  background: #cbced1;
+  background: #cbced1b2;
   border-radius: 0 0px 25px 25px;
-  font-size: 0.8em;
+  font-size: 1em;
   color: #01304E;
 }
 
@@ -327,7 +440,7 @@ h1 {
 }
 
 .CityPL {
-  background-color: #01314e79;
+  background-color: #cbced11e;
   border-radius: 25px;
   width: 100%;
   height: 100%;
@@ -336,7 +449,7 @@ h1 {
 }
 
 .CityPL2 {
-  background-color: #01314e79;
+  background-color: #aaa6a179;
   border-radius: 25px;
   width: 100%;
   height: 100%;
