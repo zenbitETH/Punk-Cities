@@ -273,6 +273,9 @@ function App(props) {
         <Menu.Item key="/SameCity">
           <Link to="/SameCity">City Places </Link>
         </Menu.Item>
+        <Menu.Item key="/debug">
+          <Link to="/debug">Debug Contracts</Link>
+        </Menu.Item>
         
          {/*<Menu.Item key="/">
           <Link to="/">App Home</Link>
