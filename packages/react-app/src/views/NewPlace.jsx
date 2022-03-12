@@ -160,9 +160,8 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
             </select>
           </label>
           <label class="file">
-<<<<<<< HEAD
             Take and upload a photo to IPFS
-            <input type="file" onChange={captureFile}/>
+            <input type="file" onChange={captureFile} />
             <div class="UploadBt"> Upload to IPFS</div>
           </label>
         </div>
