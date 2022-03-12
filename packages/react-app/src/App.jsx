@@ -310,7 +310,7 @@ function App(props) {
         </Route>
 
         <Route exact path="/NewPlace">
-          <NewPlace />
+          <NewPlace tx={tx} writeContracts={writeContracts} readContracts={readContracts} />
         </Route>
 
         <Route exact path="/PlaceDetail">

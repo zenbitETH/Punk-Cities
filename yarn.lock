@@ -12799,6 +12799,8 @@
     "class-is" "^1.1.0"
 
 "ipfs-car@^0.6.2":
+  "integrity" "sha512-tliuakkKKtCa4TTnFT3zJKjq/aD8EGKX8Y0ybCyrAW0fo/n2koZpxiLjBvtTs47Rqyji6ggXo+atPbJJ60hJmg=="
+  "resolved" "https://registry.npmjs.org/ipfs-car/-/ipfs-car-0.6.2.tgz"
   "version" "0.6.2"
   dependencies:
     "@ipld/car" "^3.2.3"

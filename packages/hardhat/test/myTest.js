@@ -6,7 +6,6 @@ const axios = require("axios");
 const mime = require("mime/lite");
 const path = require("path");
 const { NFTStorage, File } = require("nft.storage");
-require("dotenv").config();
 
 use(solidity);
 
@@ -58,18 +57,8 @@ describe("My Dapp", function () {
     await txRegisteringUser2.wait();
     await txRegisteringUser3.wait();
 
-    const txRegisterPlace = await myContract.registerPlace(
-      0,
-      0,
-      "bari",
-      "ipfs"
-    );
-    const txRegisterPlace2 = await myContract.registerPlace(
-      0,
-      1,
-      "turi",
-      "ipfs"
-    );
+    const txRegisterPlace = await myContract.registerPlace(0, 0, "ipfs");
+    const txRegisterPlace2 = await myContract.registerPlace(0, 1, "ipfs");
 
     await txRegisterPlace.wait();
     await txRegisterPlace2.wait();
@@ -116,9 +105,9 @@ describe("My Dapp", function () {
   });
 
   describe("YourContract", function () {
-    it("Should return the right name for the registered place", async () => {
-      expect(await myContract.getPlaceCity(0)).to.equal("bari");
-    });
+    // it("Should return the right name for the registered place", async () => {
+    //   expect(await myContract.getPlaceCity(0)).to.equal("bari");
+    // });
 
     it("Should return the right number of verifications + verifiers", async () => {
       const accounts = await ethers.getSigners();
@@ -279,7 +268,6 @@ describe("My Dapp", function () {
       const txRegisterPlace = await myContractSigner2.registerPlace(
         0,
         0,
-        "turi",
         metadata.url
       );
       await txRegisterPlace.wait();

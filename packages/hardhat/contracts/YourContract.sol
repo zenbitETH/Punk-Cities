@@ -42,7 +42,7 @@ contract YourContract is ERC1155 {
 
     struct Place {
         Type placeType;
-        string city;
+        // string city;
     }
     Place place;    
 
@@ -106,11 +106,11 @@ contract YourContract is ERC1155 {
      * @dev User is registering a place in the game
      */
 
-    function registerPlace(uint256 _placeType, uint256 _questType, string memory _city, string memory _ipfsuri) public isUserRegistered(msg.sender) {
+    function registerPlace(uint256 _placeType, uint256 _questType, string memory _ipfsuri) public isUserRegistered(msg.sender) {
 
         // updating the place struct
         placeIdToPlaceDetail[placeId].placeType = Type(_placeType);
-        placeIdToPlaceDetail[placeId].city = _city;  
+        // placeIdToPlaceDetail[placeId].city = _city;  
 
         // updating players' mappings
         placeIdToRegisterAddress[placeId] = msg.sender;
@@ -127,9 +127,9 @@ contract YourContract is ERC1155 {
         placeId += 1;
     }
 
-    function getPlaceCity(uint256 _placeId) public view returns(string memory) {
-        return(placeIdToPlaceDetail[_placeId].city);
-    }
+    // function getPlaceCity(uint256 _placeId) public view returns(string memory) {
+    //     return(placeIdToPlaceDetail[_placeId].city);
+    // }
 
     /**
      * @dev User is verifying a place in the game. Place register is not allowed to verify its own place

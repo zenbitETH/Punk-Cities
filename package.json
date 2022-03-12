@@ -68,6 +68,7 @@
     ]
   },
   "dependencies": {
+    "ipfs-car": "^0.6.2",
     "mime": "^3.0.0",
     "nft.storage": "^6.0.2"
   },
