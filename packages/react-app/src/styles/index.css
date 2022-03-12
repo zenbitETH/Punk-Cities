@@ -115,7 +115,7 @@ label, input {
 }
 
 label {
-  color: #01304E;
+  color: #ffffff;
   font-size: 1.5em;
 }
 
@@ -125,15 +125,48 @@ input::placeholder {
 
 input {
   margin-bottom: 1em !important;
-  background: #ecf0f3;
+  
   padding: 10px;
   padding-left: 20px;
   height: 50px;
   font-size: 1em;
   border-radius: 50px;
-  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
-  color: #01304E;
+  color: #01304E !important;
 }
+
+select  {
+  font-size: 1.2em !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  border-width: 0 !important;
+  color: #01304E !important;
+}
+
+select option {
+  border-color: transparent !important;
+  border: 0 !important;
+  border-width: 0 !important;
+}
+
+
+option {
+padding: 0.2em !important;
+
+}
+
+option:disabled:checked { 
+  border: 0 !important;
+}
+
+
+
+select option:checked {
+  background: #119195 -webkit-linear-gradient(bottom, #F6AF55 0%, #F6AF55 100%) !important;
+  color: #F6AF55 !important;
+}
+
+
 
 .CreateAcc {
   color: white;
