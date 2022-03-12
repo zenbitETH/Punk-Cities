@@ -184,6 +184,29 @@ select option:checked {
   background-color: #124b6e;
 }
 
+
+.UploadBt {
+  color: white;
+  margin-top: 1.5em;
+  padding: 0.4em;
+  background: #01304E;
+  height: 50px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.5s;
+  text-align: center;
+}
+
+.UploadBt:hover {
+  background-color: #124b6e;
+}
+
+
+input[type="file"]:hover {
+  cursor: pointer !important;
+  position: relative;
+}
+
 .CreatePL {
   color: white;
   margin-top: 1.5em;
