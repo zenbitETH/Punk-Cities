@@ -255,9 +255,12 @@ function App(props) {
         USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
       />
        */}
-      
 
-      <Menu style={{ textAlign: "center", paddingTop: 40, border:"none", background:"none"}} selectedKeys={[location.pathname]} mode="horizontal">
+      <Menu
+        style={{ textAlign: "center", paddingTop: 40, border: "none", background: "none" }}
+        selectedKeys={[location.pathname]}
+        mode="horizontal"
+      >
         <Menu.Item key="/">
           <Link to="/">New game</Link>
         </Menu.Item>
@@ -276,8 +279,8 @@ function App(props) {
         <Menu.Item key="/debug">
           <Link to="/debug">Debug Contracts</Link>
         </Menu.Item>
-        
-         {/*<Menu.Item key="/">
+
+        {/*<Menu.Item key="/">
           <Link to="/">App Home</Link>
         </Menu.Item>
         
@@ -299,19 +302,19 @@ function App(props) {
         <Route exact path="/">
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance 
           <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />*/}
-          <NewGame/>
+          <NewGame tx={tx} writeContracts={writeContracts} />
         </Route>
 
         <Route exact path="/MyPlaces">
-          <MyPlaces/>
+          <MyPlaces />
         </Route>
 
         <Route exact path="/NewPlace">
-          <NewPlace/>
+          <NewPlace />
         </Route>
 
         <Route exact path="/PlaceDetail">
-          <PlaceDetail/>
+          <PlaceDetail />
         </Route>
 
         <Route exact path="/debug">
@@ -332,8 +335,7 @@ function App(props) {
           />
         </Route>
 
-
-         {/*
+        {/*
          
                 🎛 this scaffolding is full of commonly used components
                 this <Contract/> component will automatically parse your ABI
@@ -407,28 +409,27 @@ function App(props) {
       <ThemeSwitch />
 
       <div>
-        
-          {USE_NETWORK_SELECTOR && (
-            <div>
-              <NetworkSwitch
-                networkOptions={networkOptions}
-                selectedNetwork={selectedNetwork}
-                setSelectedNetwork={setSelectedNetwork}
-              />
-            </div>
-          )}
-          <Account
-            useBurner={USE_BURNER_WALLET}
-            address={address}
-            localProvider={localProvider}
-            userSigner={userSigner}
-            mainnetProvider={mainnetProvider}
-            price={price}
-            web3Modal={web3Modal}
-            loadWeb3Modal={loadWeb3Modal}
-            logoutOfWeb3Modal={logoutOfWeb3Modal}
-            blockExplorer={blockExplorer}
-          />
+        {USE_NETWORK_SELECTOR && (
+          <div>
+            <NetworkSwitch
+              networkOptions={networkOptions}
+              selectedNetwork={selectedNetwork}
+              setSelectedNetwork={setSelectedNetwork}
+            />
+          </div>
+        )}
+        <Account
+          useBurner={USE_BURNER_WALLET}
+          address={address}
+          localProvider={localProvider}
+          userSigner={userSigner}
+          mainnetProvider={mainnetProvider}
+          price={price}
+          web3Modal={web3Modal}
+          loadWeb3Modal={loadWeb3Modal}
+          logoutOfWeb3Modal={logoutOfWeb3Modal}
+          blockExplorer={blockExplorer}
+        />
       </div>
     </div>
   );
