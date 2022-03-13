@@ -32,7 +32,9 @@ contract YourContract is ERC1155 {
     enum Type {
         type0,
         type1,
-        type2
+        type2,
+        type3,
+        type4
     }
 
     enum Quest {
@@ -59,9 +61,9 @@ contract YourContract is ERC1155 {
     // mapping to track place level
     mapping(uint256 => uint256) public placeIdLevel;
     //mapping to track the validators per place
-    mapping(address => mapping(uint256 => bool)) verifiersPerPlaceId; 
+    mapping(address => mapping(uint256 => bool)) public verifiersPerPlaceId; 
     // mapping to track the player quest for place
-    mapping(address => mapping(uint256 => Quest)) playerQuestTypePerPlaceId; 
+    mapping(address => mapping(uint256 => Quest)) public playerQuestTypePerPlaceId; 
     //mapping to track the amount of energy & chips deposited in the place id
     mapping(address => mapping(uint256 => uint256)) public playerEnergyDepositedPerPlaceId; 
     mapping(address => mapping(uint256 => uint256)) public playerChipDepositedPerPlaceId;   
@@ -252,7 +254,21 @@ contract YourContract is ERC1155 {
             }
         }
         return result;
-    }   
+    }  
+
+    function getPlaceIdPerAddress() public view returns(uint256[] memory) {
+
+        uint256[] memory result = new uint256[](placeId);
+        uint counter = 0;
+
+        for (uint256 i = 0; i < placeId; i++) {
+            if(placeIdToRegisterAddress[i] == msg.sender) {
+                result[counter] = (i);
+                counter++;
+            }
+        }
+        return result;
+    } 
 
 // Minting and metadata part
 

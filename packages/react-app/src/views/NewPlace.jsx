@@ -2,18 +2,23 @@ import React, { useState } from "react";
 import mime from "mime/lite";
 import { NFTStorage, File } from "nft.storage";
 
+//list to update
 const convertPlaceType = placeInput => {
-  if (placeInput === "restaurant") {
+  if (placeInput === "1 Basketball court") {
     return 0;
-  } else if (placeInput === "hotel") {
+  } else if (placeInput === "2 Bus Stop") {
     return 1;
-  } else {
+  } else if (placeInput === "3 City Hall") {
     return 2;
+  } else if (placeInput === "4 Cityzen Theater") {
+    return 3;
+  } else {
+    return 4;
   }
 };
 
 const convertQuestType = questInput => {
-  if (questInput === "Solarpunk") {
+  if (questInput === "1 Solarpunk (+1⚡)") {
     return 0;
   } else {
     return 1;
@@ -93,37 +98,39 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
         <div class="NewGame-title">New Place</div>
         <div class="inputs2">
           <label for="TypeOfPlace">
-            Type of place: <br/>
+            Type of place: <br />
             <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handlePlaceTypeChange}>
-                <option disabled selected>The place I want to register is...</option>
-                <option>1 Basketball court</option>
-                <option>2 Bus Stop</option>
-                <option>3 City Hall</option>
-                <option>4 Cityzen Theater</option>
-                <option>5 Community center</option>
-                <option>6 Fireman Station</option>
-                <option>7 Hospital</option>
-                <option>8 Kid´s playground</option>
-                <option>9 Landmark</option>
-                <option>10 Open-air gym</option>
-                <option>11 Police Station</option>
-                <option>12 Public Park</option>
-                <option>13 Soccer court</option>
-                <option>14 Stadium</option>
-                <option>15 Temple</option>
-                <option>16 Art Gallery</option>
-                <option>17 Beach</option>
-                <option>18 Bike Road</option>
-                <option>19 Camping site </option>
-                <option>20 Museum</option>
-                <option>21 Recycling can</option>
-                <option>22 Skate Park</option>
-                <option>23 Library</option>
-                <option>24 University</option>
-                <option>25 Co-working space</option>
-                <option>26 Industrial Park</option>
-                <option>27 Tech company</option>
-                <option>28 Technology Cluster</option>
+              <option disabled selected>
+                The place I want to register is...
+              </option>
+              <option>1 Basketball court</option>
+              <option>2 Bus Stop</option>
+              <option>3 City Hall</option>
+              <option>4 Cityzen Theater</option>
+              <option>5 Community center</option>
+              <option>6 Fireman Station</option>
+              <option>7 Hospital</option>
+              <option>8 Kid´s playground</option>
+              <option>9 Landmark</option>
+              <option>10 Open-air gym</option>
+              <option>11 Police Station</option>
+              <option>12 Public Park</option>
+              <option>13 Soccer court</option>
+              <option>14 Stadium</option>
+              <option>15 Temple</option>
+              <option>16 Art Gallery</option>
+              <option>17 Beach</option>
+              <option>18 Bike Road</option>
+              <option>19 Camping site </option>
+              <option>20 Museum</option>
+              <option>21 Recycling can</option>
+              <option>22 Skate Park</option>
+              <option>23 Library</option>
+              <option>24 University</option>
+              <option>25 Co-working space</option>
+              <option>26 Industrial Park</option>
+              <option>27 Tech company</option>
+              <option>28 Technology Cluster</option>
             </select>
           </label>
 
@@ -143,16 +150,18 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
           </label>
 
           <label>
-          Choose your quest in this place:
-          <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handlePlaceTypeChange}>
-            <option disabled selected>The quest defines the reward!</option>
-            <option>1 Solarpunk (+1⚡)</option>
-            <option>2 Cyberpunk (+1💽)</option>
-          </select>
+            Choose your quest in this place:
+            <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handlePlaceTypeChange}>
+              <option disabled selected>
+                The quest defines the reward!
+              </option>
+              <option>1 Solarpunk (+1⚡)</option>
+              <option>2 Cyberpunk (+1💽)</option>
+            </select>
           </label>
           <label class="file">
             Take and upload a photo to IPFS
-            <input type="file" onChange={captureFile}/>
+            <input type="file" onChange={captureFile} />
             <div class="UploadBt"> Upload to IPFS</div>
           </label>
         </div>
