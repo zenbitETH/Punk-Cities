@@ -5,6 +5,15 @@ export default function Upgrade() {
 
 
   return (
+    <div class="HomeDiv">
+      <div class="CityMenu">
+        <a class="CityBT" href="./PlaceDetail">Place Detail</a>
+        <a class="CityBT" href="./MyPlaces">My places</a>
+        <a class="CityBT" href="./CityPlaces">My city places</a>
+        <div class="CityBTBl" >
+          Visit other cities TBR
+        </div>
+      </div>
     <div class="NewGame">
       <div class="container3">
         <div class="UpgradePlace">🌟</div>
@@ -32,6 +41,7 @@ export default function Upgrade() {
           Upgrade Place
         </div>
       </div>
+    </div>
     </div>
   );
 }

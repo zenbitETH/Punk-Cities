@@ -87,6 +87,15 @@ export default function VerifyPlace({ tx, writeContracts, readContracts }) {
   };
 
   return (
+    <div class="HomeDiv">
+      <div class="CityMenu">
+        <a class="CityBT" href="./PlaceDetail">Place Detail</a>
+        <a class="CityBT" href="./MyPlaces">My places</a>
+        <a class="CityBT" href="./CityPlaces">My city places</a>
+        <div class="CityBTBl" >
+          Visit other cities TBR
+        </div>
+      </div>
     <div class="NewGame">
       <div class="container2">
         <div class="VerifyPlace">👍</div>
@@ -126,6 +135,7 @@ export default function VerifyPlace({ tx, writeContracts, readContracts }) {
           Verify Place
         </div>
       </div>
+    </div>
     </div>
   );
 }

@@ -6,10 +6,10 @@ export default function MyPlaces(){
     return (  
         <div class="CityDiv">
             <div class="CityMenu">
-                <div class="CityBT"type="submit">New Place</div>
-                <div class="CityBT"type="submit">My places</div>
-                <div class="CityBT"type="submit">My city places</div>
-                <div class="CityBT"type="submit">Visit other cities TBR</div>
+                <a class="CityBT" type="submit" href="./NewPlace">New Place</a>
+                <a class="CityBT" type="submit" href="./MyPlaces">My places</a>
+                <a class="CityBT" type="submit" href="./CityPlaces">My city places</a>
+                <a class="CityBT" type="submit" href="./debug">🧙🏽 Wizard Mode (Hard)</a>
             </div>
             <div class="PlaceAsset">
                 <div class="AssetTl">
@@ -25,12 +25,13 @@ export default function MyPlaces(){
             </div>
 
             <div class="PlaceVer">
-                <div class="SolVer">10/50⚡Energy<div class="AssetRg">to upgrade</div></div>
-                <div class="CybVer">15/50💽 Chips<div class="AssetRg">to upgrade</div></div>
-                <div class="VerBt">⚡Deposit 💽</div>
                 <div class="SolVer">15/100 Solarpunk <div class="AssetRg">to upgrade</div></div>
                 <div class="CybVer">25/100 Cyberpunk <div class="AssetRg">to upgrade</div></div>
-                <div class="VerBt">👍 Verify</div>
+                <a class="VerBt" href="./VerifyPlace">👍 Verify</a>
+                <div class="SolVer">10/50⚡Energy<div class="AssetRg">to upgrade</div></div>
+                <div class="CybVer">15/50💽 Chips<div class="AssetRg">to upgrade</div></div>
+                <a class="VerBt" href="./UpgradePlace">⚡Deposit 💽</a>
+                
                 <div class="Verigrid">
                     <div class="VeriTl">Verifiers</div>
                     <div>Address</div>

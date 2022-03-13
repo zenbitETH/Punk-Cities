@@ -92,6 +92,15 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
   };
 
   return (
+    <div class="HomeDiv">
+      <div class="CityMenu">
+        <a class="CityBT" href="./PlaceDetail">Place Detail</a>
+        <a class="CityBT" href="./MyPlaces">My places</a>
+        <a class="CityBT" href="./CityPlaces">My city places</a>
+        <div class="CityBTBl" >
+          Visit other cities TBR
+        </div>
+      </div>
     <div class="NewGame">
       <div class="container2">
         <div class="NewPlace"></div>
@@ -169,6 +178,7 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
           Register New Place
         </div>
       </div>
+    </div>
     </div>
   );
 }
