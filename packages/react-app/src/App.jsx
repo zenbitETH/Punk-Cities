@@ -28,7 +28,7 @@ import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
-import { Home, ExampleUI, Hints, Subgraph, NewGame, MyPlaces, NewPlace, PlaceDetail,VerifyPlace } from "./views";
+import { Home, ExampleUI, Hints, UpgradePlace, NewGame, MyPlaces, NewPlace, PlaceDetail,VerifyPlace } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 
 const { ethers } = require("ethers");
@@ -279,6 +279,9 @@ function App(props) {
         <Menu.Item key="/VerifyPlace">
           <Link to="/VerifyPlace">Verify place</Link>
         </Menu.Item>
+        <Menu.Item key="/UpgradePlace">
+          <Link to="/UpgradePlace">Upgrade place</Link>
+        </Menu.Item>
       
         <Menu.Item key="/debug">
           <Link to="/debug">Debug Contracts</Link>
@@ -323,6 +326,10 @@ function App(props) {
 
         <Route exact path="/VerifyPlace">
           <VerifyPlace/>
+        </Route>
+
+        <Route exact path="/UpgradePlace">
+          <UpgradePlace/>
         </Route>
 
         <Route exact path="/debug">
