@@ -4,6 +4,7 @@ export { default as Hints } from "./Hints";
 export { default as Subgraph } from "./Subgraph";
 export { default as NewGame } from "./NewGame";
 export { default as MyPlaces } from "./MyPlaces";
+export { default as CityPlaces } from "./CityPlaces";
 export { default as NewPlace } from "./NewPlace";
 export { default as PlaceDetail } from "./PlaceDetail";
 export { default as VerifyPlace } from "./VerifyPlace";

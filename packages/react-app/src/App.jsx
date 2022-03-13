@@ -28,7 +28,7 @@ import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
-import { Home, ExampleUI, Hints, UpgradePlace, NewGame, MyPlaces, NewPlace, PlaceDetail,VerifyPlace } from "./views";
+import { Home, ExampleUI, Hints, UpgradePlace, NewGame, MyPlaces, NewPlace, PlaceDetail, VerifyPlace, CityPlaces } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 
 const { ethers } = require("ethers");
@@ -267,8 +267,8 @@ function App(props) {
         <Menu.Item key="/MyPlaces">
           <Link to="/MyPlaces">My Places</Link>
         </Menu.Item>
-        <Menu.Item key="/SameCity">
-          <Link to="/SameCity">City Places </Link>
+        <Menu.Item key="/CityPlaces">
+          <Link to="/CityPlaces">City Places </Link>
         </Menu.Item>
         <Menu.Item key="/NewPlace">
           <Link to="/NewPlace">New place </Link>
@@ -315,6 +315,11 @@ function App(props) {
         <Route exact path="/MyPlaces">
           <MyPlaces tx={tx} writeContracts={writeContracts} readContracts={readContracts} address={address} />
         </Route>
+
+        <Route exact path="/CityPlaces">
+          <CityPlaces/>
+        </Route>
+
 
         <Route exact path="/NewPlace">
           <NewPlace tx={tx} writeContracts={writeContracts} readContracts={readContracts} />

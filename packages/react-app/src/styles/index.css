@@ -405,6 +405,16 @@ h1 {
   margin-top: -3em;
 }
 
+.CityDivAll {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  grid-template-rows: 0.3fr 10fr;
+  padding: 5em 5em 5em 5em ;
+  border-radius: 25px;
+  height: 95vh;
+  margin-top: -3em;
+}
+
 .CityMenu {
   background-color: #cbced10c;
   border-radius: 25px 0px 0px 25px;
@@ -435,6 +445,17 @@ h1 {
   padding: 2em;
   grid-gap: 1em;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.CityPlaces3 {
+  background-color: #cbced10c;
+  border-radius: 0px 25px 25px 0px;
+  display: grid;
+  align-items: center;  
+  padding: 2em;
+  grid-gap: 1em;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 
