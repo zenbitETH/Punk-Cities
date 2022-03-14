@@ -433,8 +433,6 @@ function App(props) {
         </Route> */}
       </Switch>
 
-      <ThemeSwitch />
-
       <div>
         {USE_NETWORK_SELECTOR && (
           <div>
