@@ -12,6 +12,29 @@
 	}
 }
 
+a {
+    
+  color: #FFF;
+}
+
+a:link {
+  color: #FFF;
+  border: none;
+}
+
+a:active{
+  color: #01304E !important;
+}
+
+a:visited {
+  color: #FFF;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #01304E;
+}
+
 .App {
   text-align: center;
   font-family: 'Exo 2';
@@ -51,6 +74,14 @@ body {
   border-radius: 25px;
   height: 95vh;
   margin-top: 2em;
+}
+
+.homevan {
+  position: absolute;
+  bottom: 0.2em;
+  right:  0.2em;
+  height: 70% !important;
+  z-index: 1 !important;
 }
 
 .NewGameBt {
@@ -294,13 +325,12 @@ input::placeholder {
 
 input {
   margin-bottom: 1em !important;
-  
   padding: 10px;
   padding-left: 20px;
   height: 50px;
   font-size: 1em;
   border-radius: 50px;
-  color: #01304E !important;
+  color: #119195 !important;
 }
 
 select  {
@@ -513,6 +543,7 @@ h1 {
   font-size: 1.5em;
   grid-gap: 1em;
   margin-bottom: 1.3em;
+  
 }
 
 .GMaps {
@@ -575,6 +606,7 @@ h1 {
 .Verigrid {
   display: grid;
   grid-template-columns: 3fr 1fr 0.5fr 0.5fr 0.5fr;
+  grid-template-rows: repeat(auto-fit, minmax(25px, .5fr));
   grid-column: span 3;
   font-size: 1.5em;
   background-color: #cbced10c;
@@ -601,6 +633,7 @@ h1 {
   transition: 0.5s;
   font-size: 1.5em;
   text-align: left;
+  position: relative;
 }
 
 .CityBTBl {

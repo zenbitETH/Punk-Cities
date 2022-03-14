@@ -61,14 +61,10 @@ export default function CityPlaces ({ address, readContracts, writeContracts, tx
   return (
     <div class="CityDivAll">
       <div class="CityMenu">
-        <div class="CityBT">New Place</div>
-        <div class="CityBT">My places</div>
-        <div class="CityBT" onClick={questTypePlace}>
-          My city places
-        </div>
-        <div class="CityBT" onClick={UpdatePlaceList}>
-          Visit other cities TBR
-        </div>
+      <a class="CityBT" href="./NewPlace">New Place<img src={"https://punkcities.mypinata.cloud/ipfs/QmYpNQUw9Pw48amwLnjjS7rDXRCB1xfo8DLZUJNnkYeQVo"} class="homevan"/></a>
+                <a class="CityBT" href="./MyPlaces">My places<img src={"https://punkcities.mypinata.cloud/ipfs/QmcbcgbhvpznC8zns7zRY5KKN1WvS1QQ7t1M3BaPjfUE9E"} class="homevan"/></a>
+                <a class="CityBT" href="./CityPlaces">My city places<img src={"https://punkcities.mypinata.cloud/ipfs/QmSm6Ec8xEBTEB6ATkVmPybw4VRLiapm9K9fxLLxthgvq4"} class="homevan"/></a>
+                <a class="CityBT" type="submit" href="./debug">🧙🏽 Wizard Mode (Hard) <img src={"https://punkcities.mypinata.cloud/ipfs/QmREGJmweJGKqWHFM1oF8WnsgMc9gTSV8t4ZkFBk3aBsPx"} class="homevan"/></a>
       </div>
       <div class="CityPlaces3">
         <div class="PlaceQuest">
