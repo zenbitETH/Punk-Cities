@@ -125,9 +125,9 @@ export default function Account({
     <nav class="topHud">
       <div class="topGrid">
         <div class="hud0"><a href='/Home' class="hudBalance">@zenbitMX</a></div>
-        <div class="hud1">Querétaro, México</div>
+        <div class="hud2">Querétaro</div>
         <div class="hud1"> {display}</div>
-        <div class="hud1"><Balance address={address} provider={localProvider} price={price} /></div>
+        <div class="hud2"><Balance address={address} provider={localProvider} price={price} /></div>
         <div class="hud2"> ⚡ 1</div>
         <div class="hud3"> 💽 0</div>
         {/*<Wallet

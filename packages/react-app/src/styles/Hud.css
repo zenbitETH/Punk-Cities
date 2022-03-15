@@ -2,7 +2,6 @@
 
 Nav {
   font-family: 'Exo 2';
-  
 }
   
 .topHud{
@@ -10,20 +9,19 @@ Nav {
   top: 0;
   overflow: hidden;
   width: 100%;
-  font-size: 1em;
   z-index: 2;
-}
+  font-size: clamp(1em, -1.2em + 2vw, 2.35rem);}
   
 .topGrid{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
 }
 
 .bottomHud {
   display: grid;
   width:100%;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  font-size: 1em;
+  font-size: clamp(1em, -1.2em + 2vw, 2.35rem);
   font-family: "Exo 2";
   position: fixed;
   bottom: 0;
@@ -39,7 +37,6 @@ Nav {
   z-index: 1;
   padding: 0.25em 0.5em 0.25em 0.5em;
   border-radius: 0 0 0 25px ;
-  font-size: 0.8em;
 }
 
 .hud1 {
@@ -49,10 +46,7 @@ Nav {
   z-index: 1;
   padding: 0.25em 0.5em 0.25em 0.5em ;
   border-radius:  0 0 0 0;
-  font-size: 0.8em;
 }
-
-
 
 .hud1:hover {
   cursor: pointer;
@@ -86,7 +80,6 @@ Nav {
   z-index: 1;
   padding: 0.25em 0.5em 0.25em 0.5em ;
   border-radius:  25px 0 0 0;
-  font-size: 1.3em;
 }
 
 .hud4:hover {
@@ -103,7 +96,6 @@ Nav {
   z-index: 1;
   padding: 0.25em 0.5em 0.25em 0.5em ;
   border-radius:  0 0 0 0;
-  font-size: 1.3em;
 }
 
 .hud5:hover {
@@ -120,7 +112,6 @@ Nav {
   z-index: 1;
   padding: 0.25em 0.5em 0.25em 0.5em ;
   border-radius:  0 25px 0 0;
-  font-size: 1.3em;
 }
 
 .hud6:hover {
@@ -130,17 +121,9 @@ Nav {
   color: #fff !important;
 }
 
-@media only screen and (min-width: 1200px) {
-  .bottomHud {
-    width: 60%;
-    font-size: 1em;
-    margin-left: 20%;
-      
-  }
-  
-  .topHud {
-      width: 60%;
-      font-size: 1.5em;
-      margin-left: 20%;
-  }
-}
+
+
+
+
+
+
