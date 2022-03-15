@@ -169,8 +169,9 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
             </select>
           </label>
           <label class="file">
-            Take and upload a photo to IPFS
-            <input type="file" onChange={captureFile} />
+            Take and upload a photo of the place
+            <input type="file" onChange={captureFile}/>
+            <span class="file-custom"></span>
             <div class="UploadBt"> Upload to IPFS</div>
           </label>
         </div>
