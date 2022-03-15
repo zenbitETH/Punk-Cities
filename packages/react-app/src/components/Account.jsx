@@ -124,20 +124,20 @@ export default function Account({
     <div class="center">
     <nav class="topHud">
       <div class="topGrid">
-        <div class="hud0"><a href='/Home' class="hudBalance">@playerTW</a></div>
-        <div class="hud1">My city</div>
+        <div class="hud0"><a href='/Home' class="hudBalance">@zenbitMX</a></div>
+        <div class="hud1">Querétaro, México</div>
         <div class="hud1"> {display}</div>
         <div class="hud1"><Balance address={address} provider={localProvider} price={price} /></div>
-        <div class="hud2"> ⚡ 20</div>
-        <div class="hud3"> 💽 10</div>
-        <Wallet
+        <div class="hud2"> ⚡ 1</div>
+        <div class="hud3"> 💽 0</div>
+        {/*<Wallet
             address={address}
             provider={localProvider}
             signer={userSigner}
             ensProvider={mainnetProvider}
             price={price}
             color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
-          />
+        />*/}
       </div>       
     </nav>
     <nav class="bottomHud">

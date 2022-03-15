@@ -28,7 +28,7 @@ import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
-import { Home, ExampleUI, Hints, Subgraph, NewGame, MyPlaces, NewPlace, PlaceDetail } from "./views";
+import { Home, ExampleUI, Hints, UpgradePlace, NewGame, MyPlaces, NewPlace, PlaceDetail, VerifyPlace, CityPlaces, HomeScreen } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 
 const { ethers } = require("ethers");
@@ -52,7 +52,7 @@ const { ethers } = require("ethers");
 */
 
 /// 📡 What chain are your contracts deployed to?
-const initialNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+const initialNetwork = NETWORKS.mumbai; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
 const DEBUG = true;
@@ -72,7 +72,7 @@ const providers = [
 function App(props) {
   // specify all the chains your app is available on. Eg: ['localhost', 'mainnet', ...otherNetworks ]
   // reference './constants.js' for other networks
-  const networkOptions = [initialNetwork.name, "mainnet", "rinkeby"];
+  const networkOptions = [initialNetwork.name, "mainnet", "rinkeby", "mumbai"];
 
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
@@ -256,7 +256,10 @@ function App(props) {
       />
        */}
 
-      <Menu
+      
+
+        {/*
+        <Menu
         style={{ textAlign: "center", paddingTop: 40, border: "none", background: "none" }}
         selectedKeys={[location.pathname]}
         mode="horizontal"
@@ -267,20 +270,26 @@ function App(props) {
         <Menu.Item key="/MyPlaces">
           <Link to="/MyPlaces">My Places</Link>
         </Menu.Item>
+        <Menu.Item key="/CityPlaces">
+          <Link to="/CityPlaces">City Places </Link>
+        </Menu.Item>
         <Menu.Item key="/NewPlace">
           <Link to="/NewPlace">New place </Link>
         </Menu.Item>
         <Menu.Item key="/PlaceDetail">
           <Link to="/PlaceDetail">Place detail </Link>
         </Menu.Item>
-        <Menu.Item key="/SameCity">
-          <Link to="/SameCity">City Places </Link>
+        <Menu.Item key="/VerifyPlace">
+          <Link to="/VerifyPlace">Verify place</Link>
         </Menu.Item>
+        <Menu.Item key="/UpgradePlace">
+          <Link to="/UpgradePlace">Upgrade place</Link>
+        </Menu.Item>
+      
         <Menu.Item key="/debug">
           <Link to="/debug">Debug Contracts</Link>
         </Menu.Item>
-
-        {/*<Menu.Item key="/">
+        <Menu.Item key="/">
           <Link to="/">App Home</Link>
         </Menu.Item>
         
@@ -295,11 +304,12 @@ function App(props) {
         </Menu.Item>
         <Menu.Item key="/subgraph">
       <Link to="/subgraph">Subgraph</Link>
-        </Menu.Item>*/}
-      </Menu>
+        </Menu.Item>
+        </Menu>*/}
+      
 
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/NewGame">
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance 
           <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />*/}
           <NewGame tx={tx} writeContracts={writeContracts} />
@@ -309,12 +319,28 @@ function App(props) {
           <MyPlaces tx={tx} writeContracts={writeContracts} readContracts={readContracts} address={address} />
         </Route>
 
+        <Route exact path="/CityPlaces">
+          <CityPlaces />
+        </Route>
+
         <Route exact path="/NewPlace">
           <NewPlace tx={tx} writeContracts={writeContracts} readContracts={readContracts} />
         </Route>
 
         <Route exact path="/PlaceDetail">
-          <PlaceDetail />
+          <PlaceDetail tx={tx} writeContracts={writeContracts} readContracts={readContracts} address={address} />
+        </Route>
+
+        <Route exact path="/VerifyPlace">
+          <VerifyPlace />
+        </Route>
+
+        <Route exact path="/UpgradePlace">
+          <UpgradePlace />
+        </Route>
+
+        <Route exact path="/">
+          <HomeScreen />
         </Route>
 
         <Route exact path="/debug">
