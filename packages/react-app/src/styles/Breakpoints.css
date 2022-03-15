@@ -5,19 +5,37 @@
     padding: 1em 0 0 0;
     font-size: 0.7em;
   }
+
+  .HomeScreen {
+    width: 30em;
+    margin: 8em 0 4em 0;
+  }
+
 }
 
-
+@media only screen and (min-width: 600px) {
+  .HomeScreen {
+    width: 50em;
+    margin: 8em 0 4em 0;
+  }
+}
 
 @media only screen and (min-width: 1200px) {
   .bottomHud {
     width: 60%;
-    margin-left: 20%;
-      
+    margin-left: 20%;  
   }
   
   .topHud {
       width: 60%;
       margin-left: 20%;
+  }
+
+  .HomeCon {
+    padding: 6em 30em 0 30em;
+  }
+
+  .HomeScreen {
+    margin: 0em 0 4em 0;
   }
 }

@@ -10,7 +10,7 @@ Nav {
   overflow: hidden;
   width: 100%;
   z-index: 2;
-  font-size: clamp(1em, -1.2em + 2vw, 2.35rem);}
+  font-size: clamp(1.2em, -1.2em + 2vw, 2.35rem);}
   
 .topGrid{
   display: grid;
@@ -21,7 +21,7 @@ Nav {
   display: grid;
   width:100%;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  font-size: clamp(1em, -1.2em + 2vw, 2.35rem);
+  font-size: clamp(1.2em, -1.2em + 2vw, 2.35rem);
   font-family: "Exo 2";
   position: fixed;
   bottom: 0;
