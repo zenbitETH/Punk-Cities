@@ -94,89 +94,112 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
   return (
     <div class="HomeDiv">
       <div class="CityMenu">
-        <a class="CityBT" href="./PlaceDetail">Place Detail <img src={"https://punkcities.mypinata.cloud/ipfs/QmVqUZf959wuJ8dBMfcLAUfmRn5pLk8PSWQ1eDfqH2mK2V"} class="homevan"/></a>
-        <a class="CityBT" href="./MyPlaces">My places<img src={"https://punkcities.mypinata.cloud/ipfs/QmcbcgbhvpznC8zns7zRY5KKN1WvS1QQ7t1M3BaPjfUE9E"} class="homevan"/></a>
-        <a class="CityBT" href="./CityPlaces">My city places<img src={"https://punkcities.mypinata.cloud/ipfs/QmSm6Ec8xEBTEB6ATkVmPybw4VRLiapm9K9fxLLxthgvq4"} class="homevan"/></a>
-        <a class="CityBT" type="submit" href="./debug">🧙🏽 Wizard Mode (Hard) <img src={"https://punkcities.mypinata.cloud/ipfs/QmREGJmweJGKqWHFM1oF8WnsgMc9gTSV8t4ZkFBk3aBsPx"} class="homevan"/></a>
+        <a class="CityBT" href="./PlaceDetail">
+          Place Detail{" "}
+          <img
+            src={"https://punkcities.mypinata.cloud/ipfs/QmVqUZf959wuJ8dBMfcLAUfmRn5pLk8PSWQ1eDfqH2mK2V"}
+            class="homevan"
+          />
+        </a>
+        <a class="CityBT" href="./MyPlaces">
+          My places
+          <img
+            src={"https://punkcities.mypinata.cloud/ipfs/QmcbcgbhvpznC8zns7zRY5KKN1WvS1QQ7t1M3BaPjfUE9E"}
+            class="homevan"
+          />
+        </a>
+        <a class="CityBT" href="./CityPlaces">
+          My city places
+          <img
+            src={"https://punkcities.mypinata.cloud/ipfs/QmSm6Ec8xEBTEB6ATkVmPybw4VRLiapm9K9fxLLxthgvq4"}
+            class="homevan"
+          />
+        </a>
+        <a class="CityBT" type="submit" href="./debug">
+          🧙🏽 Wizard Mode (Hard){" "}
+          <img
+            src={"https://punkcities.mypinata.cloud/ipfs/QmREGJmweJGKqWHFM1oF8WnsgMc9gTSV8t4ZkFBk3aBsPx"}
+            class="homevan"
+          />
+        </a>
       </div>
-    <div class="NewGame">
-      <div class="container2">
-        <div class="NewPlace"></div>
-        <div class="NewGame-title">New Place</div>
-        <div class="inputs2">
-          <label for="TypeOfPlace">
-            Type of place: <br />
-            <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handlePlaceTypeChange}>
-              <option disabled selected>
-                The place I want to register is...
-              </option>
-              <option>1 Basketball court</option>
-              <option>2 Bus Stop</option>
-              <option>3 City Hall</option>
-              <option>4 Cityzen Theater</option>
-              <option>5 Community center</option>
-              <option>6 Fireman Station</option>
-              <option>7 Hospital</option>
-              <option>8 Kid´s playground</option>
-              <option>9 Landmark</option>
-              <option>10 Open-air gym</option>
-              <option>11 Police Station</option>
-              <option>12 Public Park</option>
-              <option>13 Soccer court</option>
-              <option>14 Stadium</option>
-              <option>15 Temple</option>
-              <option>16 Art Gallery</option>
-              <option>17 Beach</option>
-              <option>18 Bike Road</option>
-              <option>19 Camping site </option>
-              <option>20 Museum</option>
-              <option>21 Recycling can</option>
-              <option>22 Skate Park</option>
-              <option>23 Library</option>
-              <option>24 University</option>
-              <option>25 Co-working space</option>
-              <option>26 Industrial Park</option>
-              <option>27 Tech company</option>
-              <option>28 Technology Cluster</option>
-            </select>
-          </label>
+      <div class="NewGame">
+        <div class="container2">
+          <div class="NewPlace"></div>
+          <div class="NewGame-title">New Place</div>
+          <div class="inputs2">
+            <label for="TypeOfPlace">
+              Type of place: <br />
+              <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handlePlaceTypeChange}>
+                <option disabled selected>
+                  The place I want to register is...
+                </option>
+                <option>1 Basketball court</option>
+                <option>2 Bus Stop</option>
+                <option>3 City Hall</option>
+                <option>4 Cityzen Theater</option>
+                <option>5 Community center</option>
+                <option>6 Fireman Station</option>
+                <option>7 Hospital</option>
+                <option>8 Kid´s playground</option>
+                <option>9 Landmark</option>
+                <option>10 Open-air gym</option>
+                <option>11 Police Station</option>
+                <option>12 Public Park</option>
+                <option>13 Soccer court</option>
+                <option>14 Stadium</option>
+                <option>15 Temple</option>
+                <option>16 Art Gallery</option>
+                <option>17 Beach</option>
+                <option>18 Bike Road</option>
+                <option>19 Camping site </option>
+                <option>20 Museum</option>
+                <option>21 Recycling can</option>
+                <option>22 Skate Park</option>
+                <option>23 Library</option>
+                <option>24 University</option>
+                <option>25 Co-working space</option>
+                <option>26 Industrial Park</option>
+                <option>27 Tech company</option>
+                <option>28 Technology Cluster</option>
+              </select>
+            </label>
 
-          <label>
-            Name:
-            <input type="text" placeholder="How this place is named in your city?" onChange={handleNameChange} />
-          </label>
+            <label>
+              Name:
+              <input type="text" placeholder="How this place is named in your city?" onChange={handleNameChange} />
+            </label>
 
-          <label>
-            Address
-            <input type="text" placeholder="Paste the Address from google maps" onChange={handleAddressChange} />
-          </label>
+            <label>
+              Address
+              <input type="text" placeholder="Paste the Address from google maps" onChange={handleAddressChange} />
+            </label>
 
-          <label>
-            Tags
-            <input type="text" placeholder="Camping, Climbing, Nature" onChange={handleTagChange} />
-          </label>
+            <label>
+              Tags
+              <input type="text" placeholder="Camping, Climbing, Nature" onChange={handleTagChange} />
+            </label>
 
-          <label>
-            Choose your quest in this place:
-            <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handlePlaceTypeChange}>
-              <option disabled selected>
-                The quest defines the reward!
-              </option>
-              <option>1 Solarpunk (+1⚡)</option>
-              <option>2 Cyberpunk (+1💽)</option>
-            </select>
-          </label>
-          <label class="file">
-            Take and upload a photo to IPFS
-            <input type="file" onChange={captureFile} />
-            <div class="UploadBt"> Upload to IPFS</div>
-          </label>
-        </div>
-        <div class="CreatePL" type="submit" onClick={registerPlace}>
-          Register New Place
+            <label>
+              Choose your quest in this place:
+              <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handleQuestTypeChange}>
+                <option disabled selected>
+                  The quest defines the reward!
+                </option>
+                <option>1 Solarpunk (+1⚡)</option>
+                <option>2 Cyberpunk (+1💽)</option>
+              </select>
+            </label>
+            <label class="file">
+              Take and upload a photo to IPFS
+              <input type="file" onChange={captureFile} />
+            </label>
+          </div>
+          <div class="CreatePL" type="submit" onClick={registerPlace}>
+            Register New Place
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }
