@@ -13,8 +13,56 @@ const convertPlaceType = placeInput => {
     return 2;
   } else if (placeInput === "4 Cityzen Theater") {
     return 3;
-  } else {
+  } else if (placeInput === "5 Community center") {
     return 4;
+  } else if (placeInput === "6 Fireman Station") {
+    return 5;
+  } else if (placeInput === "7 Hospital") {
+    return 6;
+  } else if (placeInput === "8 Kid´s playground") {
+    return 7;
+  } else if (placeInput === "9 Landmark") {
+    return 8;
+  } else if (placeInput === "10 Open-air gym") {
+    return 9;
+  } else if (placeInput === "11 Police Station") {
+    return 10;
+  } else if (placeInput === "12 Public Park") {
+    return 11;
+  } else if (placeInput === "13 Soccer court") {
+    return 12;
+  } else if (placeInput === "14 Stadium") {
+    return 13;
+  } else if (placeInput === "15 Temple") {
+    return 14;
+  } else if (placeInput === "16 Art Gallery") {
+    return 15;
+  } else if (placeInput === "17 Beach") {
+    return 16;
+  } else if (placeInput === "18 Bike Road") {
+    return 17;
+  } else if (placeInput === "19 Camping site") {
+    return 18;
+  } else if (placeInput === "20 Museum") {
+    return 19;
+  } else if (placeInput === "21 Recycling can") {
+    return 20;
+  } else if (placeInput === "22 Skate Park") {
+    return 21;
+  } else if (placeInput === "23 Library") {
+    return 22;
+  } else if (placeInput === "24 University") {
+    return 23;
+  } else if (placeInput === "25 Co-working space") {
+    return 24;
+  } else if (placeInput === "26 Industrial Park") {
+    return 25;
+  } else if (placeInput === "27 Tech company") {
+    return 26;
+  } else if (placeInput === "28 Technology Cluster") {
+    return 27;
+  } else {
+    return 0;
   }
 };
 
@@ -152,7 +200,7 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
                 <option>16 Art Gallery</option>
                 <option>17 Beach</option>
                 <option>18 Bike Road</option>
-                <option>19 Camping site </option>
+                <option>19 Camping site</option>
                 <option>20 Museum</option>
                 <option>21 Recycling can</option>
                 <option>22 Skate Park</option>
