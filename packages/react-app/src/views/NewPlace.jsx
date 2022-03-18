@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import mime from "mime/lite";
 import { NFTStorage, File } from "nft.storage";
+require("dotenv").config();
 
 //list to update
 const convertPlaceType = placeInput => {
@@ -57,8 +58,7 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
 
   const registerPlace = async () => {
     console.log("registering place...");
-    const NFT_STORAGE_TOKEN =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDU0OEZCN0RjMTU0NGYzZjZDMzcxNjdCQ0VmNTU5OGI4NTNCQkU5ZEIiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY0NjQwOTQ4MjE2NSwibmFtZSI6IndvcmtjaGFpbiJ9.rdMCzjgEIOiuQ9VvVq-yJbnDsrlDsuFaBd2qLpGDZSA";
+    const NFT_STORAGE_TOKEN = process.env.REACT_APP_NFT_STORAGE_TOKEN;
     const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
 
     const placeId = (await tx(readContracts.YourContract.placeId())).toString();
