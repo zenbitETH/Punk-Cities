@@ -97,7 +97,7 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
     reader.onloadend = async () => {
       const buffer = Buffer(reader.result);
       setBuffer(buffer);
-      const image = new File(buffer, file.name, {
+      const image = new File([buffer], file.name, {
         contentType: mime.getType(file.name),
       });
       setImage(image);
