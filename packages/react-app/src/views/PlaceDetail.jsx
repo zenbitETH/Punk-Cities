@@ -1,65 +1,201 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+const alchemyKey = "https://polygon-mumbai.g.alchemy.com/v2/P1ryHe8kU0FGoHpKMO6PaDDBHt74qY-I";
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+const web3 = createAlchemyWeb3(alchemyKey);
 
-import asset from "../assets/parktest.png"
+const contractAddressLocal = "0x2b6248b821a1BC2a1e992bc6535F72827f57BF43"; // to find a better way to retrieve this address
+const contractInterface = require("../contracts/YourContract.json");
+const contractInstance = new web3.eth.Contract(contractInterface, contractAddressLocal);
 
-export default function MyPlaces(){
-    return (  
-        <div class="CityDiv">
-            <div class="CityMenu">
-                <a class="CityBT" href="./NewPlace">New Place<img src={"https://punkcities.mypinata.cloud/ipfs/QmYpNQUw9Pw48amwLnjjS7rDXRCB1xfo8DLZUJNnkYeQVo"} class="homevan"/></a>
-                <a class="CityBT" href="./MyPlaces">My places<img src={"https://punkcities.mypinata.cloud/ipfs/QmcbcgbhvpznC8zns7zRY5KKN1WvS1QQ7t1M3BaPjfUE9E"} class="homevan"/></a>
-                <a class="CityBT" href="./CityPlaces">My city places<img src={"https://punkcities.mypinata.cloud/ipfs/QmSm6Ec8xEBTEB6ATkVmPybw4VRLiapm9K9fxLLxthgvq4"} class="homevan"/></a>
-                <a class="CityBT" type="submit" href="./debug">🧙🏽 Wizard Mode (Hard) <img src={"https://punkcities.mypinata.cloud/ipfs/QmREGJmweJGKqWHFM1oF8WnsgMc9gTSV8t4ZkFBk3aBsPx"} class="homevan"/></a>
-            </div>
-            <div class="PlaceAsset">
-                <div class="AssetTl">
-                    <div class="">Santa Mónica Park</div>
-                    <div class="AssetLv">Level 0</div>
-                    <div class="">Querétaro, México</div>
-                </div>
-                <img src="https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/12.Public-Park.png" class="PLDetail"/>
-                <div class="AssetData">
-                    <a class="GMaps" href="https://www.google.com/maps/place/Santa+M%C3%B3nica+II+Park/@20.6013826,-100.4445954,16z/data=!4m5!3m4!1s0x85d35009af118055:0x1de32045717635c2!8m2!3d20.6013822!4d-100.4419932">IRL Location </a>
-                    <div class="RgAddress"><div class="AssetRg">Registered by</div> 0xeCB455aa...6bF336e05
-</div>
-                </div>
-            </div>
+export default function MyPlaces() {
+  // setting-up all the dynamic variables
+  const [registerAddress, setRegisterAddress] = useState("");
+  const formatAddress = address => {
+    const stringAddress = `${address}`;
+    const newAddress = stringAddress.substring(0, 5) + "..." + stringAddress.substring(38, 42);
+    return newAddress;
+  };
+  let displayAddress = registerAddress?.substr(0, 5) + "..." + registerAddress?.substr(-4);
+  const [placeId, setPlaceId] = useState(1);
+  const [placeLevel, setPlaceLevel] = useState(0);
+  const [placeQuestType, setPlaceQuestType] = useState(0);
+  const [verifications, setVerifications] = useState(0);
+  const [energy, setEnergy] = useState(0);
+  const [chip, setChip] = useState(0);
+  const [verifiers, setVerifiers] = useState([]);
+  const [ipfsResponse, setIpfsResponse] = useState(null);
+  const [uri, setUri] = useState(null);
 
-            <div class="PlaceVer">
-                <div class="SolVer"> 1/25 Solarpunk <div class="AssetRg">to upgrade</div></div>
-                <div class="CybVer"> 0/25 Cyberpunk <div class="AssetRg">to upgrade</div></div>
-                <a class="VerBt" href="./VerifyPlace">👍 Verify</a>
-                <div class="SolVer">0/50⚡Energy<div class="AssetRg">to upgrade</div></div>
-                <div class="CybVer">0/50💽 Chips<div class="AssetRg">to upgrade</div></div>
-                <a class="VerBt" href="./UpgradePlace">⚡Deposit 💽</a>
-                
-                <div class="Verigrid">
-                    <div class="VeriTl">Verifiers</div>
-                    <div>0xeCB455aa...6bF336e05</div>
-                    <div>Solarpunk</div>
-                    <a href="https://ipfs.io/ipfs/bafyreib3xcow4qj42cu2ekm7jug3vbkr3eayio4muwrlluwuszjlkgi3nq/metadata.json">📜</a>
-                    <a href="https://punkcities.mypinata.cloud/ipfs/QmZFnnjRZmuqED9bZDa4L5A6wGC5WE8obGdpA5ULWe1wFs">📸</a>
-                    <div>0⚡</div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    
+  const currentRegisterAddress = async id => {
+    const currentRegisterAddress = await contractInstance.methods.placeIdToRegisterAddress(id).call();
+    return currentRegisterAddress;
+  };
 
-                </div>
-               
-            </div>
+  const loadPlaceLevel = async id => {
+    const placeLevel = (await contractInstance.methods.placeIdLevel(id).call()).toString();
+    return placeLevel;
+  };
+
+  //   const loadPlaceQuestType = async id => {
+  //     const placeQuestType = (
+  //       await contractInstance.methods.playerQuestTypePerPlaceId(registerAddress, id).call()
+  //     ).toString();
+  //     return placeQuestType;
+  //   };
+
+  const loadVerifications = async id => {
+    const verifications = (await contractInstance.methods.placeIdToVerificationTimes(id).call()).toString();
+    return verifications;
+  };
+  const loadEnergy = async id => {
+    const energy = (await contractInstance.methods.energyPerPlace(id).call()).toString();
+    return energy;
+  };
+  const loadChip = async id => {
+    const chip = (await contractInstance.methods.chipPerPlace(id).call()).toString();
+    return chip;
+  };
+  const loadVerifiers = async id => {
+    const verifiers = await contractInstance.methods.getVerifiers(id).call();
+    const verifiersWithoutRegister = verifiers.filter(verifier => verifier != verifiers[0]);
+    return verifiersWithoutRegister;
+  };
+  const loadURI = async id => {
+    const uri = await contractInstance.methods.uri(id).call();
+    console.log(uri);
+    return uri;
+  };
+
+  //calling the changes first time a the app gets rendered
+  useEffect(async () => {
+    const registerAddress = await currentRegisterAddress(placeId);
+    setRegisterAddress(registerAddress);
+
+    const placeLevel = await loadPlaceLevel(placeId);
+    setPlaceLevel(placeLevel);
+
+    //const placeQuestType = await loadPlaceQuestType(placeId);
+    //setPlaceQuestType(placeQuestType);
+
+    const verifications = await loadVerifications(placeId);
+    setVerifications(verifications);
+
+    const energy = await loadEnergy(placeId);
+    setEnergy(energy);
+
+    const chip = await loadChip(placeId);
+    setChip(chip);
+
+    const verifiers = await loadVerifiers(placeId);
+    setVerifiers(verifiers);
+
+    // retrievening the uri object from the ipfs
+    const uri = await loadURI(placeId);
+    setUri(uri);
+    const uriUpdated = uri.replace("ipfs://", "https://ipfs.io/ipfs/");
+    const file = await fetch(uriUpdated);
+    const ipfsResponse = await file.json();
+    setIpfsResponse(ipfsResponse);
+    console.log(ipfsResponse);
+  }, []);
+
+  return (
+    <div class="CityDiv">
+      <div class="CityMenu">
+        <a class="CityBT" href="./NewPlace">
+          New Place
+          <img
+            src={"https://punkcities.mypinata.cloud/ipfs/QmYpNQUw9Pw48amwLnjjS7rDXRCB1xfo8DLZUJNnkYeQVo"}
+            class="homevan"
+          />
+        </a>
+        <a class="CityBT" href="./MyPlaces">
+          My places
+          <img
+            src={"https://punkcities.mypinata.cloud/ipfs/QmcbcgbhvpznC8zns7zRY5KKN1WvS1QQ7t1M3BaPjfUE9E"}
+            class="homevan"
+          />
+        </a>
+        <a class="CityBT" href="./CityPlaces">
+          My city places
+          <img
+            src={"https://punkcities.mypinata.cloud/ipfs/QmSm6Ec8xEBTEB6ATkVmPybw4VRLiapm9K9fxLLxthgvq4"}
+            class="homevan"
+          />
+        </a>
+        <a class="CityBT" type="submit" href="./debug">
+          🧙🏽 Wizard Mode (Hard){" "}
+          <img
+            src={"https://punkcities.mypinata.cloud/ipfs/QmREGJmweJGKqWHFM1oF8WnsgMc9gTSV8t4ZkFBk3aBsPx"}
+            class="homevan"
+          />
+        </a>
+      </div>
+      <div class="PlaceAsset">
+        <div class="AssetTl">
+          <div class="">Santa Mónica Park</div>
+          <div class="AssetLv">Level {placeLevel ?? "NA"}</div>
+          <div class="">Querétaro, México</div>
         </div>
-    );
+        <img src={`${ipfsResponse?.Image3D}`} class="PLDetail" />
+        <div class="AssetData">
+          <a class="GMaps" href={`${ipfsResponse?.address}`}>
+            IRL Location{" "}
+          </a>
+          <div class="RgAddress">
+            <div class="AssetRg">Registered by</div> {displayAddress ?? "NA"}
+          </div>
+        </div>
+      </div>
+
+      <div class="PlaceVer">
+        <div class="SolVer">
+          {" "}
+          1/25 Solarpunk <div class="AssetRg">to upgrade</div>
+        </div>
+        <div class="CybVer">
+          {" "}
+          0/25 Cyberpunk <div class="AssetRg">to upgrade</div>
+        </div>
+        <a class="VerBt" href="./VerifyPlace">
+          👍 Verify
+        </a>
+        <div class="SolVer">
+          {energy ?? "0"}/50⚡Energy<div class="AssetRg">to upgrade</div>
+        </div>
+        <div class="CybVer">
+          {chip ?? "0"}/50💽 Chips<div class="AssetRg">to upgrade</div>
+        </div>
+        <a class="VerBt" href="./UpgradePlace">
+          ⚡Deposit 💽
+        </a>
+
+        <div class="Verigrid">
+          <div class="VeriTl">Verifiers</div>
+          <div>{verifiers ? formatAddress(verifiers[1]) : "NA"}</div>
+          <div>Solarpunk</div>
+          <a href="https://ipfs.io/ipfs/bafyreib3xcow4qj42cu2ekm7jug3vbkr3eayio4muwrlluwuszjlkgi3nq/metadata.json">
+            📜
+          </a>
+          <a href="https://punkcities.mypinata.cloud/ipfs/QmZFnnjRZmuqED9bZDa4L5A6wGC5WE8obGdpA5ULWe1wFs">📸</a>
+          <div>0⚡</div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  );
 }

@@ -66,6 +66,68 @@ const convertPlaceType = placeInput => {
   }
 };
 
+const returnImagePerPlace = placeInput => {
+  if (placeInput === "1 Basketball court") {
+    return 0;
+  } else if (placeInput === "2 Bus Stop") {
+    return 1;
+  } else if (placeInput === "3 City Hall") {
+    return 2;
+  } else if (placeInput === "4 Cityzen Theater") {
+    return 3;
+  } else if (placeInput === "5 Community center") {
+    return 4;
+  } else if (placeInput === "6 Fireman Station") {
+    return 5;
+  } else if (placeInput === "7 Hospital") {
+    return 6;
+  } else if (placeInput === "8 Kid´s playground") {
+    return 7;
+  } else if (placeInput === "9 Landmark") {
+    return 8;
+  } else if (placeInput === "10 Open-air gym") {
+    return 9;
+  } else if (placeInput === "11 Police Station") {
+    return 10;
+  } else if (placeInput === "12 Public Park") {
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/12.Public-Park.png";
+  } else if (placeInput === "13 Soccer court") {
+    return 12;
+  } else if (placeInput === "14 Stadium") {
+    return 13;
+  } else if (placeInput === "15 Temple") {
+    return 14;
+  } else if (placeInput === "16 Art Gallery") {
+    return 15;
+  } else if (placeInput === "17 Beach") {
+    return 16;
+  } else if (placeInput === "18 Bike Road") {
+    return 17;
+  } else if (placeInput === "19 Camping site") {
+    return 18;
+  } else if (placeInput === "20 Museum") {
+    return 19;
+  } else if (placeInput === "21 Recycling can") {
+    return 20;
+  } else if (placeInput === "22 Skate Park") {
+    return 21;
+  } else if (placeInput === "23 Library") {
+    return 22;
+  } else if (placeInput === "24 University") {
+    return 23;
+  } else if (placeInput === "25 Co-working space") {
+    return 24;
+  } else if (placeInput === "26 Industrial Park") {
+    return 25;
+  } else if (placeInput === "27 Tech company") {
+    return 26;
+  } else if (placeInput === "28 Technology Cluster") {
+    return 27;
+  } else {
+    return 0;
+  }
+};
+
 const convertQuestType = questInput => {
   if (questInput === "1 Solarpunk (+1⚡)") {
     return 0;
@@ -82,9 +144,14 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
   const [questType, setQuestType] = useState("");
   const [buffer, setBuffer] = useState(null);
   const [image, setImage] = useState(null);
+  const [Image3D, setImage3D] = useState(null);
 
   const handleNameChange = e => setName(e.target.value);
-  const handlePlaceTypeChange = e => setPlaceType(e.target.value);
+  const handlePlaceTypeChange = e => {
+    setPlaceType(e.target.value);
+    const image3D = returnImagePerPlace(e.target.value);
+    setImage3D(image3D);
+  };
   const handleAddressChange = e => setAddress(e.target.value);
   const handleTagChange = e => setTag(e.target.value);
   const handleQuestTypeChange = e => setQuestType(e.target.value);
@@ -118,6 +185,7 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
       image: image,
       address: address,
       tag: tag,
+      Image3D: Image3D,
       attributes: [
         {
           trait_type: "place_type",
@@ -132,9 +200,6 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
 
     let placeInput = convertPlaceType(placeType);
     let questInput = convertQuestType(questType);
-    console.log("placeInput: ", placeInput);
-    console.log("questInput: ", questInput);
-    console.log(metadata.url);
 
     tx(writeContracts.YourContract.registerPlace(placeInput, questInput, metadata.url));
   };
