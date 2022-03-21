@@ -30,11 +30,34 @@ contract YourContract is ERC1155 {
     address[] public registeredUsers;
 
     enum Type {
-        type0,
-        type1,
-        type2,
-        type3,
-        type4
+         Basketball_court,
+         Bus_Stop,
+         City_Hall,
+         Cityzen_Theater,
+         Community_center,
+         Fireman_Station,
+         Hospital,
+         Kids_playground,
+         Landmark,
+         Open_air_gym,
+         Police_Station,
+         Public_Park,
+         Soccer_court,
+         Stadium,
+         Temple,
+         Art_Gallery,
+         Beach,
+         Bike_Road,
+         Camping_site,
+         Museum,
+         Recycling_can,
+         Skate_Park,
+         Library,
+         University,
+         Coworking_space,
+         Industrial_Park,
+         Tech_company,
+         Technology_Cluster
     }
 
     enum Quest {
@@ -44,7 +67,6 @@ contract YourContract is ERC1155 {
 
     struct Place {
         Type placeType;
-        // string city;
     }
     Place place;    
 
