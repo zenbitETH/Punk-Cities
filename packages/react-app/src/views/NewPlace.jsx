@@ -68,63 +68,63 @@ const convertPlaceType = placeInput => {
 
 const returnImagePerPlace = placeInput => {
   if (placeInput === "1 Basketball court") {
-    return 0;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/1-Basketball-Court.png";
   } else if (placeInput === "2 Bus Stop") {
-    return 1;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/2-Bus-Stop.png";
   } else if (placeInput === "3 City Hall") {
-    return 2;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/3%20City%20Hall.png";
   } else if (placeInput === "4 Cityzen Theater") {
-    return 3;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/4-Citizen-Theatre.png";
   } else if (placeInput === "5 Community center") {
-    return 4;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/5-Community-Center.png";
   } else if (placeInput === "6 Fireman Station") {
-    return 5;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/6-Fireman-station.png";
   } else if (placeInput === "7 Hospital") {
-    return 6;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/7-Hospital.png";
   } else if (placeInput === "8 Kid´s playground") {
-    return 7;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/8-Kids-Playground.png";
   } else if (placeInput === "9 Landmark") {
-    return 8;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/9-Landmark.png";
   } else if (placeInput === "10 Open-air gym") {
-    return 9;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/10-Open-air-Gym.png";
   } else if (placeInput === "11 Police Station") {
-    return 10;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/11.Police-Station.png";
   } else if (placeInput === "12 Public Park") {
     return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/12.Public-Park.png";
   } else if (placeInput === "13 Soccer court") {
-    return 12;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/12.Public-Park.png";
   } else if (placeInput === "14 Stadium") {
-    return 13;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/14-Stadium.png";
   } else if (placeInput === "15 Temple") {
-    return 14;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/15-Temple.png";
   } else if (placeInput === "16 Art Gallery") {
-    return 15;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/16-Art-Gallery.png";
   } else if (placeInput === "17 Beach") {
-    return 16;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/17-Bech.png";
   } else if (placeInput === "18 Bike Road") {
-    return 17;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/18-Bike-Road.png";
   } else if (placeInput === "19 Camping site") {
-    return 18;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/19-camping-site.png";
   } else if (placeInput === "20 Museum") {
-    return 19;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/20-Museum.png";
   } else if (placeInput === "21 Recycling can") {
-    return 20;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/21-Recycling-center.png";
   } else if (placeInput === "22 Skate Park") {
-    return 21;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/22-Skate-Park.png";
   } else if (placeInput === "23 Library") {
-    return 22;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/23-Library.png";
   } else if (placeInput === "24 University") {
-    return 23;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/24-University.png";
   } else if (placeInput === "25 Co-working space") {
-    return 24;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/25-CoWorking-Space.png";
   } else if (placeInput === "26 Industrial Park") {
-    return 25;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/26-Industrial-Park.png";
   } else if (placeInput === "27 Tech company") {
-    return 26;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/27-Tech-Company.png";
   } else if (placeInput === "28 Technology Cluster") {
-    return 27;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/28-Tech-Cluster.png";
   } else {
-    return 0;
+    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/28-Tech-Cluster.png";
   }
 };
 
