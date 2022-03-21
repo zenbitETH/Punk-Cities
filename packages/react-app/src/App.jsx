@@ -342,15 +342,15 @@ function App(props) {
         </Route>
 
         <Route exact path="/VerifyPlace">
-          <VerifyPlace/>
+          <VerifyPlace address={address} />
         </Route>
 
         <Route exact path="/UpgradePlace">
-          <UpgradePlace/>
+          <UpgradePlace />
         </Route>
 
         <Route exact path="/">
-          <HomeScreen/>
+          <HomeScreen />
         </Route>
 
         <Route exact path="/debug">

@@ -23,6 +23,7 @@ export default function MyPlaces() {
   const [energy, setEnergy] = useState(0);
   const [chip, setChip] = useState(0);
   const [verifiers, setVerifiers] = useState([]);
+  const [questTypePerVerifiers, setQuestTypePerVerifiers] = useState([]);
   const [ipfsResponse, setIpfsResponse] = useState(null);
   const [uri, setUri] = useState(null);
 
@@ -55,14 +56,22 @@ export default function MyPlaces() {
     const chip = (await contractInstance.methods.chipPerPlace(id).call()).toString();
     return chip;
   };
+  const loadQuestTypePerAddress = async (id, address) => {
+    const questType = (await contractInstance.methods.playerQuestTypePerPlaceId(address, id).call()).toString();
+    if (questType === "0") {
+      return "Solarpunk";
+    } else {
+      return "Cryptopunk";
+    }
+  };
   const loadVerifiers = async id => {
     const verifiers = await contractInstance.methods.getVerifiers(id).call();
-    const verifiersWithoutRegister = verifiers.filter(verifier => verifier != verifiers[0]);
+    const registerAddress = await currentRegisterAddress(placeId);
+    const verifiersWithoutRegister = verifiers.filter(verifier => verifier != registerAddress);
     return verifiersWithoutRegister;
   };
   const loadURI = async id => {
     const uri = await contractInstance.methods.uri(id).call();
-    console.log(uri);
     return uri;
   };
 
@@ -88,6 +97,15 @@ export default function MyPlaces() {
 
     const verifiers = await loadVerifiers(placeId);
     setVerifiers(verifiers);
+    console.log(`verifiers: ${verifiers}`);
+
+    const newList = [];
+    for (let i = 0; i < verifiers.length; i++) {
+      const questType = await loadQuestTypePerAddress(placeId, verifiers[i]);
+      newList.push(questType);
+    }
+    setQuestTypePerVerifiers(newList);
+    console.log(`questTypePerVerifiers: ${questTypePerVerifiers}`);
 
     // retrievening the uri object from the ipfs
     const uri = await loadURI(placeId);
@@ -96,7 +114,6 @@ export default function MyPlaces() {
     const file = await fetch(uriUpdated);
     const ipfsResponse = await file.json();
     setIpfsResponse(ipfsResponse);
-    console.log(ipfsResponse);
   }, []);
 
   return (
@@ -172,13 +189,18 @@ export default function MyPlaces() {
 
         <div class="Verigrid">
           <div class="VeriTl">Verifiers</div>
-          <div>{verifiers ? formatAddress(verifiers[1]) : "NA"}</div>
-          <div>Solarpunk</div>
-          <a href="https://ipfs.io/ipfs/bafyreib3xcow4qj42cu2ekm7jug3vbkr3eayio4muwrlluwuszjlkgi3nq/metadata.json">
-            📜
-          </a>
-          <a href="https://punkcities.mypinata.cloud/ipfs/QmZFnnjRZmuqED9bZDa4L5A6wGC5WE8obGdpA5ULWe1wFs">📸</a>
-          <div>0⚡</div>
+          {verifiers.map((verifier, i) => (
+            <React.Fragment>
+              <div>{formatAddress(verifier)}</div>
+              <div>{questTypePerVerifiers[i] ?? ""}</div>
+              <a href="https://ipfs.io/ipfs/bafyreib3xcow4qj42cu2ekm7jug3vbkr3eayio4muwrlluwuszjlkgi3nq/metadata.json">
+                📜
+              </a>
+              <a href="https://punkcities.mypinata.cloud/ipfs/QmZFnnjRZmuqED9bZDa4L5A6wGC5WE8obGdpA5ULWe1wFs">📸</a>
+              <div>0⚡</div>
+            </React.Fragment>
+          ))}
+
           <div></div>
           <div></div>
           <div></div>
