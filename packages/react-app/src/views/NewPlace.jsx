@@ -66,6 +66,68 @@ const convertPlaceType = placeInput => {
   }
 };
 
+const formatPlaceType = placeInput => {
+  if (placeInput === "1 Basketball court") {
+    return "Basketball court";
+  } else if (placeInput === "2 Bus Stop") {
+    return "Bus Stop";
+  } else if (placeInput === "3 City Hall") {
+    return "City Hall";
+  } else if (placeInput === "4 Cityzen Theater") {
+    return "Cityzen Theater";
+  } else if (placeInput === "5 Community center") {
+    return "Community center";
+  } else if (placeInput === "6 Fireman Station") {
+    return "Fireman Station";
+  } else if (placeInput === "7 Hospital") {
+    return "Hospital";
+  } else if (placeInput === "8 Kid´s playground") {
+    return "Kid´s playground";
+  } else if (placeInput === "9 Landmark") {
+    return "Landmark";
+  } else if (placeInput === "10 Open-air gym") {
+    return "Open-air gym";
+  } else if (placeInput === "11 Police Station") {
+    return "Police Station";
+  } else if (placeInput === "12 Public Park") {
+    return "Public Park";
+  } else if (placeInput === "13 Soccer court") {
+    return "Soccer court";
+  } else if (placeInput === "14 Stadium") {
+    return "Stadium";
+  } else if (placeInput === "15 Temple") {
+    return "Temple";
+  } else if (placeInput === "16 Art Gallery") {
+    return 15;
+  } else if (placeInput === "17 Beach") {
+    return "Art Gallery";
+  } else if (placeInput === "18 Bike Road") {
+    return "Bike Road";
+  } else if (placeInput === "19 Camping site") {
+    return "Camping site";
+  } else if (placeInput === "20 Museum") {
+    return "Museum";
+  } else if (placeInput === "21 Recycling can") {
+    return "Recycling can";
+  } else if (placeInput === "22 Skate Park") {
+    return "Skate Park";
+  } else if (placeInput === "23 Library") {
+    return "Library";
+  } else if (placeInput === "24 University") {
+    return "University";
+  } else if (placeInput === "25 Co-working space") {
+    return "Co-working space";
+  } else if (placeInput === "26 Industrial Park") {
+    return "Industrial Park";
+  } else if (placeInput === "27 Tech company") {
+    return "Tech company";
+  } else if (placeInput === "28 Technology Cluster") {
+    return "Technology Cluster";
+  } else {
+    return "NA";
+  }
+};
+
 const returnImagePerPlace = placeInput => {
   if (placeInput === "1 Basketball court") {
     return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/1-Basketball-Court.png";
@@ -136,6 +198,14 @@ const convertQuestType = questInput => {
   }
 };
 
+const formatQuestType = questInput => {
+  if (questInput === "1 Solarpunk (+1⚡)") {
+    return "Solarpunk";
+  } else {
+    return "Cyberpunk";
+  }
+};
+
 export default function NewPlace({ tx, writeContracts, readContracts }) {
   const [name, setName] = useState("");
   const [placeType, setPlaceType] = useState("");
@@ -189,11 +259,11 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
       attributes: [
         {
           trait_type: "place_type",
-          value: placeType,
+          value: formatPlaceType(placeType),
         },
         {
           trait_type: "quest_type",
-          value: questType,
+          value: formatQuestType(questType),
         },
       ],
     });

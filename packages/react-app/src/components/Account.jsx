@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 
 import Address from "./Address";
 import Balance from "./Balance";
 import NetworkDisplay from "./NetworkDisplay";
 import Wallet from "./Wallet";
+require("dotenv").config();
+
+const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+const web3 = createAlchemyWeb3(alchemyKey);
+
+const contractAddressLocal = "0x6eADdF3D52c51d4bd032f9e6986721f173495E76"; // to find a better way to retrieve this address
+const contractInterface = require("../contracts/PunkCity.json");
+const contractInstance = new web3.eth.Contract(contractInterface, contractAddressLocal);
 
 /** 
   ~ What it does? ~
@@ -57,6 +66,30 @@ export default function Account({
   isContract,
 }) {
   const { currentTheme } = useThemeSwitcher();
+
+  const [energy, setEnergy] = useState(0);
+  const [chip, setChip] = useState(0);
+
+  const loadInputs = async () => {
+    if (address) {
+      const energyBalance = await contractInstance.methods.energyPerAddress(address).call();
+      const chipBalance = await contractInstance.methods.chipPerAddress(address).call();
+      setEnergy(energyBalance);
+      setChip(chipBalance);
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      loadInputs();
+    }, 800);
+  }, [address]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      loadInputs();
+    }, 800);
+  }, []);
 
   const modalButtons = [];
   if (web3Modal) {
@@ -117,8 +150,8 @@ export default function Account({
           <div class="hud2">
             <Balance address={address} provider={localProvider} price={price} />
           </div>
-          <div class="hud2"> ⚡ ?</div>
-          <div class="hud3"> 💽 ?</div>
+          <div class="hud2"> ⚡ {energy ?? "..."}</div>
+          <div class="hud3"> 💽 {chip ?? "..."}</div>
           {/*<Wallet
             address={address}
             provider={localProvider}

@@ -181,10 +181,10 @@ export default function MyPlaces() {
           👍 Verify
         </a>
         <div class="SolVer">
-          {energy ?? "0"}/50⚡Energy<div class="AssetRg">to upgrade</div>
+          {energy ?? "0"}/2⚡Energy<div class="AssetRg">to upgrade</div>
         </div>
         <div class="CybVer">
-          {chip ?? "0"}/50💽 Chips<div class="AssetRg">to upgrade</div>
+          {chip ?? "0"}/2💽 Chips<div class="AssetRg">to upgrade</div>
         </div>
         <a class="VerBt" href={`../UpgradePlace/${placeId}`}>
           ⚡Deposit 💽

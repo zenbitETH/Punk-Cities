@@ -24,9 +24,26 @@ export default function MyPlaces({ address }) {
   const [registersPerPLaceId, setRegistersPerPLaceId] = useState([]);
   const [solarPunkPerPlaceId, setSolarPunkPerPlaceId] = useState([]);
   const [cyberPunkPerPlaceId, setCyberPunkPerPlaceId] = useState([]);
+  const [levelPerPlaceId, setlevelPerPlaceId] = useState([]);
+  const [uriIPFS, setUriIPFS] = useState([]);
+  // const [verificationPerPlaceId, setVerificationPerPlaceId] = useState([]);
+  // const [energyPerPlaceId, setEnergyPerPlaceId] = useState([]);
+  // const [chipPerPlaceId, setChipPerPlaceId] = useState([]);
 
   const [placeNumber, setPlaceNumber] = useState(0);
-  const [level, setLevel] = useState(1);
+
+  const loadURI = async id => {
+    const uri = await contractInstance.methods.uri(id).call();
+    return uri;
+  };
+
+  const loadIPFS = async id => {
+    const uri = await loadURI(id);
+    const uriUpdated = uri.replace("ipfs://", "https://ipfs.io/ipfs/");
+    const file = await fetch(uriUpdated);
+    const ipfsResponse = await file.json();
+    return ipfsResponse;
+  };
 
   // finding the total number of places
   const loadPlaceNumber = async () => {
@@ -37,6 +54,41 @@ export default function MyPlaces({ address }) {
   const loadPlaces = async () => {
     const placeNumber = await loadPlaceNumber();
     setPlaceNumber(placeNumber);
+
+    const levelList = [];
+    for (let i = 0; i < placeNumber; i++) {
+      const level = await contractInstance.methods.placeIdLevel(i).call();
+      levelList.push(level);
+    }
+    setlevelPerPlaceId(levelList);
+
+    const uriIPFS = [];
+    for (let i = 0; i < placeNumber; i++) {
+      const ipfsResponse = await loadIPFS(i);
+      uriIPFS.push(ipfsResponse);
+    }
+    setUriIPFS(uriIPFS);
+
+    // const verificationsList = [];
+    // for (let i = 0; i < placeNumber; i++) {
+    //   const verification = await contractInstance.methods.placeIdToVerificationTimes(i).call();
+    //   verificationsList.push(verification);
+    // }
+    // setVerificationPerPlaceId(verificationsList);
+
+    // const energyList = [];
+    // for (let i = 0; i < placeNumber; i++) {
+    //   const energy = await contractInstance.methods.energyPerPlace(i).call();
+    //   energyList.push(energy);
+    // }
+    // setEnergyPerPlaceId(energyList);
+
+    // const chipList = [];
+    // for (let i = 0; i < placeNumber; i++) {
+    //   const chip = await contractInstance.methods.chipPerPlace(i).call();
+    //   chipList.push(chip);
+    // }
+    // setChipPerPlaceId(chipList);
 
     const registersList = [];
     for (let i = 0; i < placeNumber; i++) {
@@ -120,17 +172,14 @@ export default function MyPlaces({ address }) {
         {solarPunkPerPlaceId.map(place => (
           <a class="CityPL" href={`./PlaceDetail/${place}`}>
             <div class="PLheader">
-              <div class="PLtitle">{place}</div>
-              <div class="PLlevel">{`Lv?`}</div>
+              <div class="PLtitle">{uriIPFS[place].name}</div>
+              <div class="PLlevel">Lv {levelPerPlaceId[place]}</div>
             </div>
-            <img
-              src="https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/1-Basketball-Court.png"
-              class="PLimage"
-            />
+            <img src={uriIPFS[place].Image3D} class="PLimage" />
             <div class="PLfooter">
-              <div class="PLtitle">{`?/20👍`}</div>
-              <div class="PLlevel">{`?/10⚡`}</div>
-              <div class="PLlevel">{`?/10💽`}</div>
+              <div class="PLtitle">{`?/2👍`}</div>
+              <div class="PLlevel">{`?/2⚡`}</div>
+              <div class="PLlevel">{`?/2💽`}</div>
             </div>
           </a>
         ))}
@@ -206,13 +255,10 @@ export default function MyPlaces({ address }) {
         {cyberPunkPerPlaceId.map(place => (
           <a class="CityPL" href={`./PlaceDetail/${place}`}>
             <div class="PLheader">
-              <div class="PLtitle">{place}</div>
-              <div class="PLlevel">{`Lv?`}</div>
+              <div class="PLtitle">{uriIPFS[place].name}</div>
+              <div class="PLlevel">Lv {levelPerPlaceId[place]}</div>
             </div>
-            <img
-              src="https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/1-Basketball-Court.png"
-              class="PLimage"
-            />
+            <img src={uriIPFS[place].Image3D} class="PLimage" />
             <div class="PLfooter">
               <div class="PLtitle">{`?/20👍`}</div>
               <div class="PLlevel">{`?/10⚡`}</div>
