@@ -325,28 +325,27 @@ function App(props) {
         </Route>
 
         <Route exact path="/MyPlaces">
-          <MyPlaces tx={tx} writeContracts={writeContracts} readContracts={readContracts} address={address} />
+          <MyPlaces address={address} />
         </Route>
 
         <Route exact path="/CityPlaces">
-          <CityPlaces/>
+          <CityPlaces />
         </Route>
-
 
         <Route exact path="/NewPlace">
           <NewPlace tx={tx} writeContracts={writeContracts} readContracts={readContracts} />
         </Route>
 
-        <Route exact path="/PlaceDetail">
+        <Route exact path="/PlaceDetail/:id">
           <PlaceDetail />
         </Route>
 
-        <Route exact path="/VerifyPlace">
+        <Route exact path="/VerifyPlace/:id">
           <VerifyPlace address={address} />
         </Route>
 
-        <Route exact path="/UpgradePlace">
-          <UpgradePlace />
+        <Route exact path="/UpgradePlace/:id">
+          <UpgradePlace address={address} />
         </Route>
 
         <Route exact path="/">
