@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { PunkCityABI } from "../contracts/PunkCity";
 require("dotenv").config();
 
 const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
@@ -6,8 +7,7 @@ const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey);
 
 const contractAddressLocal = "0x6eADdF3D52c51d4bd032f9e6986721f173495E76"; // to find a better way to retrieve this address
-const contractInterface = require("../contracts/PunkCity.json");
-const contractInstance = new web3.eth.Contract(contractInterface, contractAddressLocal);
+const contractInstance = new web3.eth.Contract(PunkCityABI, contractAddressLocal);
 
 const convertQuestType = questInput => {
   if (questInput === "1 Solarpunk (+1⚡)") {
