@@ -11,7 +11,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 
-contract YourContract is ERC1155 {
+contract PunkCity is ERC1155 {
 
     struct User {
         string name;
@@ -24,8 +24,8 @@ contract YourContract is ERC1155 {
     uint256 private energy;
     uint256 private chip;
     // the use of constant is not coherent if there can be more than one upgrade possible
-    uint256 constant public energyPerPlaceTreshold = 10;
-    uint256 constant public chipPerPlaceTreshold = 10;
+    uint256 constant public energyPerPlaceTreshold = 2;
+    uint256 constant public chipPerPlaceTreshold = 2;
     uint256 constant public verificationPerPlaceTreshold = 2;
     address[] public registeredUsers;
 
@@ -90,7 +90,7 @@ contract YourContract is ERC1155 {
     mapping(address => mapping(uint256 => uint256)) public playerEnergyDepositedPerPlaceId; 
     mapping(address => mapping(uint256 => uint256)) public playerChipDepositedPerPlaceId;   
     // track the tokenID with uris
-    mapping (uint256 => string) public uris;      
+    mapping (uint256 => string) uris;      
 
 
     modifier isUserRegistered(address _address) {
@@ -117,8 +117,6 @@ contract YourContract is ERC1155 {
         require(userRegistered[msg.sender] == false, "You are already registered");
 
         userRegistered[msg.sender] = true;
-
-        // if this array is ocnfirmed then the previous mapping can be deleted
         registeredUsers.push(msg.sender);        
 
         addressToUserDetail[msg.sender].name = _name;
@@ -134,7 +132,6 @@ contract YourContract is ERC1155 {
 
         // updating the place struct
         placeIdToPlaceDetail[placeId].placeType = Type(_placeType);
-        // placeIdToPlaceDetail[placeId].city = _city;  
 
         // updating players' mappings
         placeIdToRegisterAddress[placeId] = msg.sender;
@@ -150,10 +147,6 @@ contract YourContract is ERC1155 {
 
         placeId += 1;
     }
-
-    // function getPlaceCity(uint256 _placeId) public view returns(string memory) {
-    //     return(placeIdToPlaceDetail[_placeId].city);
-    // }
 
     /**
      * @dev User is verifying a place in the game. Place register is not allowed to verify its own place
@@ -292,7 +285,7 @@ contract YourContract is ERC1155 {
         return result;
     } 
 
-// Minting and metadata part
+// Minting and metadata
 
     function mint(address account, uint256 id, uint256 amount, bytes memory data)
         private
