@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-const alchemyKey = "https://polygon-mumbai.g.alchemy.com/v2/P1ryHe8kU0FGoHpKMO6PaDDBHt74qY-I";
+require("dotenv").config();
+
+const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey);
 
