@@ -42,8 +42,6 @@ import Wallet from "./Wallet";
               (ex. by default "https://etherscan.io/" or for xdai "https://blockscout.com/poa/xdai/")
 **/
 
-
-
 export default function Account({
   useBurner,
   address,
@@ -64,27 +62,20 @@ export default function Account({
   if (web3Modal) {
     if (web3Modal.cachedProvider) {
       modalButtons.push(
-        <div
-          key="logoutbutton"
-      
-          shape="round"
-          size="large"
-          onClick={logoutOfWeb3Modal}
-        >
-        🔌 Logout
+        <div key="logoutbutton" shape="round" size="large" onClick={logoutOfWeb3Modal}>
+          🔌 Logout
         </div>,
       );
     } else {
       modalButtons.push(
         <div
           key="loginbutton"
-          
           shape="round"
           size="large"
           /* type={minimized ? "default" : "primary"}     too many people just defaulting to MM and having a bad time */
           onClick={loadWeb3Modal}
         >
-        🎮 Connect
+          🎮 Connect
         </div>,
       );
     }
@@ -94,24 +85,17 @@ export default function Account({
   ) : (
     <span>
       {web3Modal && web3Modal.cachedProvider ? (
-        <>
-          {address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}
-
-        </>
+        <>{address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}</>
       ) : useBurner ? (
         ""
       ) : isContract ? (
-        <>
-          {address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}
-          
-        </>
+        <>{address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}</>
       ) : (
         ""
       )}
       {useBurner && web3Modal && !web3Modal.cachedProvider ? (
         <>
           <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />
-  
         </>
       ) : (
         <></>
@@ -120,17 +104,22 @@ export default function Account({
   );
 
   return (
-
     <div class="center">
-    <nav class="topHud">
-      <div class="topGrid">
-        <div class="hud0"><a href='/Home' class="hudBalance">@zenbitMX</a></div>
-        <div class="hud2">Querétaro</div>
-        <div class="hud1"> {display}</div>
-        <div class="hud2"><Balance address={address} provider={localProvider} price={price} /></div>
-        <div class="hud2"> ⚡ 1</div>
-        <div class="hud3"> 💽 0</div>
-        {/*<Wallet
+      <nav class="topHud">
+        <div class="topGrid">
+          <div class="hud0">
+            <a href="/Home" class="hudBalance">
+              @zenbitMX
+            </a>
+          </div>
+          <div class="hud2">Querétaro</div>
+          <div class="hud1"> {display}</div>
+          <div class="hud2">
+            <Balance address={address} provider={localProvider} price={price} />
+          </div>
+          <div class="hud2"> ⚡ ?</div>
+          <div class="hud3"> 💽 ?</div>
+          {/*<Wallet
             address={address}
             provider={localProvider}
             signer={userSigner}
@@ -138,14 +127,21 @@ export default function Account({
             price={price}
             color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
         />*/}
-      </div>       
-    </nav>
-    <nav class="bottomHud">
-      <div class="hud4" ><a href="https://github.com/zenbitETH/Punk-Cities" class="hudBalance">Docs</a></div>
-      <div class="hud5">{modalButtons}</div>
-      <div class="hud6" ><a href="" class="hudBalance">Discord</a></div>
-    </nav>
-  </div>
- 
+        </div>
+      </nav>
+      <nav class="bottomHud">
+        <div class="hud4">
+          <a href="https://github.com/zenbitETH/Punk-Cities" class="hudBalance">
+            Docs
+          </a>
+        </div>
+        <div class="hud5">{modalButtons}</div>
+        <div class="hud6">
+          <a href="" class="hudBalance">
+            Discord
+          </a>
+        </div>
+      </nav>
+    </div>
   );
 }

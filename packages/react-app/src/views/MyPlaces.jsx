@@ -6,8 +6,8 @@ const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey);
 
-const contractAddressLocal = "0x2b6248b821a1BC2a1e992bc6535F72827f57BF43"; // to find a better way to retrieve this address
-const contractInterface = require("../contracts/YourContract.json");
+const contractAddressLocal = "0x6eADdF3D52c51d4bd032f9e6986721f173495E76"; // to find a better way to retrieve this address
+const contractInterface = require("../contracts/PunkCity.json");
 const contractInstance = new web3.eth.Contract(contractInterface, contractAddressLocal);
 
 /** need to know who is the address [x]
