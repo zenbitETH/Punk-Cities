@@ -70,7 +70,8 @@
   "dependencies": {
     "ipfs-car": "^0.6.2",
     "mime": "^3.0.0",
-    "nft.storage": "^6.0.2"
+    "nft.storage": "^6.0.2",
+    "react-router-dom": "^6.2.2"
   },
   "devDependencies": {
     "husky": "^7.0.2"

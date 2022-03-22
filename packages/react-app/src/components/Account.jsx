@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 
 import Address from "./Address";
 import Balance from "./Balance";
 import NetworkDisplay from "./NetworkDisplay";
 import Wallet from "./Wallet";
+require("dotenv").config();
+
+const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+const web3 = createAlchemyWeb3(alchemyKey);
+
+const contractAddressLocal = "0x6eADdF3D52c51d4bd032f9e6986721f173495E76"; // to find a better way to retrieve this address
+const contractInterface = require("../contracts/PunkCity.json");
+const contractInstance = new web3.eth.Contract(contractInterface, contractAddressLocal);
 
 /** 
   ~ What it does? ~
@@ -42,8 +51,6 @@ import Wallet from "./Wallet";
               (ex. by default "https://etherscan.io/" or for xdai "https://blockscout.com/poa/xdai/")
 **/
 
-
-
 export default function Account({
   useBurner,
   address,
@@ -60,31 +67,48 @@ export default function Account({
 }) {
   const { currentTheme } = useThemeSwitcher();
 
+  const [energy, setEnergy] = useState(0);
+  const [chip, setChip] = useState(0);
+
+  const loadInputs = async () => {
+    if (address) {
+      const energyBalance = await contractInstance.methods.energyPerAddress(address).call();
+      const chipBalance = await contractInstance.methods.chipPerAddress(address).call();
+      setEnergy(energyBalance);
+      setChip(chipBalance);
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      loadInputs();
+    }, 800);
+  }, [address]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      loadInputs();
+    }, 800);
+  }, []);
+
   const modalButtons = [];
   if (web3Modal) {
     if (web3Modal.cachedProvider) {
       modalButtons.push(
-        <div
-          key="logoutbutton"
-      
-          shape="round"
-          size="large"
-          onClick={logoutOfWeb3Modal}
-        >
-        🔌 Logout
+        <div key="logoutbutton" shape="round" size="large" onClick={logoutOfWeb3Modal}>
+          🔌 Logout
         </div>,
       );
     } else {
       modalButtons.push(
         <div
           key="loginbutton"
-          
           shape="round"
           size="large"
           /* type={minimized ? "default" : "primary"}     too many people just defaulting to MM and having a bad time */
           onClick={loadWeb3Modal}
         >
-        🎮 Connect
+          🎮 Connect
         </div>,
       );
     }
@@ -94,24 +118,17 @@ export default function Account({
   ) : (
     <span>
       {web3Modal && web3Modal.cachedProvider ? (
-        <>
-          {address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}
-
-        </>
+        <>{address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}</>
       ) : useBurner ? (
         ""
       ) : isContract ? (
-        <>
-          {address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}
-          
-        </>
+        <>{address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}</>
       ) : (
         ""
       )}
       {useBurner && web3Modal && !web3Modal.cachedProvider ? (
         <>
           <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />
-  
         </>
       ) : (
         <></>
@@ -120,17 +137,22 @@ export default function Account({
   );
 
   return (
-
     <div class="center">
-    <nav class="topHud">
-      <div class="topGrid">
-        <div class="hud0"><a href='/Home' class="hudBalance">@zenbitMX</a></div>
-        <div class="hud2">Querétaro</div>
-        <div class="hud1"> {display}</div>
-        <div class="hud2"><Balance address={address} provider={localProvider} price={price} /></div>
-        <div class="hud2"> ⚡ 1</div>
-        <div class="hud3"> 💽 0</div>
-        {/*<Wallet
+      <nav class="topHud">
+        <div class="topGrid">
+          <div class="hud0">
+            <a href="/Home" class="hudBalance">
+              @zenbitMX
+            </a>
+          </div>
+          <div class="hud2">Querétaro</div>
+          <div class="hud1"> {display}</div>
+          <div class="hud2">
+            <Balance address={address} provider={localProvider} price={price} />
+          </div>
+          <div class="hud2"> ⚡ {energy ?? "..."}</div>
+          <div class="hud3"> 💽 {chip ?? "..."}</div>
+          {/*<Wallet
             address={address}
             provider={localProvider}
             signer={userSigner}
@@ -138,14 +160,21 @@ export default function Account({
             price={price}
             color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
         />*/}
-      </div>       
-    </nav>
-    <nav class="bottomHud">
-      <div class="hud4" ><a href="https://github.com/zenbitETH/Punk-Cities" class="hudBalance">Docs</a></div>
-      <div class="hud5">{modalButtons}</div>
-      <div class="hud6" ><a href="" class="hudBalance">Discord</a></div>
-    </nav>
-  </div>
- 
+        </div>
+      </nav>
+      <nav class="bottomHud">
+        <div class="hud4">
+          <a href="https://github.com/zenbitETH/Punk-Cities" class="hudBalance">
+            Docs
+          </a>
+        </div>
+        <div class="hud5">{modalButtons}</div>
+        <div class="hud6">
+          <a href="" class="hudBalance">
+            Discord
+          </a>
+        </div>
+      </nav>
+    </div>
   );
 }
