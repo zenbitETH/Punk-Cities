@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import mime from "mime/lite";
-import { NFTStorage, File } from "nft.storage";
 require("dotenv").config();
+const IPFS = require("ipfs-mini");
+const ipfs = new IPFS({ host: "ipfs.infura.io", port: 5001, protocol: "https" });
 
 //list to update
 const convertPlaceType = placeInput => {
@@ -220,42 +221,23 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
   const handlePlaceTypeChange = e => {
     setPlaceType(e.target.value);
     const image3D = returnImagePerPlace(e.target.value);
-    setImage3D(image3D);
+    const image3DWithourUrl = image3D.replace("https://punkcities.mypinata.cloud/ipfs/", "ipfs://");
+    setImage3D(image3DWithourUrl);
   };
   const handleAddressChange = e => setAddress(e.target.value);
   const handleTagChange = e => setTag(e.target.value);
   const handleQuestTypeChange = e => setQuestType(e.target.value);
 
-  const captureFile = event => {
-    console.log("capturing file...");
-    const file = event.target.files[0]; // access to the file
-    const reader = new FileReader();
-    reader.readAsArrayBuffer(file); // read the file as an ArrayBuffer so that it can be uplaode to ipfs
-    reader.onloadend = async () => {
-      const buffer = Buffer(reader.result);
-      setBuffer(buffer);
-      const image = new File([buffer], file.name, {
-        contentType: mime.getType(file.name),
-      });
-      setImage(image);
-    };
-  };
-
   const registerPlace = async () => {
-    console.log("registering place...");
-    const NFT_STORAGE_TOKEN = process.env.REACT_APP_NFT_STORAGE_TOKEN;
-    const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
-
     const placeId = (await tx(readContracts.YourContract.placeId())).toString();
 
-    const metadata = await client.store({
+    const metadata = {
       tokenID: placeId,
       name: name,
       description: "This is a place description",
-      image: image,
+      image: Image3D,
       address: address,
       tag: tag,
-      Image3D: Image3D,
       attributes: [
         {
           trait_type: "place_type",
@@ -266,12 +248,16 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
           value: formatQuestType(questType),
         },
       ],
-    });
+    };
+
+    const metadataString = JSON.stringify(metadata);
+    const cid = await ipfs.add(metadataString);
+    const url = `ipfs://${cid}`;
 
     let placeInput = convertPlaceType(placeType);
     let questInput = convertQuestType(questType);
 
-    tx(writeContracts.YourContract.registerPlace(placeInput, questInput, metadata.url));
+    tx(writeContracts.YourContract.registerPlace(placeInput, questInput, url));
   };
 
   return (
@@ -372,10 +358,6 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
                 <option>1 Solarpunk (+1⚡)</option>
                 <option>2 Cyberpunk (+1💽)</option>
               </select>
-            </label>
-            <label class="file">
-              Take and upload a photo to IPFS
-              <input type="file" onChange={captureFile} />
             </label>
           </div>
           <div class="CreatePL" type="submit" onClick={registerPlace}>

@@ -14272,6 +14272,13 @@
   optionalDependencies:
     "prom-client" "^14.0.1"
 
+"ipfs-mini@^1.1.5":
+  "integrity" "sha512-BzsoCa3V/gxN2eEHnyqggOdreAwnvbddj4jUvp6Q7jXuzXx9q5XakXe8mG8qV0bn4bMKdH/7BUDbiWBCEMuYBg=="
+  "resolved" "https://registry.npmjs.org/ipfs-mini/-/ipfs-mini-1.1.5.tgz"
+  "version" "1.1.5"
+  dependencies:
+    "xmlhttprequest" "^1.8.0"
+
 "ipfs-repo-migrations@^10.0.1":
   "integrity" "sha512-Khmwi3j0KW33LuYxUVwiP7J0B33XQ8IB1bTl8vkTdE/Z1XHEc7oC3OBxXapEtdQhbyno5kpGwrglJ2hjfmiUPA=="
   "resolved" "https://registry.npmjs.org/ipfs-repo-migrations/-/ipfs-repo-migrations-10.0.1.tgz"
@@ -27506,7 +27513,7 @@
   "resolved" "https://registry.npmjs.org/xmlhttprequest-ssl/-/xmlhttprequest-ssl-2.0.0.tgz"
   "version" "2.0.0"
 
-"xmlhttprequest@1.8.0":
+"xmlhttprequest@^1.8.0", "xmlhttprequest@1.8.0":
   "integrity" "sha1-Z/4HXFwk/vOfnWX197f+dRcZaPw="
   "resolved" "https://registry.npmjs.org/xmlhttprequest/-/xmlhttprequest-1.8.0.tgz"
   "version" "1.8.0"
