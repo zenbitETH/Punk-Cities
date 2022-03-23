@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { PunkCityABI } from "../contracts/PunkCity";
 require("dotenv").config();
 
@@ -18,33 +19,40 @@ const convertQuestType = questInput => {
 };
 
 export default function VerifyPlace({ address }) {
+  let { id } = useParams();
   const [name, setName] = useState("");
+  const [addressPlace, setAddressPlace] = useState("");
+  const [register, setRegister] = useState("");
   const [placeType, setPlaceType] = useState("");
-  //const [address, setAddress] = useState("");
   const [tag, setTag] = useState("");
   const [questType, setQuestType] = useState("");
-  const [placeId, setPlaceId] = useState(1);
-  // const [buffer, setBuffer] = useState(null);
-  // const [image, setImage] = useState(null);
+  const [placeId, setPlaceId] = useState();
+  const [ipfsResponse, setIpfsResponse] = useState();
+  const [changeId, setChangeId] = useState(false);
+
+  if (!changeId) {
+    setPlaceId(id);
+    const loadPlaceIdDetail = async () => {
+      const placeDetail = await contractInstance.methods.placeIdToPlaceDetail(id).call();
+      console.log("placeDetail: ", placeDetail);
+      //setName(placeDetail[0]);
+      setRegister(placeDetail.registerAddress);
+    };
+
+    const loadURI = async id => {
+      const uri = await contractInstance.methods.uri(id).call();
+      const uriUpdated = uri.replace("ipfs://", "https://ipfs.io/ipfs/");
+      const file = await fetch(uriUpdated);
+      const ipfsResponse = await file.json();
+      setIpfsResponse(ipfsResponse);
+    };
+
+    loadPlaceIdDetail();
+    loadURI(id);
+    setChangeId(true);
+  }
 
   const handlePlaceTypeChange = e => setPlaceType(e.target.value);
-  const handleTagChange = e => setTag(e.target.value);
-  const handleQuestTypeChange = e => setQuestType(e.target.value);
-
-  // const captureFile = event => {
-  //   console.log("capturing file...");
-  //   const file = event.target.files[0]; // access to the file
-  //   const reader = new FileReader();
-  //   reader.readAsArrayBuffer(file); // read the file as an ArrayBuffer so that it can be uplaode to ipfs
-  //   reader.onloadend = async () => {
-  //     const buffer = Buffer(reader.result);
-  //     setBuffer(buffer);
-  //     const image = new File(buffer, file.name, {
-  //       contentType: mime.getType(file.name),
-  //     });
-  //     setImage(image);
-  //   };
-  // };
 
   const verifyPlace = async () => {
     console.log("verifying place...");
@@ -77,28 +85,28 @@ export default function VerifyPlace({ address }) {
   return (
     <div class="HomeDiv">
       <div class="CityMenu">
-        <a class="CityBT" href="./PlaceDetail">
+        <a class="CityBT" href="../PlaceDetail">
           Place Detail{" "}
           <img
             src={"https://punkcities.mypinata.cloud/ipfs/QmVqUZf959wuJ8dBMfcLAUfmRn5pLk8PSWQ1eDfqH2mK2V"}
             class="homevan"
           />
         </a>
-        <a class="CityBT" href="./MyPlaces">
+        <a class="CityBT" href="../MyPlaces">
           My places
           <img
             src={"https://punkcities.mypinata.cloud/ipfs/QmcbcgbhvpznC8zns7zRY5KKN1WvS1QQ7t1M3BaPjfUE9E"}
             class="homevan"
           />
         </a>
-        <a class="CityBT" href="./CityPlaces">
+        <a class="CityBT" href="../CityPlaces">
           My city places
           <img
             src={"https://punkcities.mypinata.cloud/ipfs/QmSm6Ec8xEBTEB6ATkVmPybw4VRLiapm9K9fxLLxthgvq4"}
             class="homevan"
           />
         </a>
-        <a class="CityBT" type="submit" href="./debug">
+        <a class="CityBT" type="submit" href="../debug">
           🧙🏽 Wizard Mode (Hard){" "}
           <img
             src={"https://punkcities.mypinata.cloud/ipfs/QmREGJmweJGKqWHFM1oF8WnsgMc9gTSV8t4ZkFBk3aBsPx"}
@@ -112,11 +120,11 @@ export default function VerifyPlace({ address }) {
           <div class="NewGame-title">Verify this place</div>
           <div class="PlaceData">
             <div>Type of Place:</div>
-            <div>Name:</div>
+            <div>Name: {ipfsResponse?.name}</div>
             <div>City:</div>
-            <div>Address:</div>
-            <div>Registered by:</div>
-            <div>Current tags:</div>
+            <div>Address: {ipfsResponse?.address}</div>
+            <div>Registered by: {register}</div>
+            <div>Current tags: {ipfsResponse?.tags}</div>
           </div>
           <div class="inputs2">
             {/* <label>

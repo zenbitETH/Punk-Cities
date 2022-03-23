@@ -7,7 +7,7 @@ const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey);
 
-const contractAddressLocal = "0x6eADdF3D52c51d4bd032f9e6986721f173495E76"; // to find a better way to retrieve this address
+const contractAddressLocal = "0xC51a7909CEbfDa51019feca6D6E14128A8204458"; // to find a better way to retrieve this address
 const contractInstance = new web3.eth.Contract(PunkCityABI, contractAddressLocal);
 
 export default function MyPlaces() {
@@ -32,34 +32,44 @@ export default function MyPlaces() {
   const [questTypePerVerifiers, setQuestTypePerVerifiers] = useState([]);
   const [ipfsResponse, setIpfsResponse] = useState(null);
   const [uri, setUri] = useState(null);
+  const [updateRequired, setUpdateRequire] = useState(false);
 
   if (!changeId) {
     setPlaceId(id);
     setChangeId(true);
   }
 
+  useEffect(async () => {
+    setUpdateRequire(true);
+  }, []);
+
   const currentRegisterAddress = async id => {
     const currentRegisterAddress = await contractInstance.methods.placeIdToRegisterAddress(id).call();
     return currentRegisterAddress;
   };
 
-  const loadPlaceLevel = async id => {
-    const placeLevel = (await contractInstance.methods.placeIdLevel(id).call()).toString();
-    return placeLevel;
+  const loadPlaceIdDetail = async () => {
+    const placeDetail = await contractInstance.methods.placeIdToPlaceDetail(placeId).call();
+    return placeDetail;
   };
 
-  const loadVerifications = async id => {
-    const verifications = (await contractInstance.methods.placeIdToVerificationTimes(id).call()).toString();
-    return verifications;
-  };
-  const loadEnergy = async id => {
-    const energy = (await contractInstance.methods.energyPerPlace(id).call()).toString();
-    return energy;
-  };
-  const loadChip = async id => {
-    const chip = (await contractInstance.methods.chipPerPlace(id).call()).toString();
-    return chip;
-  };
+  // const loadPlaceLevel = async id => {
+  //   const placeLevel = (await contractInstance.methods.placeIdLevel(id).call()).toString();
+  //   return placeLevel;
+  // };
+
+  // const loadVerifications = async id => {
+  //   const verifications = (await contractInstance.methods.placeIdToVerificationTimes(id).call()).toString();
+  //   return verifications;
+  // };
+  // const loadEnergy = async id => {
+  //   const energy = (await contractInstance.methods.energyPerPlace(id).call()).toString();
+  //   return energy;
+  // };
+  // const loadChip = async id => {
+  //   const chip = (await contractInstance.methods.chipPerPlace(id).call()).toString();
+  //   return chip;
+  // };
   const loadQuestTypePerAddress = async (id, address) => {
     const questType = (await contractInstance.methods.playerQuestTypePerPlaceId(address, id).call()).toString();
     if (questType === "0") {
@@ -70,7 +80,7 @@ export default function MyPlaces() {
   };
   const loadVerifiers = async id => {
     const verifiers = await contractInstance.methods.getVerifiers(id).call();
-    const registerAddress = await currentRegisterAddress(placeId);
+    // const registerAddress = await currentRegisterAddress(placeId);
     const verifiersWithoutRegister = verifiers.filter(verifier => verifier != registerAddress);
     return verifiersWithoutRegister;
   };
@@ -79,45 +89,39 @@ export default function MyPlaces() {
     return uri;
   };
 
-  useEffect(async () => {
-    const registerAddress = await currentRegisterAddress(placeId);
-    setRegisterAddress(registerAddress);
+  if (updateRequired) {
+    const loadPlaceIdDetailNew = async () => {
+      const placeDetail = await loadPlaceIdDetail();
+      console.log(`placeDetail: ${placeDetail}`);
 
-    const placeLevel = await loadPlaceLevel(placeId);
-    setPlaceLevel(placeLevel);
+      setRegisterAddress(placeDetail.registerAddress);
+      setPlaceLevel(placeDetail.placeIdLevel);
+      setVerifications(placeDetail.verificationTimes);
+      setEnergy(placeDetail.energyPerPlace);
+      setChip(placeDetail.chipPerPlace);
 
-    //const placeQuestType = await loadPlaceQuestType(placeId);
-    //setPlaceQuestType(placeQuestType);
+      const verifiers = await loadVerifiers(placeId);
+      setVerifiers(verifiers);
 
-    const verifications = await loadVerifications(placeId);
-    setVerifications(verifications);
+      const newList = [];
+      for (let i = 0; i < verifiers.length; i++) {
+        const questType = await loadQuestTypePerAddress(placeId, verifiers[i]);
+        newList.push(questType);
+      }
+      setQuestTypePerVerifiers(newList);
+      console.log(`questTypePerVerifiers: ${questTypePerVerifiers}`);
 
-    const energy = await loadEnergy(placeId);
-    setEnergy(energy);
-
-    const chip = await loadChip(placeId);
-    setChip(chip);
-
-    const verifiers = await loadVerifiers(placeId);
-    setVerifiers(verifiers);
-    console.log(`verifiers: ${verifiers}`);
-
-    const newList = [];
-    for (let i = 0; i < verifiers.length; i++) {
-      const questType = await loadQuestTypePerAddress(placeId, verifiers[i]);
-      newList.push(questType);
-    }
-    setQuestTypePerVerifiers(newList);
-    console.log(`questTypePerVerifiers: ${questTypePerVerifiers}`);
-
-    // retrievening the uri object from the ipfs
-    const uri = await loadURI(placeId);
-    setUri(uri);
-    const uriUpdated = uri.replace("ipfs://", "https://ipfs.io/ipfs/");
-    const file = await fetch(uriUpdated);
-    const ipfsResponse = await file.json();
-    setIpfsResponse(ipfsResponse);
-  }, []);
+      // retrievening the uri object from the ipfs
+      const uri = await loadURI(placeId);
+      setUri(uri);
+      const uriUpdated = uri.replace("ipfs://", "https://ipfs.io/ipfs/");
+      const file = await fetch(uriUpdated);
+      const ipfsResponse = await file.json();
+      setIpfsResponse(ipfsResponse);
+    };
+    loadPlaceIdDetailNew();
+    setUpdateRequire(false);
+  }
 
   return (
     <div class="CityDiv">

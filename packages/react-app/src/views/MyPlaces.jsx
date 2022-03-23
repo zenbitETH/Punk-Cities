@@ -18,11 +18,9 @@ export default function MyPlaces({ address }) {
   const [uriIPFS, setUriIPFS] = useState([]);
   const [placeIdDetails, setPlaceIdDetails] = useState([]);
   const [updateRequired, setUpdateRequire] = useState(false);
-  // const [verificationPerPlaceId, setVerificationPerPlaceId] = useState([]);
-  // const [energyPerPlaceId, setEnergyPerPlaceId] = useState([]);
-  // const [chipPerPlaceId, setChipPerPlaceId] = useState([]);
-
-  const [placeNumber, setPlaceNumber] = useState(null);
+  const [verificationPerPlaceId, setVerificationPerPlaceId] = useState([]);
+  const [energyPerPlaceId, setEnergyPerPlaceId] = useState([]);
+  const [chipPerPlaceId, setChipPerPlaceId] = useState([]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -45,62 +43,70 @@ export default function MyPlaces({ address }) {
       return ipfsResponse;
     };
 
-    // const loadPlaceNumber = async () => {
-    //   const placeNumber = await contractInstance.methods.placeId().call();
-    //   return placeNumber;
-    // };
-
     const loadPlaces = async () => {
       const placeNumber = await contractInstance.methods.placeId().call();
-      setPlaceNumber(placeNumber);
 
-      if (placeNumber) {
-        const uriIPFS = [];
-        for (let i = 0; i < placeNumber; i++) {
-          const ipfsResponse = await loadIPFS(i);
-          uriIPFS.push(ipfsResponse);
-        }
-        setUriIPFS(uriIPFS);
-
-        const instancePlaceIdDetails = [];
-        for (let i = 0; i < placeNumber; i++) {
-          const placeIdDetail = await contractInstance.methods.placeIdToPlaceDetail(i).call(); //change
-          instancePlaceIdDetails.push(placeIdDetail);
-        }
-        setPlaceIdDetails(instancePlaceIdDetails);
-        console.log(`placeIdDetails: ${placeIdDetails}`);
-
-        const registersList = [];
-        for (let i = 0; i < placeNumber; i++) {
-          const placeDetail = placeIdDetails[i];
-          const register = placeDetail.registerAddress;
-          registersList.push(register);
-        }
-        setRegistersPerPLaceId(registersList);
-
-        const placeIdPerRegisterList = [];
-        for (let i = 0; i < registersPerPLaceId.length; i++) {
-          if (registersPerPLaceId[i] == `${address}`) {
-            placeIdPerRegisterList.push(i);
-          }
-        }
-        setplacesIdPerPlayer(placeIdPerRegisterList);
-
-        const solarPunkCity = [];
-        const cyberPunkCity = [];
-        for (let i = 0; i < placeIdPerRegisterList.length; i++) {
-          const questLevel = await contractInstance.methods
-            .playerQuestTypePerPlaceId(address, placeIdPerRegisterList[i])
-            .call();
-          if (questLevel == 0) {
-            solarPunkCity.push(placeIdPerRegisterList[i]);
-          } else if (questLevel == 1) {
-            cyberPunkCity.push(placeIdPerRegisterList[i]);
-          }
-        }
-        setSolarPunkPerPlaceId(solarPunkCity);
-        setCyberPunkPerPlaceId(cyberPunkCity);
+      const uriIPFS = [];
+      for (let i = 0; i < placeNumber; i++) {
+        const ipfsResponse = await loadIPFS(i);
+        uriIPFS.push(ipfsResponse);
       }
+      setUriIPFS(uriIPFS);
+
+      const instancePlaceIdDetails = [];
+      for (let i = 0; i < placeNumber; i++) {
+        const placeIdDetail = await contractInstance.methods.placeIdToPlaceDetail(i).call();
+        instancePlaceIdDetails.push(placeIdDetail);
+        console.log(`placeIdDetail ${i}`, placeIdDetail);
+      }
+      setPlaceIdDetails(instancePlaceIdDetails);
+
+      const registersList = [];
+      const levelList = [];
+      const verificationList = [];
+      const energyList = [];
+      const chipList = [];
+      for (let i = 0; i < placeNumber; i++) {
+        const placeDetail = instancePlaceIdDetails[i];
+        const register = placeDetail.registerAddress;
+        const level = placeDetail.placeIdLevel;
+        const verification = placeDetail.verificationTimes;
+        const energy = placeDetail.energyPerPlace;
+        const chip = placeDetail.chipPerPlace;
+        registersList.push(register);
+        levelList.push(level);
+        verificationList.push(verification);
+        energyList.push(energy);
+        chipList.push(chip);
+      }
+      setRegistersPerPLaceId(registersList);
+      setlevelPerPlaceId(levelList);
+      setVerificationPerPlaceId(verificationList);
+      setEnergyPerPlaceId(energyList);
+      setChipPerPlaceId(chipList);
+
+      const placeIdPerRegisterList = [];
+      for (let i = 0; i < registersList.length; i++) {
+        if (registersList[i] == `${address}`) {
+          placeIdPerRegisterList.push(i);
+        }
+      }
+      setplacesIdPerPlayer(placeIdPerRegisterList);
+
+      const solarPunkCity = [];
+      const cyberPunkCity = [];
+      for (let i = 0; i < placeIdPerRegisterList.length; i++) {
+        const questLevel = await contractInstance.methods
+          .playerQuestTypePerPlaceId(address, placeIdPerRegisterList[i])
+          .call();
+        if (questLevel == 0) {
+          solarPunkCity.push(placeIdPerRegisterList[i]);
+        } else if (questLevel == 1) {
+          cyberPunkCity.push(placeIdPerRegisterList[i]);
+        }
+      }
+      setSolarPunkPerPlaceId(solarPunkCity);
+      setCyberPunkPerPlaceId(cyberPunkCity);
     };
 
     loadPlaces();
@@ -180,9 +186,9 @@ export default function MyPlaces({ address }) {
             </div>
             <img src={uriIPFS[place].image3D} class="PLimage" />
             <div class="PLfooter">
-              <div class="PLtitle">{`?/2👍`}</div>
-              <div class="PLlevel">{`?/2⚡`}</div>
-              <div class="PLlevel">{`?/2💽`}</div>
+              <div class="PLtitle">{verificationPerPlaceId[place]}/2👍</div>
+              <div class="PLlevel">{energyPerPlaceId[place]}/2⚡</div>
+              <div class="PLlevel">{chipPerPlaceId[place]}/2💽</div>
             </div>
           </a>
         ))}
@@ -263,9 +269,9 @@ export default function MyPlaces({ address }) {
             </div>
             <img src={uriIPFS[place].image3D} class="PLimage" />
             <div class="PLfooter">
-              <div class="PLtitle">{`?/20👍`}</div>
-              <div class="PLlevel">{`?/10⚡`}</div>
-              <div class="PLlevel">{`?/10💽`}</div>
+              <div class="PLtitle">{verificationPerPlaceId[place]}/2👍</div>
+              <div class="PLlevel">{energyPerPlaceId[place]}/2⚡</div>
+              <div class="PLlevel">{chipPerPlaceId[place]}/2💽</div>
             </div>
           </a>
         ))}
