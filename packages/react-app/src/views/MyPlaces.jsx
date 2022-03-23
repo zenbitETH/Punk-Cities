@@ -175,7 +175,7 @@ export default function MyPlaces({ address }) {
               <div class="PLtitle">{uriIPFS[place].name}</div>
               <div class="PLlevel">Lv {levelPerPlaceId[place]}</div>
             </div>
-            <img src={uriIPFS[place].Image3D} class="PLimage" />
+            <img src={uriIPFS[place].image3D} class="PLimage" />
             <div class="PLfooter">
               <div class="PLtitle">{`?/2👍`}</div>
               <div class="PLlevel">{`?/2⚡`}</div>
@@ -258,7 +258,7 @@ export default function MyPlaces({ address }) {
               <div class="PLtitle">{uriIPFS[place].name}</div>
               <div class="PLlevel">Lv {levelPerPlaceId[place]}</div>
             </div>
-            <img src={uriIPFS[place].Image3D} class="PLimage" />
+            <img src={uriIPFS[place].image3D} class="PLimage" />
             <div class="PLfooter">
               <div class="PLtitle">{`?/20👍`}</div>
               <div class="PLlevel">{`?/10⚡`}</div>
