@@ -221,8 +221,9 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
   const handlePlaceTypeChange = e => {
     setPlaceType(e.target.value);
     const image3D = returnImagePerPlace(e.target.value);
+    setImage3D(image3D);
     const image3DWithourUrl = image3D.replace("https://punkcities.mypinata.cloud/ipfs/", "ipfs://");
-    setImage3D(image3DWithourUrl);
+    setImage(image3DWithourUrl);
   };
   const handleAddressChange = e => setAddress(e.target.value);
   const handleTagChange = e => setTag(e.target.value);
@@ -235,7 +236,8 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
       tokenID: placeId,
       name: name,
       description: "This is a place description",
-      image: Image3D,
+      image: image,
+      image3D: Image3D,
       address: address,
       tag: tag,
       attributes: [

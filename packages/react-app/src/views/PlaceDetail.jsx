@@ -157,7 +157,7 @@ export default function MyPlaces() {
           <div class="AssetLv">Level {placeLevel ?? "NA"}</div>
           <div class="">Querétaro, México</div>
         </div>
-        <img src={`${ipfsResponse?.Image3D}`} class="PLDetail" />
+        <img src={`${ipfsResponse?.image3D}`} class="PLDetail" />
         <div class="AssetData">
           <a class="GMaps" href={`${ipfsResponse?.address}`}>
             IRL Location{" "}
