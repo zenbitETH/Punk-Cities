@@ -18,7 +18,7 @@ describe("My Dapp", function () {
   });
 
   beforeEach(async () => {
-    const YourContract = await ethers.getContractFactory("YourContract");
+    const YourContract = await ethers.getContractFactory("PunkCity");
     myContract = await YourContract.deploy();
 
     const accounts = await ethers.getSigners();
@@ -121,7 +121,9 @@ describe("My Dapp", function () {
       expect(verifiers[1]).to.equal(`${signer2.address}`);
       expect(verifiers[2]).to.equal(`${signer3.address}`);
       expect(verifiers.length).to.equal(3);
-      expect(await myContract.placeIdToVerificationTimes(0)).to.equal(2);
+      //console.log(await myContract.placeIdToPlaceDetail(0, registerAddress));
+      const struct = await myContract.placeIdToPlaceDetail(0);
+      expect(struct[2].toNumber()).to.equal(2);
     });
 
     it("Should return the right number of deposited energy and chips", async () => {
@@ -168,7 +170,7 @@ describe("My Dapp", function () {
       const signer2 = accounts[1];
       const signer3 = accounts[2];
 
-      const YourContract = await ethers.getContractFactory("YourContract");
+      const YourContract = await ethers.getContractFactory("PunkCity");
 
       const myContractSigner2 = await new ethers.Contract(
         myContract.address,
@@ -217,7 +219,7 @@ describe("My Dapp", function () {
       const signer2 = accounts[1];
       const signer3 = accounts[2];
 
-      const YourContract = await ethers.getContractFactory("YourContract");
+      const YourContract = await ethers.getContractFactory("PunkCity");
       const myContractSigner2 = await new ethers.Contract(
         myContract.address,
         YourContract.interface,
@@ -235,43 +237,43 @@ describe("My Dapp", function () {
       expect(balanceNFTUser3).to.equal(1); // verifier receiving one nft
     });
 
-    it("Try to mint a place and add the proper metadata to the nft", async () => {
-      const YourContract = await ethers.getContractFactory("YourContract");
-      const accounts = await ethers.getSigners();
-      const signer2 = accounts[1];
-      const myContractSigner2 = await new ethers.Contract(
-        myContract.address,
-        YourContract.interface,
-        signer2
-      );
+    // it("Try to mint a place and add the proper metadata to the nft", async () => {
+    //   const YourContract = await ethers.getContractFactory("PunkCity");
+    //   const accounts = await ethers.getSigners();
+    //   const signer2 = accounts[1];
+    //   const myContractSigner2 = await new ethers.Contract(
+    //     myContract.address,
+    //     YourContract.interface,
+    //     signer2
+    //   );
 
-      const fileFromPath = async (filePath) => {
-        const content = await fs.promises.readFile(filePath);
-        const type = mime.getType(filePath);
-        return new File([content], path.basename(filePath), { type });
-      };
+    //   const fileFromPath = async (filePath) => {
+    //     const content = await fs.promises.readFile(filePath);
+    //     const type = mime.getType(filePath);
+    //     return new File([content], path.basename(filePath), { type });
+    //   };
 
-      const NFT_STORAGE_TOKEN = process.env.NFT_STORAGE_TOKEN;
-      const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
-      const image = await fileFromPath("./test/files/contract.PNG");
-      const placeId = (await myContract.placeId()).toString();
+    //   const NFT_STORAGE_TOKEN = process.env.NFT_STORAGE_TOKEN;
+    //   const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
+    //   const image = await fileFromPath("./test/files/contract.PNG");
+    //   const placeId = (await myContract.placeId()).toString();
 
-      const metadata = await client.store({
-        tokenID: placeId,
-        name: "My sweet NFT",
-        description: "Just try to funge it. You can't do it.",
-        image: image,
-      });
+    //   const metadata = await client.store({
+    //     tokenID: placeId,
+    //     name: "My sweet NFT",
+    //     description: "Just try to funge it. You can't do it.",
+    //     image: image,
+    //   });
 
-      console.log(metadata.url);
+    //   console.log(metadata.url);
 
-      const txRegisterPlace = await myContractSigner2.registerPlace(
-        0,
-        0,
-        metadata.url
-      );
-      await txRegisterPlace.wait();
-      expect(await myContract.uris(placeId)).to.equal(metadata.url);
-    });
+    //   const txRegisterPlace = await myContractSigner2.registerPlace(
+    //     0,
+    //     0,
+    //     metadata.url
+    //   );
+    //   await txRegisterPlace.wait();
+    //   expect(await myContract.uris(placeId)).to.equal(metadata.url);
+    // });
   });
 });

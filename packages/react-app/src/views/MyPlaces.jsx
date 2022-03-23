@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import asset from "../assets/parktest.png";
 import { PunkCityABI } from "../contracts/PunkCity";
 require("dotenv").config();
 
@@ -7,17 +6,8 @@ const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey);
 
-const contractAddressLocal = "0x6eADdF3D52c51d4bd032f9e6986721f173495E76"; // to find a better way to retrieve this address
+const contractAddressLocal = "0xC51a7909CEbfDa51019feca6D6E14128A8204458"; // to find a better way to retrieve this address
 const contractInstance = new web3.eth.Contract(PunkCityABI, contractAddressLocal);
-
-/** need to know who is the address [x]
- * find the number of places registered per address by using the function register per place id
- * see the quest type per address -> the function works but it has a fixed value
- * create as many div as the number of places
- * fill the places with the required details
- * changing the address should change the places as well
- * @returns
- */
 
 export default function MyPlaces({ address }) {
   const [placesIdPerPlayer, setplacesIdPerPlayer] = useState([]);
@@ -26,112 +16,125 @@ export default function MyPlaces({ address }) {
   const [cyberPunkPerPlaceId, setCyberPunkPerPlaceId] = useState([]);
   const [levelPerPlaceId, setlevelPerPlaceId] = useState([]);
   const [uriIPFS, setUriIPFS] = useState([]);
+  const [placeIdDetails, setPlaceIdDetails] = useState([]);
+  const [updateRequired, setUpdateRequire] = useState(false);
   // const [verificationPerPlaceId, setVerificationPerPlaceId] = useState([]);
   // const [energyPerPlaceId, setEnergyPerPlaceId] = useState([]);
   // const [chipPerPlaceId, setChipPerPlaceId] = useState([]);
 
-  const [placeNumber, setPlaceNumber] = useState(0);
+  const [placeNumber, setPlaceNumber] = useState(null);
 
-  const loadURI = async id => {
-    const uri = await contractInstance.methods.uri(id).call();
-    return uri;
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      setUpdateRequire(true);
+    }, 1500);
+  }, []);
 
-  const loadIPFS = async id => {
-    const uri = await loadURI(id);
-    const uriUpdated = uri.replace("ipfs://", "https://ipfs.io/ipfs/");
-    const file = await fetch(uriUpdated);
-    const ipfsResponse = await file.json();
-    return ipfsResponse;
-  };
+  if (updateRequired) {
+    const loadURI = async id => {
+      const uri = await contractInstance.methods.uri(id).call();
+      console.log(uri);
+      return uri;
+    };
+
+    const loadIPFS = async id => {
+      const uri = await loadURI(id);
+      const uriUpdated = uri.replace("ipfs://", "https://ipfs.io/ipfs/");
+      const file = await fetch(uriUpdated);
+      const ipfsResponse = await file.json();
+      return ipfsResponse;
+    };
+
+    // const loadPlaceNumber = async () => {
+    //   const placeNumber = await contractInstance.methods.placeId().call();
+    //   return placeNumber;
+    // };
+
+    const loadPlaces = async () => {
+      const placeNumber = await contractInstance.methods.placeId().call();
+      setPlaceNumber(placeNumber);
+
+      if (placeNumber) {
+        const uriIPFS = [];
+        for (let i = 0; i < placeNumber; i++) {
+          const ipfsResponse = await loadIPFS(i);
+          uriIPFS.push(ipfsResponse);
+        }
+        setUriIPFS(uriIPFS);
+
+        const instancePlaceIdDetails = [];
+        for (let i = 0; i < placeNumber; i++) {
+          const placeIdDetail = await contractInstance.methods.placeIdToPlaceDetail(i).call(); //change
+          instancePlaceIdDetails.push(placeIdDetail);
+        }
+        setPlaceIdDetails(instancePlaceIdDetails);
+        console.log(`placeIdDetails: ${placeIdDetails}`);
+
+        const registersList = [];
+        for (let i = 0; i < placeNumber; i++) {
+          const placeDetail = placeIdDetails[i];
+          const register = placeDetail.registerAddress;
+          registersList.push(register);
+        }
+        setRegistersPerPLaceId(registersList);
+
+        const placeIdPerRegisterList = [];
+        for (let i = 0; i < registersPerPLaceId.length; i++) {
+          if (registersPerPLaceId[i] == `${address}`) {
+            placeIdPerRegisterList.push(i);
+          }
+        }
+        setplacesIdPerPlayer(placeIdPerRegisterList);
+
+        const solarPunkCity = [];
+        const cyberPunkCity = [];
+        for (let i = 0; i < placeIdPerRegisterList.length; i++) {
+          const questLevel = await contractInstance.methods
+            .playerQuestTypePerPlaceId(address, placeIdPerRegisterList[i])
+            .call();
+          if (questLevel == 0) {
+            solarPunkCity.push(placeIdPerRegisterList[i]);
+          } else if (questLevel == 1) {
+            cyberPunkCity.push(placeIdPerRegisterList[i]);
+          }
+        }
+        setSolarPunkPerPlaceId(solarPunkCity);
+        setCyberPunkPerPlaceId(cyberPunkCity);
+      }
+    };
+
+    loadPlaces();
+    setUpdateRequire(false);
+  }
 
   // finding the total number of places
-  const loadPlaceNumber = async () => {
-    const placeNumber = await contractInstance.methods.placeId().call();
-    return placeNumber;
-  };
 
-  const loadPlaces = async () => {
-    const placeNumber = await loadPlaceNumber();
-    setPlaceNumber(placeNumber);
+  //   // const verificationsList = [];
+  //   // for (let i = 0; i < placeNumber; i++) {
+  //   //   const verification = await contractInstance.methods.placeIdToVerificationTimes(i).call();
+  //   //   verificationsList.push(verification);
+  //   // }
+  //   // setVerificationPerPlaceId(verificationsList);
 
-    const levelList = [];
-    for (let i = 0; i < placeNumber; i++) {
-      const level = await contractInstance.methods.placeIdLevel(i).call();
-      levelList.push(level);
-    }
-    setlevelPerPlaceId(levelList);
+  //   // const energyList = [];
+  //   // for (let i = 0; i < placeNumber; i++) {
+  //   //   const energy = await contractInstance.methods.energyPerPlace(i).call();
+  //   //   energyList.push(energy);
+  //   // }
+  //   // setEnergyPerPlaceId(energyList);
 
-    const uriIPFS = [];
-    for (let i = 0; i < placeNumber; i++) {
-      const ipfsResponse = await loadIPFS(i);
-      uriIPFS.push(ipfsResponse);
-    }
-    setUriIPFS(uriIPFS);
+  //   // const chipList = [];
+  //   // for (let i = 0; i < placeNumber; i++) {
+  //   //   const chip = await contractInstance.methods.chipPerPlace(i).call();
+  //   //   chipList.push(chip);
+  //   // }
+  //   // setChipPerPlaceId(chipList);
 
-    // const verificationsList = [];
-    // for (let i = 0; i < placeNumber; i++) {
-    //   const verification = await contractInstance.methods.placeIdToVerificationTimes(i).call();
-    //   verificationsList.push(verification);
-    // }
-    // setVerificationPerPlaceId(verificationsList);
-
-    // const energyList = [];
-    // for (let i = 0; i < placeNumber; i++) {
-    //   const energy = await contractInstance.methods.energyPerPlace(i).call();
-    //   energyList.push(energy);
-    // }
-    // setEnergyPerPlaceId(energyList);
-
-    // const chipList = [];
-    // for (let i = 0; i < placeNumber; i++) {
-    //   const chip = await contractInstance.methods.chipPerPlace(i).call();
-    //   chipList.push(chip);
-    // }
-    // setChipPerPlaceId(chipList);
-
-    const registersList = [];
-    for (let i = 0; i < placeNumber; i++) {
-      const register = await contractInstance.methods.placeIdToRegisterAddress(i).call();
-      registersList.push(register);
-    }
-    setRegistersPerPLaceId(registersList);
-
-    const placeIdPerRegisterList = [];
-    for (let i = 0; i < registersPerPLaceId.length; i++) {
-      if (registersPerPLaceId[i] == `${address}`) {
-        placeIdPerRegisterList.push(i);
-      }
-    }
-    setplacesIdPerPlayer(placeIdPerRegisterList);
-
-    const solarPunkCity = [];
-    const cyberPunkCity = [];
-    for (let i = 0; i < placeIdPerRegisterList.length; i++) {
-      const questLevel = await contractInstance.methods
-        .playerQuestTypePerPlaceId(address, placeIdPerRegisterList[i])
-        .call();
-      if (questLevel == 0) {
-        solarPunkCity.push(placeIdPerRegisterList[i]);
-      } else if (questLevel == 1) {
-        cyberPunkCity.push(placeIdPerRegisterList[i]);
-      }
-    }
-    setSolarPunkPerPlaceId(solarPunkCity);
-    setCyberPunkPerPlaceId(cyberPunkCity);
-  };
-
-  useEffect(() => {
-    setTimeout(() => {
-      loadPlaces();
-    }, 1500);
-  });
-
-  useEffect(() => {
-    setTimeout(() => {
-      loadPlaces();
-    }, 1500);
-  }, [address]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     loadPlaces();
+  //   }, 1500);
+  // }, [address]);
 
   return (
     <div class="CityDiv">

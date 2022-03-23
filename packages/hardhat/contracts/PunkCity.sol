@@ -67,21 +67,26 @@ contract PunkCity is ERC1155 {
 
     struct Place {
         Type placeType;
+        address registerAddress;
+        uint256 verificationTimes;
+        uint256 energyPerPlace;
+        uint256 chipPerPlace;
+        uint256 placeIdLevel;
     }
     Place place;    
 
     mapping(address => User) public addressToUserDetail;
     mapping(address => bool) public userRegistered;
     mapping(uint => Place) public placeIdToPlaceDetail;
-    mapping(uint => address) public placeIdToRegisterAddress;
-    mapping(uint256 => uint256) public placeIdToVerificationTimes;
+    // mapping(uint => address) public placeIdToRegisterAddress; //
+    // mapping(uint256 => uint256) public placeIdToVerificationTimes;//
     // mappings to track energy and chips per user + place
     mapping(address => uint256) public energyPerAddress;
     mapping(address => uint256) public chipPerAddress;
-    mapping(uint256 => uint256) public energyPerPlace;
-    mapping(uint256 => uint256) public chipPerPlace;
-    // mapping to track place level
-    mapping(uint256 => uint256) public placeIdLevel;
+    // mapping(uint256 => uint256) public energyPerPlace; //
+    // mapping(uint256 => uint256) public chipPerPlace; //
+    // // mapping to track place level
+    // mapping(uint256 => uint256) public placeIdLevel; //
     //mapping to track the validators per place
     mapping(address => mapping(uint256 => bool)) public verifiersPerPlaceId; 
     // mapping to track the player quest for place
@@ -103,6 +108,11 @@ contract PunkCity is ERC1155 {
         require(_placeId <= placeId, "This place id doesn't exist");
         _;
     }
+
+    event PlaceCreated(address indexed _from, uint256 _placeId, uint256 _questType, uint256 _placeType);
+    event PlaceVerified(address indexed _from, uint256 _placeId, uint256 _questType);
+    event EnergyTransfer(address indexed _from, uint256 _placeId, uint256 _energyAfterTransfer);
+    event ChipTransfer(address indexed _from, uint256 _placeId, uint256 _chipAfterTransfer);
 
     constructor() ERC1155("") {
         placeId = 0;
@@ -132,9 +142,10 @@ contract PunkCity is ERC1155 {
 
         // updating the place struct
         placeIdToPlaceDetail[placeId].placeType = Type(_placeType);
+        placeIdToPlaceDetail[placeId].registerAddress = msg.sender;
 
         // updating players' mappings
-        placeIdToRegisterAddress[placeId] = msg.sender;
+        //placeIdToRegisterAddress[placeId] = msg.sender;
         verifiersPerPlaceId[msg.sender][placeId] = true;        
         playerQuestTypePerPlaceId[msg.sender][placeId] = Quest(_questType);
 
@@ -144,6 +155,9 @@ contract PunkCity is ERC1155 {
         //registration results in the place being minted as an nft. the nft id will be the same as the placeId
         mint(msg.sender, placeId, 1, "");
         setTokenUri(placeId, _ipfsuri);
+
+        emit PlaceCreated(msg.sender, placeId, _questType, _placeType);
+        emit EnergyTransfer(msg.sender, placeId, energyPerAddress[msg.sender]);        
 
         placeId += 1;
     }
@@ -157,13 +171,18 @@ contract PunkCity is ERC1155 {
         require(_placeId < placeId, "This placeId doesn't exist yet");
         require(verifiersPerPlaceId[msg.sender][_placeId] == false, "You can't verify twice");
 
-        placeIdToVerificationTimes[_placeId] += 1;
+        placeIdToPlaceDetail[_placeId].verificationTimes += 1;
+
+        //placeIdToVerificationTimes[_placeId] += 1;
 
         energyPerAddress[msg.sender] += 1;      
 
         // mappings updated. with this we know the address that verify a certain place id
         verifiersPerPlaceId[msg.sender][_placeId] = true;  
-        playerQuestTypePerPlaceId[msg.sender][_placeId] = Quest(_questType);   
+        playerQuestTypePerPlaceId[msg.sender][_placeId] = Quest(_questType); 
+
+        emit PlaceVerified(msg.sender, _placeId, _questType );
+        emit EnergyTransfer(msg.sender, _placeId, energyPerAddress[msg.sender]);
     }
 
     //WARNING! just for the sake of testing.
@@ -179,9 +198,12 @@ contract PunkCity is ERC1155 {
 
         // track how much was deposited
         playerEnergyDepositedPerPlaceId[msg.sender][_placeId] += _energy;
-        
-        energyPerPlace[_placeId] += _energy;
-        energyPerAddress[msg.sender] -= _energy;                
+
+        placeIdToPlaceDetail[_placeId].energyPerPlace += _energy;      
+        //energyPerPlace[_placeId] += _energy;
+        energyPerAddress[msg.sender] -= _energy;
+
+        emit EnergyTransfer(msg.sender, _placeId, energyPerAddress[msg.sender]);                
     }
 
     function depositChip(uint256 _placeId, uint256 _chips) public placeIdExists(_placeId) {
@@ -191,8 +213,10 @@ contract PunkCity is ERC1155 {
         // track how much was deposited
         playerChipDepositedPerPlaceId[msg.sender][_placeId] += _chips;
         
-        chipPerPlace[_placeId] += _chips;
-        chipPerAddress[msg.sender] -= _chips;                
+        placeIdToPlaceDetail[_placeId].chipPerPlace += _chips;
+        chipPerAddress[msg.sender] -= _chips;
+
+        emit ChipTransfer(msg.sender, _placeId, chipPerAddress[msg.sender]);                
     }
 
      /**
@@ -211,18 +235,18 @@ contract PunkCity is ERC1155 {
 
     function upgradePlace(uint256 _placeId) public placeIdExists(_placeId) {
 
-        require(placeIdToVerificationTimes[_placeId] >= verificationPerPlaceTreshold, "This place can't be upgraded because there are not enough verifications");
-        require(energyPerPlace[_placeId] >= energyPerPlaceTreshold, "This place can't be upgraded because there is not enough energy deposited");
-        require(chipPerPlace[_placeId] >= chipPerPlaceTreshold, "This place can't be upgraded because there are not enough chips deposited");
+        require(placeIdToPlaceDetail[_placeId].verificationTimes >= verificationPerPlaceTreshold, "This place can't be upgraded because there are not enough verifications");
+        require(placeIdToPlaceDetail[_placeId].energyPerPlace >= energyPerPlaceTreshold, "This place can't be upgraded because there is not enough energy deposited");
+        require(placeIdToPlaceDetail[_placeId].chipPerPlace >= chipPerPlaceTreshold, "This place can't be upgraded because there are not enough chips deposited");
         //to check functionality: require(verifiersPerPlaceId[msg.sender][_placeId] == true, "Only verifiers of this place can upgrade it");        
 
         // new nfts of the same token id are minted and shared amond verifiers.
-        mint(msg.sender, _placeId, placeIdToVerificationTimes[_placeId], "");
+        mint(msg.sender, _placeId, placeIdToPlaceDetail[_placeId].verificationTimes, "");
         // calculate rewards
         address[] memory verifiers = getVerifiers(_placeId);
         for(uint i = 0; i < verifiers.length; i++) {
             // an nft should not be sent to the regster
-            if(verifiers[i] == placeIdToRegisterAddress[_placeId]) {
+            if(verifiers[i] == placeIdToPlaceDetail[_placeId].registerAddress) {
                 if(verifiers[i] == msg.sender) {
                     // person that upgrades receives 5x the units deposited
                     uint256 energyReward = playerEnergyDepositedPerPlaceId[verifiers[i]][_placeId] * 5;
@@ -252,14 +276,14 @@ contract PunkCity is ERC1155 {
             }     
         }
         //upgrade next level
-        placeIdLevel[_placeId] += 1;        
+        placeIdToPlaceDetail[_placeId].placeIdLevel += 1;        
 
     }
 
     function getVerifiers(uint256 _placeId) public view returns(address[] memory) {
 
         //adding 1 because register is also added among the verifiers
-        address[] memory result = new address[](placeIdToVerificationTimes[_placeId]+1);
+        address[] memory result = new address[](placeIdToPlaceDetail[_placeId].verificationTimes + 1);
         uint counter = 0;
 
         for (uint256 i = 0; i < registeredUsers.length; i++) {
@@ -277,7 +301,7 @@ contract PunkCity is ERC1155 {
         uint counter = 0;
 
         for (uint256 i = 0; i < placeId; i++) {
-            if(placeIdToRegisterAddress[i] == msg.sender) {
+            if(placeIdToPlaceDetail[i].registerAddress == msg.sender) {
                 result[counter] = (i);
                 counter++;
             }
