@@ -13,13 +13,14 @@
 
   .HomeDiv {
     grid-template-rows: 2fr 5fr;
-    
+  }
+
+  .CityDiv {
+    grid-template-rows: 1fr;
   }
 
   .CityMenu {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 125px 125px;
-    
   }
 
   .container {
@@ -36,12 +37,14 @@
 
   .HomeDiv {
     grid-template-rows: 2fr 5fr;
-    
+  }
+
+  .CityDiv {
+    grid-template-rows: 1fr;
   }
 
   .CityMenu {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 125px 125px;
     background-color: none;
   }
 
@@ -71,11 +74,45 @@
   }
 
   .HomeDiv {
-    grid-template-columns: 2fr 5fr;
-    padding: 5em 25em 5em 25em ;
+    grid-template-columns: 3fr 6fr;
+    padding: 8em 20rem 0em 20rem ;
   }
 
   .CityMenu {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     background-color: #cbced10c;
+  }
+
+  .CityDiv {
+    grid-template-columns: 2fr 5fr 5fr;
+  }
+
+  .CityDivAll {
+    grid-template-columns: 2fr 10fr;
+  }
+
+  .CityPlaces {
+    grid-template-columns: repeat(3, 1fr);
+    border-radius: 0px 0px 0px 0px;
+  }
+
+  .CityPlaces2 {
+    grid-template-columns: repeat(3, 1fr);
+    border-radius: 0px 25px 25px 0px;
+  }
+
+  .CityPlaces3 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .container {
+    border-radius: 0 25px 25px 0px;
+    margin: 1em;
+  }
+
+  .container2 {
+    border-radius: 0 25px 25px 0px;
+    padding: 5em 3em 5em 3em;
   }
 }
