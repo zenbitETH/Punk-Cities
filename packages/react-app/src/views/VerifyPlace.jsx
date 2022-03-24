@@ -85,7 +85,7 @@ export default function VerifyPlace({ address }) {
   return (
     <div class="HomeDiv">
       <div class="CityMenu">
-        <a class="CityBT" href="../PlaceDetail">
+        <a class="CityBT" href={`../PlaceDetail/${placeId}`}>
           Place Detail{" "}
           <img
             src={"https://punkcities.mypinata.cloud/ipfs/QmVqUZf959wuJ8dBMfcLAUfmRn5pLk8PSWQ1eDfqH2mK2V"}

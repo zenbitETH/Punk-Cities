@@ -24,7 +24,6 @@ export default function MyPlaces() {
   const [placeId, setPlaceId] = useState(0);
   const [changeId, setChangeId] = useState(false);
   const [placeLevel, setPlaceLevel] = useState(0);
-  const [placeQuestType, setPlaceQuestType] = useState(0);
   const [verifications, setVerifications] = useState(0);
   const [energy, setEnergy] = useState(0);
   const [chip, setChip] = useState(0);
@@ -33,6 +32,8 @@ export default function MyPlaces() {
   const [ipfsResponse, setIpfsResponse] = useState(null);
   const [uri, setUri] = useState(null);
   const [updateRequired, setUpdateRequire] = useState(false);
+  const [solarpunkVerificationsPerPlaceId, setSolarpunkVerificationsPerPlaceId] = useState(0);
+  const [cryptopunkVerificationsPerPlaceId, setCryptopunkVerificationsPerPlaceId] = useState(0);
 
   if (!changeId) {
     setPlaceId(id);
@@ -92,7 +93,18 @@ export default function MyPlaces() {
         newList.push(questType);
       }
       setQuestTypePerVerifiers(newList);
-      console.log(`questTypePerVerifiers: ${questTypePerVerifiers}`);
+
+      let totalSolarPunk = 0;
+      let totalCryptoPunk = 0;
+      for (let i = 0; i < newList.length; i++) {
+        if (newList[i] === "Solarpunk") {
+          totalSolarPunk++;
+        } else {
+          totalCryptoPunk++;
+        }
+      }
+      setSolarpunkVerificationsPerPlaceId(totalSolarPunk);
+      setCryptopunkVerificationsPerPlaceId(totalCryptoPunk);
 
       // retrievening the uri object from the ipfs
       const uri = await loadURI(placeId);
@@ -158,11 +170,11 @@ export default function MyPlaces() {
       <div class="PlaceVer">
         <div class="SolVer">
           {" "}
-          ?/25 Solarpunk <div class="AssetRg">to upgrade</div>
+          {solarpunkVerificationsPerPlaceId}/25 Solarpunk <div class="AssetRg">to upgrade</div>
         </div>
         <div class="CybVer">
           {" "}
-          ?/25 Cyberpunk <div class="AssetRg">to upgrade</div>
+          {cryptopunkVerificationsPerPlaceId}/25 Cyberpunk <div class="AssetRg">to upgrade</div>
         </div>
         <a class="VerBt" href={`../VerifyPlace/${placeId}`}>
           👍 Verify
