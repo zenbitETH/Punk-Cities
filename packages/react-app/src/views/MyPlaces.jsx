@@ -31,7 +31,6 @@ export default function MyPlaces({ address }) {
   if (updateRequired) {
     const loadURI = async id => {
       const uri = await contractInstance.methods.uri(id).call();
-      console.log(uri);
       return uri;
     };
 
@@ -57,7 +56,6 @@ export default function MyPlaces({ address }) {
       for (let i = 0; i < placeNumber; i++) {
         const placeIdDetail = await contractInstance.methods.placeIdToPlaceDetail(i).call();
         instancePlaceIdDetails.push(placeIdDetail);
-        console.log(`placeIdDetail ${i}`, placeIdDetail);
       }
       setPlaceIdDetails(instancePlaceIdDetails);
 
