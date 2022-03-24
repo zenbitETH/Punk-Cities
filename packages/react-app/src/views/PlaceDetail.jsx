@@ -142,11 +142,11 @@ export default function MyPlaces() {
             class="homevan"
           />
         </a>
-        <a class="CityBT" type="submit" href="../debug">
-          🧙🏽 Wizard Mode (Hard){" "}
+        <a class="CityBT" href="https://solarpunks.vercel.app/">
+          New Friends{" "}
           <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmREGJmweJGKqWHFM1oF8WnsgMc9gTSV8t4ZkFBk3aBsPx"}
-            class="homevan"
+            src={"https://punkcities.mypinata.cloud/ipfs/QmPoSnaj68Lcbs8TiAT1Lg9aodWcXE27t94kjhAw8xYZwn"}
+            class="homevan2"
           />
         </a>
       </div>
