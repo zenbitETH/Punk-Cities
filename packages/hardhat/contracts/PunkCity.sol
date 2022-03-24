@@ -1,12 +1,4 @@
 //SPDX-License-Identifier: MIT
-
-// store metadata per tokenid in ipfs []
-// fix the ip to be used for the erc1155 contract [x]
-// add events for main functions []
-
-// mark a place after upgarde as solarpunk or cyberpunk []
-// revenue stream to verifiers after upgrade []
-
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
@@ -20,6 +12,7 @@ contract PunkCity is ERC1155 {
     }
     User user;
 
+    string public name = "Punk Cities";
     uint256 public placeId;
     uint256 private energy;
     uint256 private chip;
@@ -78,25 +71,13 @@ contract PunkCity is ERC1155 {
     mapping(address => User) public addressToUserDetail;
     mapping(address => bool) public userRegistered;
     mapping(uint => Place) public placeIdToPlaceDetail;
-    // mapping(uint => address) public placeIdToRegisterAddress; //
-    // mapping(uint256 => uint256) public placeIdToVerificationTimes;//
-    // mappings to track energy and chips per user + place
     mapping(address => uint256) public energyPerAddress;
     mapping(address => uint256) public chipPerAddress;
-    // mapping(uint256 => uint256) public energyPerPlace; //
-    // mapping(uint256 => uint256) public chipPerPlace; //
-    // // mapping to track place level
-    // mapping(uint256 => uint256) public placeIdLevel; //
-    //mapping to track the validators per place
     mapping(address => mapping(uint256 => bool)) public verifiersPerPlaceId; 
-    // mapping to track the player quest for place
     mapping(address => mapping(uint256 => Quest)) public playerQuestTypePerPlaceId; 
-    //mapping to track the amount of energy & chips deposited in the place id
     mapping(address => mapping(uint256 => uint256)) public playerEnergyDepositedPerPlaceId; 
     mapping(address => mapping(uint256 => uint256)) public playerChipDepositedPerPlaceId;   
-    // track the tokenID with uris
     mapping (uint256 => string) uris;      
-
 
     modifier isUserRegistered(address _address) {
         require(userRegistered[_address], "This user is not registered");
@@ -111,8 +92,8 @@ contract PunkCity is ERC1155 {
 
     event PlaceCreated(address indexed _from, uint256 _placeId, uint256 _questType, uint256 _placeType);
     event PlaceVerified(address indexed _from, uint256 _placeId, uint256 _questType);
-    event EnergyTransfer(address indexed _from, uint256 _placeId, uint256 _energyAfterTransfer);
-    event ChipTransfer(address indexed _from, uint256 _placeId, uint256 _chipAfterTransfer);
+    event EnergyTransfer(address indexed _from, uint256 _placeId);
+    event ChipTransfer(address indexed _from, uint256 _placeId);
 
     constructor() ERC1155("") {
         placeId = 0;
@@ -150,14 +131,18 @@ contract PunkCity is ERC1155 {
         playerQuestTypePerPlaceId[msg.sender][placeId] = Quest(_questType);
 
         // user gets one energy point for registering place
-        energyPerAddress[msg.sender] += 1;
+        if (_questType == 0) {
+            energyPerAddress[msg.sender] += 1;
+        } else {
+            chipPerAddress[msg.sender] += 1;
+        }
 
         //registration results in the place being minted as an nft. the nft id will be the same as the placeId
         mint(msg.sender, placeId, 1, "");
         setTokenUri(placeId, _ipfsuri);
 
         emit PlaceCreated(msg.sender, placeId, _questType, _placeType);
-        emit EnergyTransfer(msg.sender, placeId, energyPerAddress[msg.sender]);        
+        emit EnergyTransfer(msg.sender, placeId);        
 
         placeId += 1;
     }
@@ -175,14 +160,18 @@ contract PunkCity is ERC1155 {
 
         //placeIdToVerificationTimes[_placeId] += 1;
 
-        energyPerAddress[msg.sender] += 1;      
+        if (_questType == 0) {
+            energyPerAddress[msg.sender] += 1;
+        } else {
+            chipPerAddress[msg.sender] += 1;
+        }     
 
         // mappings updated. with this we know the address that verify a certain place id
         verifiersPerPlaceId[msg.sender][_placeId] = true;  
         playerQuestTypePerPlaceId[msg.sender][_placeId] = Quest(_questType); 
 
         emit PlaceVerified(msg.sender, _placeId, _questType );
-        emit EnergyTransfer(msg.sender, _placeId, energyPerAddress[msg.sender]);
+        emit EnergyTransfer(msg.sender, _placeId);
     }
 
     //WARNING! just for the sake of testing.
@@ -203,12 +192,12 @@ contract PunkCity is ERC1155 {
         //energyPerPlace[_placeId] += _energy;
         energyPerAddress[msg.sender] -= _energy;
 
-        emit EnergyTransfer(msg.sender, _placeId, energyPerAddress[msg.sender]);                
+        emit EnergyTransfer(msg.sender, _placeId);                
     }
 
     function depositChip(uint256 _placeId, uint256 _chips) public placeIdExists(_placeId) {
 
-        require(energyPerAddress[msg.sender] >= _chips, "You don't have enough chips");
+        require(chipPerAddress[msg.sender] >= _chips, "You don't have enough chips");
 
         // track how much was deposited
         playerChipDepositedPerPlaceId[msg.sender][_placeId] += _chips;
@@ -216,7 +205,7 @@ contract PunkCity is ERC1155 {
         placeIdToPlaceDetail[_placeId].chipPerPlace += _chips;
         chipPerAddress[msg.sender] -= _chips;
 
-        emit ChipTransfer(msg.sender, _placeId, chipPerAddress[msg.sender]);                
+        emit ChipTransfer(msg.sender, _placeId);                
     }
 
      /**
