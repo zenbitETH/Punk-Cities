@@ -140,13 +140,7 @@ export default function Account({
     <div class="center">
       <nav class="topHud">
         <div class="topGrid">
-          <div class="hud0">
-            <a href="/Home" class="hudBalance">
-              @zenbitMX
-            </a>
-          </div>
-          <div class="hud2">Querétaro</div>
-          <div class="hud1"> {display}</div>
+          <div class="hud0"> {display}</div>
           <div class="hud2">
             <Balance address={address} provider={localProvider} price={price} />
           </div>
