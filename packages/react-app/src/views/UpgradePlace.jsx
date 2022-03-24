@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { PunkCityABI } from "../contracts/PunkCity";
 require("dotenv").config();
@@ -16,6 +16,8 @@ export default function Upgrade({ address }) {
   const [chip, setChip] = useState(0);
   const [placeId, setPlaceId] = useState(0);
   const [changeId, setChangeId] = useState(false);
+  const [energyPerPlaceId, setEnergyPerPlaceId] = useState([]);
+  const [chipPerPlaceId, setChipPerPlaceId] = useState([]);
 
   const handleEnergyChange = e => setEnergy(e.target.value);
   const handleChipChange = e => setChip(e.target.value);
@@ -24,6 +26,22 @@ export default function Upgrade({ address }) {
     setPlaceId(id);
     setChangeId(true);
   }
+
+  useEffect(async () => {
+    loadPlaceIdDetailNew();
+  }, [placeId]);
+
+  const loadPlaceIdDetail = async () => {
+    const placeDetail = await contractInstance.methods.placeIdToPlaceDetail(placeId).call();
+    return placeDetail;
+  };
+
+  const loadPlaceIdDetailNew = async () => {
+    const placeDetail = await loadPlaceIdDetail();
+
+    setEnergyPerPlaceId(placeDetail.energyPerPlace);
+    setChipPerPlaceId(placeDetail.chipPerPlace);
+  };
 
   const depositChip = async () => {
     const transactionParams = {
@@ -131,7 +149,7 @@ export default function Upgrade({ address }) {
           <div class="NewGame-title">Upgrade this place</div>
           <div class="Deposit2Up">
             <div class="Energy2Up">
-              Energy to update <div>?/10⚡</div>
+              Energy to update <div>{energyPerPlaceId}/2⚡</div>
               <div class="EnergyUnit">
                 <input type="number" placeholder="0" onChange={handleEnergyChange}></input>
               </div>
@@ -140,7 +158,7 @@ export default function Upgrade({ address }) {
               </div>
             </div>
             <div class="Chips2Up">
-              Chips to Update <div>?/10💽</div>
+              Chips to Update <div>{chipPerPlaceId}/2💽</div>
               <div class="ChipsUnit">
                 <input type="number" placeholder="0" onChange={handleChipChange}></input>
               </div>

@@ -53,23 +53,6 @@ export default function MyPlaces() {
     return placeDetail;
   };
 
-  // const loadPlaceLevel = async id => {
-  //   const placeLevel = (await contractInstance.methods.placeIdLevel(id).call()).toString();
-  //   return placeLevel;
-  // };
-
-  // const loadVerifications = async id => {
-  //   const verifications = (await contractInstance.methods.placeIdToVerificationTimes(id).call()).toString();
-  //   return verifications;
-  // };
-  // const loadEnergy = async id => {
-  //   const energy = (await contractInstance.methods.energyPerPlace(id).call()).toString();
-  //   return energy;
-  // };
-  // const loadChip = async id => {
-  //   const chip = (await contractInstance.methods.chipPerPlace(id).call()).toString();
-  //   return chip;
-  // };
   const loadQuestTypePerAddress = async (id, address) => {
     const questType = (await contractInstance.methods.playerQuestTypePerPlaceId(address, id).call()).toString();
     if (questType === "0") {
@@ -78,10 +61,10 @@ export default function MyPlaces() {
       return "Cryptopunk";
     }
   };
-  const loadVerifiers = async id => {
+  const loadVerifiers = async (id, register) => {
     const verifiers = await contractInstance.methods.getVerifiers(id).call();
     // const registerAddress = await currentRegisterAddress(placeId);
-    const verifiersWithoutRegister = verifiers.filter(verifier => verifier != registerAddress);
+    const verifiersWithoutRegister = verifiers.filter(verifier => verifier != register);
     return verifiersWithoutRegister;
   };
   const loadURI = async id => {
@@ -100,7 +83,7 @@ export default function MyPlaces() {
       setEnergy(placeDetail.energyPerPlace);
       setChip(placeDetail.chipPerPlace);
 
-      const verifiers = await loadVerifiers(placeId);
+      const verifiers = await loadVerifiers(placeId, placeDetail.registerAddress);
       setVerifiers(verifiers);
 
       const newList = [];
