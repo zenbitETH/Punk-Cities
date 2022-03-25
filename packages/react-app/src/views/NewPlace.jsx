@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import mime from "mime/lite";
+import { v4 as uuidv4 } from "uuid";
 require("dotenv").config();
+
 const IPFS = require("ipfs-mini");
 const ipfs = new IPFS({ host: "ipfs.infura.io", port: 5001, protocol: "https" });
 
@@ -233,10 +234,14 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
     const placeId = (await tx(readContracts.YourContract.placeId())).toString();
 
     const metadata = {
+      version: "1.0.0",
       tokenID: placeId,
+      metadata_id: uuidv4(),
+      content: "Content",
       name: name,
       description: "This is a place description",
       image: image,
+      imageMimeType: "image/png",
       image3D: Image3D,
       address: address,
       tag: tag,
@@ -250,6 +255,7 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
           value: formatQuestType(questType),
         },
       ],
+      appId: "punkcities",
     };
 
     const metadataString = JSON.stringify(metadata);
