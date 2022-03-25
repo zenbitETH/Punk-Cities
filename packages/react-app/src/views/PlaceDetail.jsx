@@ -148,6 +148,7 @@ export default function MyPlaces() {
             src={"https://punkcities.mypinata.cloud/ipfs/QmPoSnaj68Lcbs8TiAT1Lg9aodWcXE27t94kjhAw8xYZwn"}
             class="homevan2"
           />
+
         </a>
       </div>
       <div class="PlaceAsset">
