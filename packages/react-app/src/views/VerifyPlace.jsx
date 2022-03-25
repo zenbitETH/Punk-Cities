@@ -119,12 +119,12 @@ export default function VerifyPlace({ address }) {
           <div class="VerifyPlace">👍</div>
           <div class="NewGame-title">Verify this place</div>
           <div class="PlaceData">
-            <div>Type of Place:</div>
+            <div>Type of Place:{ipfsResponse?.attributes[0].value}</div>
             <div>Name: {ipfsResponse?.name}</div>
             <div>City:</div>
             <div>Address: {ipfsResponse?.address}</div>
             <div>Registered by: {register}</div>
-            <div>Current tags: {ipfsResponse?.tags}</div>
+            <div>Current tags: {ipfsResponse?.tag}</div>
           </div>
           <div class="inputs2">
             {/* <label>

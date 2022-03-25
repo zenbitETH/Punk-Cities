@@ -152,9 +152,9 @@ export default function MyPlaces() {
       </div>
       <div class="PlaceAsset">
         <div class="AssetTl">
-          <div class="">Santa Mónica Park</div>
+          <div class="">{`${ipfsResponse?.name} / ${ipfsResponse?.attributes[0].value}`}</div>
           <div class="AssetLv">Level {placeLevel ?? "NA"}</div>
-          <div class="">Querétaro, México</div>
+          <div class=""></div>
         </div>
         <img src={`${ipfsResponse?.image3D}`} class="PLDetail" />
         <div class="AssetData">
