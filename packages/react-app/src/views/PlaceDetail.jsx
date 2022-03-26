@@ -33,7 +33,7 @@ export default function MyPlaces() {
   const [uri, setUri] = useState(null);
   const [updateRequired, setUpdateRequire] = useState(false);
   const [solarpunkVerificationsPerPlaceId, setSolarpunkVerificationsPerPlaceId] = useState(0);
-  const [cryptopunkVerificationsPerPlaceId, setCryptopunkVerificationsPerPlaceId] = useState(0);
+  const [cyberpunkVerificationsPerPlaceId, setCyberpunkVerificationsPerPlaceId] = useState(0);
 
   if (!changeId) {
     setPlaceId(id);
@@ -59,7 +59,7 @@ export default function MyPlaces() {
     if (questType === "0") {
       return "Solarpunk";
     } else {
-      return "Cryptopunk";
+      return "Cyberpunk";
     }
   };
   const loadVerifiers = async (id, register) => {
@@ -95,16 +95,16 @@ export default function MyPlaces() {
       setQuestTypePerVerifiers(newList);
 
       let totalSolarPunk = 0;
-      let totalCryptoPunk = 0;
+      let totalCyberPunk = 0;
       for (let i = 0; i < newList.length; i++) {
         if (newList[i] === "Solarpunk") {
           totalSolarPunk++;
         } else {
-          totalCryptoPunk++;
+          totalCyberPunk++;
         }
       }
       setSolarpunkVerificationsPerPlaceId(totalSolarPunk);
-      setCryptopunkVerificationsPerPlaceId(totalCryptoPunk);
+      setCyberpunkVerificationsPerPlaceId(totalCyberPunk);
 
       // retrievening the uri object from the ipfs
       const uri = await loadURI(placeId);
@@ -175,7 +175,7 @@ export default function MyPlaces() {
         </div>
         <div class="CybVer">
           {" "}
-          {cryptopunkVerificationsPerPlaceId}/25 Cyberpunk <div class="AssetRg">to upgrade</div>
+          {cyberpunkVerificationsPerPlaceId}/25 Cyberpunk <div class="AssetRg">to upgrade</div>
         </div>
         <a class="VerBt" href={`../VerifyPlace/${placeId}`}>
           👍 Verify
