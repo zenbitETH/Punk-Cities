@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./styles/index.css";
 import "./styles/Hud.css";
+import "./styles/Breakpoints.css"
 
 const themes = {
   dark: `${process.env.PUBLIC_URL}/dark-theme.css`,
@@ -23,7 +24,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <ThemeSwitcherProvider themeMap={themes} defaultTheme={prevTheme || "light"}>
+    <ThemeSwitcherProvider themeMap={themes} defaultTheme={prevTheme || "dark"}>
       <BrowserRouter>
         <App subgraphUri={subgraphUri} />
       </BrowserRouter>

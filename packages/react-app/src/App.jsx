@@ -1,4 +1,3 @@
-import { Button, Col, Menu, Row } from "antd";
 import "antd/dist/antd.css";
 import {
   useBalance,
@@ -28,7 +27,19 @@ import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
-import { Home, ExampleUI, Hints, UpgradePlace, NewGame, MyPlaces, NewPlace, PlaceDetail, VerifyPlace, CityPlaces, HomeScreen } from "./views";
+import {
+  Home,
+  ExampleUI,
+  Hints,
+  UpgradePlace,
+  NewGame,
+  MyPlaces,
+  NewPlace,
+  PlaceDetail,
+  VerifyPlace,
+  CityPlaces,
+  HomeScreen,
+} from "./views";
 import { useStaticJsonRPC } from "./hooks";
 
 const { ethers } = require("ethers");
@@ -72,7 +83,7 @@ const providers = [
 function App(props) {
   // specify all the chains your app is available on. Eg: ['localhost', 'mainnet', ...otherNetworks ]
   // reference './constants.js' for other networks
-  const networkOptions = [initialNetwork.name, "mainnet", "rinkeby", "mumbai"];
+  const networkOptions = [initialNetwork.name, "mainnet", "rinkeby", "mumbai", "localhost"];
 
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
@@ -106,7 +117,7 @@ function App(props) {
   };
 
   /* 💵 This hook will get the price of ETH from 🦄 Uniswap: */
-  const price = useExchangeEthPrice(targetNetwork, mainnetProvider);
+  // const price = useExchangeEthPrice(targetNetwork, mainnetProvider);
 
   /* 🔥 This hook will get the price of Gas from ⛽️ EtherGasStation */
   const gasPrice = useGasPrice(targetNetwork, "fast");
@@ -161,12 +172,9 @@ function App(props) {
   });
 
   // Then read your DAI balance like:
-  const myMainnetDAIBalance = useContractReader(mainnetContracts, "DAI", "balanceOf", [
-    "0x34aA3F359A9D614239015126635CE7732c18fDF3",
-  ]);
-
-  // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader(readContracts, "YourContract", "purpose");
+  // const myMainnetDAIBalance = useContractReader(mainnetContracts, "DAI", "balanceOf", [
+  //   "0x34aA3F359A9D614239015126635CE7732c18fDF3",
+  // ]);
 
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
@@ -197,7 +205,6 @@ function App(props) {
       console.log("💵 yourMainnetBalance", yourMainnetBalance ? ethers.utils.formatEther(yourMainnetBalance) : "...");
       console.log("📝 readContracts", readContracts);
       console.log("🌍 DAI contract on mainnet:", mainnetContracts);
-      console.log("💵 yourMainnetDAIBalance", myMainnetDAIBalance);
       console.log("🔐 writeContracts", writeContracts);
     }
   }, [
@@ -210,7 +217,6 @@ function App(props) {
     writeContracts,
     mainnetContracts,
     localChainId,
-    myMainnetDAIBalance,
   ]);
 
   const loadWeb3Modal = useCallback(async () => {
@@ -256,9 +262,7 @@ function App(props) {
       />
        */}
 
-      
-
-        {/*
+      {/*
         <Menu
         style={{ textAlign: "center", paddingTop: 40, border: "none", background: "none" }}
         selectedKeys={[location.pathname]}
@@ -306,7 +310,6 @@ function App(props) {
       <Link to="/subgraph">Subgraph</Link>
         </Menu.Item>
         </Menu>*/}
-      
 
       <Switch>
         <Route exact path="/NewGame">
@@ -316,7 +319,7 @@ function App(props) {
         </Route>
 
         <Route exact path="/MyPlaces">
-          <MyPlaces tx={tx} writeContracts={writeContracts} readContracts={readContracts} address={address} />
+          <MyPlaces address={address} />
         </Route>
 
         <Route exact path="/CityPlaces">
@@ -327,16 +330,16 @@ function App(props) {
           <NewPlace tx={tx} writeContracts={writeContracts} readContracts={readContracts} />
         </Route>
 
-        <Route exact path="/PlaceDetail">
-          <PlaceDetail tx={tx} writeContracts={writeContracts} readContracts={readContracts} address={address} />
+        <Route exact path="/PlaceDetail/:id">
+          <PlaceDetail />
         </Route>
 
-        <Route exact path="/VerifyPlace">
-          <VerifyPlace />
+        <Route exact path="/VerifyPlace/:id">
+          <VerifyPlace address={address} />
         </Route>
 
-        <Route exact path="/UpgradePlace">
-          <UpgradePlace />
+        <Route exact path="/UpgradePlace/:id">
+          <UpgradePlace address={address} />
         </Route>
 
         <Route exact path="/">
@@ -352,7 +355,7 @@ function App(props) {
 
           <Contract
             name="YourContract"
-            price={price}
+            // price={price}
             signer={userSigner}
             provider={localProvider}
             address={address}
@@ -432,8 +435,6 @@ function App(props) {
         </Route> */}
       </Switch>
 
-      <ThemeSwitch />
-
       <div>
         {USE_NETWORK_SELECTOR && (
           <div>
@@ -450,7 +451,7 @@ function App(props) {
           localProvider={localProvider}
           userSigner={userSigner}
           mainnetProvider={mainnetProvider}
-          price={price}
+          // price={price}
           web3Modal={web3Modal}
           loadWeb3Modal={loadWeb3Modal}
           logoutOfWeb3Modal={logoutOfWeb3Modal}

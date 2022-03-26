@@ -51,15 +51,16 @@ module.exports = {
    * an estimate of gas for contract deployments and function calls
    * More here: https://hardhat.org/plugins/hardhat-gas-reporter.html
    */
-   gasReporter: {
+  gasReporter: {
     currency: "USD",
     token: "MATIC",
     gasPriceApi:
-      "https://api.polygonscan.com/api?module=proxy&action=eth_gasPrice&apikey=" + process.env.ETHERSCAN_API_KEY,
+      "https://api.polygonscan.com/api?module=proxy&action=eth_gasPrice&apikey=" +
+      process.env.ETHERSCAN_API_KEY,
     enabled: true,
     excludeContracts: [],
     src: "./contracts",
-    coinmarketcap: process.env.COINMARKETCAP_API_KEY
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY,
   },
 
   // if you want to deploy to a testnet, mainnet, or xdai, you will need to configure:
@@ -144,8 +145,11 @@ module.exports = {
       },
     },
     mumbai: {
-      url: "https://speedy-nodes-nyc.moralis.io/729deaf43e7375d77367370e/polygon/mumbai",// <---- YOUR MORALIS ID! (not limited to infura)
+      url: "https://polygon-mumbai.g.alchemy.com/v2/P1ryHe8kU0FGoHpKMO6PaDDBHt74qY-I", // <---- YOUR MORALIS ID! (not limited to infura)
       gasPrice: 3200000000,
+      // accounts: {
+      //   mnemonic: mnemonic(),
+      // },
       accounts: [`${process.env.MUMBAI_DEPLOYER_PRIV_KEY}`],
     },
     matic: {
@@ -296,6 +300,7 @@ module.exports = {
   etherscan: {
     apiKey: {
       mainnet: "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW",
+      polygonMumbai: "9BY69W3N3H33I65FW9GGXN4NI18CHENM7W",
       // add other network's API key here
     },
   },

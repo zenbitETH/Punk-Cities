@@ -10,11 +10,11 @@
   ],
   "private": true,
   "scripts": {
-    "react-app:build": "yarn workspace @scaffold-eth/react-app build --max-old-space-size=12288",
+    "react-app:build": "yarn workspace @scaffold-eth/react-app build --max_old_space_size=4096",
     "react-app:eject": "yarn workspace @scaffold-eth/react-app eject",
     "react-app:start": "yarn workspace @scaffold-eth/react-app start",
     "react-app:test": "yarn workspace @scaffold-eth/react-app test",
-    "build": "yarn workspace @scaffold-eth/react-app build --max-old-space-size=12288",
+    "build": "yarn workspace @scaffold-eth/react-app build --max_old_space_size=4096",
     "prettier": "yarn workspace @scaffold-eth/react-app prettier",
     "chain": "yarn workspace @scaffold-eth/hardhat chain",
     "fork": "yarn workspace @scaffold-eth/hardhat fork",
@@ -69,8 +69,11 @@
   },
   "dependencies": {
     "ipfs-car": "^0.6.2",
+    "ipfs-mini": "^1.1.5",
     "mime": "^3.0.0",
-    "nft.storage": "^6.0.2"
+    "nft.storage": "^6.0.2",
+    "react-router-dom": "^6.2.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "husky": "^7.0.2"

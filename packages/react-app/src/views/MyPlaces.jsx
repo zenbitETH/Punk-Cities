@@ -1,95 +1,194 @@
-import React, { useState } from "react";
-import asset from "../assets/parktest.png";
-import { useContractReader } from "eth-hooks";
+import React, { useEffect, useState } from "react";
+import { PunkCityABI } from "../contracts/PunkCity";
+require("dotenv").config();
 
-/** need to know who is the address [x]
- * find the number of places registered per address -> I can only show one of them
- * see the quest type per address -> the function works but it has a fixed value
- * create as many div as the number of places
- * fill the places with the required details
- * changing the address should change the places as well
- * @returns
- */
+const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+const web3 = createAlchemyWeb3(alchemyKey);
 
-export default function MyPlaces({ address, readContracts, writeContracts, tx }) {
-  const [placesIdArray, setPlacesIdArray] = useState([0, 1]);
-  const [level, setLevel] = useState(1);
-  const [placeList, setPlaceList] = useState([]);
+const contractAddressLocal = "0x092BBe9022D421940B6D74799179267e5c822895"; // to find a better way to retrieve this address
+const contractInstance = new web3.eth.Contract(PunkCityABI, contractAddressLocal);
 
-  //const placeList = [{ id: 0, level: 0, questType: "SP" }, { id: 1, level: 0, questType: "SP" }];
-  const UpdatePlaceList = async () => {
-    const placeList = [];
-    for (let i = 0; i < placesIdArray.length; i++) {
-      const placeId = placesIdArray[i];
-      const placeLevel = (await tx(readContracts.YourContract.placeIdLevel(placeId))).toString();
-      const placeQuestType = (
-        await tx(readContracts.YourContract.playerQuestTypePerPlaceId(address, placeId))
-      ).toString();
-      const verifications = (await tx(readContracts.YourContract.placeIdToVerificationTimes(placeId))).toString();
-      const energy = (await tx(readContracts.YourContract.energyPerPlace(placeId))).toString();
-      const chip = (await tx(readContracts.YourContract.chipPerPlace(placeId))).toString();
+export default function MyPlaces({ address }) {
+  const [placesIdPerPlayer, setplacesIdPerPlayer] = useState([]);
+  const [registersPerPLaceId, setRegistersPerPLaceId] = useState([]);
+  const [solarPunkPerPlaceId, setSolarPunkPerPlaceId] = useState([]);
+  const [cyberPunkPerPlaceId, setCyberPunkPerPlaceId] = useState([]);
+  const [levelPerPlaceId, setlevelPerPlaceId] = useState([]);
+  const [uriIPFS, setUriIPFS] = useState([]);
+  const [placeIdDetails, setPlaceIdDetails] = useState([]);
+  const [updateRequired, setUpdateRequire] = useState(false);
+  const [verificationPerPlaceId, setVerificationPerPlaceId] = useState([]);
+  const [energyPerPlaceId, setEnergyPerPlaceId] = useState([]);
+  const [chipPerPlaceId, setChipPerPlaceId] = useState([]);
 
-      placeList.push({
-        id: placeId,
-        level: placeLevel,
-        questType: placeQuestType,
-        verifications: verifications,
-        energy: energy,
-        chip: chip,
-      });
-    }
-    setPlaceList(placeList);
-    console.log(placeList);
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      setUpdateRequire(true);
+    }, 1500);
+  }, []);
 
-  const getPlaceId = async () => {
-    let placeIds = (await tx(readContracts.YourContract.getPlaceIdPerAddress())).toString();
-    setPlacesIdArray(placeIds);
-    //console.log(places);
-  };
+  if (updateRequired) {
+    const loadURI = async id => {
+      const uri = await contractInstance.methods.uri(id).call();
+      return uri;
+    };
 
-  const questTypePlace = async () => {
-    let questType = (await tx(readContracts.YourContract.playerQuestTypePerPlaceId(address, 0))).toString();
-    console.log("questType: ", questType);
-  };
+    const loadIPFS = async id => {
+      const uri = await loadURI(id);
+      const uriUpdated = uri.replace("ipfs://", "https://ipfs.io/ipfs/");
+      const file = await fetch(uriUpdated);
+      const ipfsResponse = await file.json();
+      return ipfsResponse;
+    };
 
-  const readLevelValue = async placeId => {
-    const level = await tx(readContracts.YourContract.placeIdLevel(placeId));
-    setLevel(level);
-  };
+    const loadPlaces = async () => {
+      const placeNumber = await contractInstance.methods.placeId().call();
+
+      const uriIPFS = [];
+      for (let i = 0; i < placeNumber; i++) {
+        const ipfsResponse = await loadIPFS(i);
+        uriIPFS.push(ipfsResponse);
+      }
+      setUriIPFS(uriIPFS);
+
+      const instancePlaceIdDetails = [];
+      for (let i = 0; i < placeNumber; i++) {
+        const placeIdDetail = await contractInstance.methods.placeIdToPlaceDetail(i).call();
+        instancePlaceIdDetails.push(placeIdDetail);
+      }
+      setPlaceIdDetails(instancePlaceIdDetails);
+
+      const registersList = [];
+      const levelList = [];
+      const verificationList = [];
+      const energyList = [];
+      const chipList = [];
+      for (let i = 0; i < placeNumber; i++) {
+        const placeDetail = instancePlaceIdDetails[i];
+        const register = placeDetail.registerAddress;
+        const level = placeDetail.placeIdLevel;
+        const verification = placeDetail.verificationTimes;
+        const energy = placeDetail.energyPerPlace;
+        const chip = placeDetail.chipPerPlace;
+        registersList.push(register);
+        levelList.push(level);
+        verificationList.push(verification);
+        energyList.push(energy);
+        chipList.push(chip);
+      }
+      setRegistersPerPLaceId(registersList);
+      setlevelPerPlaceId(levelList);
+      setVerificationPerPlaceId(verificationList);
+      setEnergyPerPlaceId(energyList);
+      setChipPerPlaceId(chipList);
+
+      const placeIdPerRegisterList = [];
+      for (let i = 0; i < registersList.length; i++) {
+        if (registersList[i] == `${address}`) {
+          placeIdPerRegisterList.push(i);
+        }
+      }
+      setplacesIdPerPlayer(placeIdPerRegisterList);
+
+      const solarPunkCity = [];
+      const cyberPunkCity = [];
+      for (let i = 0; i < placeIdPerRegisterList.length; i++) {
+        const questLevel = await contractInstance.methods
+          .playerQuestTypePerPlaceId(address, placeIdPerRegisterList[i])
+          .call();
+        if (questLevel == 0) {
+          solarPunkCity.push(placeIdPerRegisterList[i]);
+        } else if (questLevel == 1) {
+          cyberPunkCity.push(placeIdPerRegisterList[i]);
+        }
+      }
+      setSolarPunkPerPlaceId(solarPunkCity);
+      setCyberPunkPerPlaceId(cyberPunkCity);
+    };
+
+    loadPlaces();
+    setUpdateRequire(false);
+  }
+
+  // finding the total number of places
+
+  //   // const verificationsList = [];
+  //   // for (let i = 0; i < placeNumber; i++) {
+  //   //   const verification = await contractInstance.methods.placeIdToVerificationTimes(i).call();
+  //   //   verificationsList.push(verification);
+  //   // }
+  //   // setVerificationPerPlaceId(verificationsList);
+
+  //   // const energyList = [];
+  //   // for (let i = 0; i < placeNumber; i++) {
+  //   //   const energy = await contractInstance.methods.energyPerPlace(i).call();
+  //   //   energyList.push(energy);
+  //   // }
+  //   // setEnergyPerPlaceId(energyList);
+
+  //   // const chipList = [];
+  //   // for (let i = 0; i < placeNumber; i++) {
+  //   //   const chip = await contractInstance.methods.chipPerPlace(i).call();
+  //   //   chipList.push(chip);
+  //   // }
+  //   // setChipPerPlaceId(chipList);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     loadPlaces();
+  //   }, 1500);
+  // }, [address]);
 
   return (
     <div class="CityDiv">
       <div class="CityMenu">
-        <div class="CityBT">New Place</div>
-        <div class="CityBT">My places</div>
-        <div class="CityBT" onClick={questTypePlace}>
-          My city places
-        </div>
-        <div class="CityBT" onClick={UpdatePlaceList}>
-          Visit other cities TBR
-        </div>
+        <a class="CityBT" href="./NewPlace">
+          New Place
+          <img
+            src={"https://punkcities.mypinata.cloud/ipfs/QmYpNQUw9Pw48amwLnjjS7rDXRCB1xfo8DLZUJNnkYeQVo"}
+            class="homevan"
+          />
+        </a>
+        <a class="CityBT" href="./CityPlaces">
+          All places
+          <img
+            src={"https://punkcities.mypinata.cloud/ipfs/QmSm6Ec8xEBTEB6ATkVmPybw4VRLiapm9K9fxLLxthgvq4"}
+            class="homevan"
+          />
+        </a>
+        <a class="CityBT" href="https://solarpunks.vercel.app/">
+          New Friends
+          <img
+            src={"https://punkcities.mypinata.cloud/ipfs/QmPoSnaj68Lcbs8TiAT1Lg9aodWcXE27t94kjhAw8xYZwn"}
+            class="homevan2"
+          />
+        </a>
+        <a class="CityBT" type="submit" href="./debug">
+          🧙🏽 Wizard Mode (Hard){" "}
+          <img
+            src={"https://punkcities.mypinata.cloud/ipfs/QmREGJmweJGKqWHFM1oF8WnsgMc9gTSV8t4ZkFBk3aBsPx"}
+            class="homevan"
+          />
+        </a>
       </div>
       <div class="CityPlaces">
         <div class="PlaceQuest">
           <div class="QuestIc">⚡</div>My Solarpunk places
         </div>
-        {placeList.map(place => (
-          <div class="CityPL">
+        {solarPunkPerPlaceId.map(place => (
+          <a class="CityPL" href={`./PlaceDetail/${place}`}>
             <div class="PLheader">
-              <div class="PLtitle">Unverified Park</div>
-              <div class="PLlevel">{`Lv${place.level}`}</div>
+              <div class="PLtitle">{uriIPFS[place].name}</div>
+              <div class="PLlevel">Lv {levelPerPlaceId[place]}</div>
             </div>
-            <img
-              src="https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/1-Basketball-Court.png"
-              class="PLimage"
-            />
+            <img src={uriIPFS[place].image3D} class="PLimage" />
             <div class="PLfooter">
-              <div class="PLtitle">{`${place.verifications}/20👍`}</div>
-              <div class="PLlevel">{`${place.energy ?? ""}/10⚡`}</div>
-              <div class="PLlevel">{`${place.chip ?? ""}/10💽`}</div>
+              <div class="PLtitle">{verificationPerPlaceId[place]}/2👍</div>
+              <div class="PLlevel">{energyPerPlaceId[place]}/2⚡</div>
+              <div class="PLlevel">{chipPerPlaceId[place]}/2💽</div>
             </div>
-          </div>
+          </a>
         ))}
         {/* <div class="CityPL">
           <div class="PLheader">
@@ -160,7 +259,21 @@ export default function MyPlaces({ address, readContracts, writeContracts, tx })
         <div class="PlaceQuest">
           <div class="QuestIc">💽</div>My Cyberpunk places
         </div>
-        <div class="CityPL">
+        {cyberPunkPerPlaceId.map(place => (
+          <a class="CityPL" href={`./PlaceDetail/${place}`}>
+            <div class="PLheader">
+              <div class="PLtitle">{uriIPFS[place].name}</div>
+              <div class="PLlevel">Lv {levelPerPlaceId[place]}</div>
+            </div>
+            <img src={uriIPFS[place].image3D} class="PLimage" />
+            <div class="PLfooter">
+              <div class="PLtitle">{verificationPerPlaceId[place]}/2👍</div>
+              <div class="PLlevel">{energyPerPlaceId[place]}/2⚡</div>
+              <div class="PLlevel">{chipPerPlaceId[place]}/2💽</div>
+            </div>
+          </a>
+        ))}
+        {/* <div class="CityPL">
           <div class="PLheader">
             <div class="PLtitle">Unverified Park</div>
             <div class="PLlevel"> Lv0</div>
@@ -220,8 +333,8 @@ export default function MyPlaces({ address, readContracts, writeContracts, tx })
             <div class="PLtitle">25/100👍</div>
             <div class="PLlevel">15/50⚡</div>
             <div class="PLlevel">35/50💽</div>
-          </div>
-        </div>
+          </div> 
+        </div>*/}
       </div>
     </div>
   );
