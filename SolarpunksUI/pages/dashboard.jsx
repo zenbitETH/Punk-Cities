@@ -146,7 +146,7 @@ const Dashboard = () => {
         <div className="MainScreen -mt-10">
           <div className="MainBoard">
           <div className="Board3">
-              <div className="my-5 ">🌇 Punk Cities Places</div>
+              <div className="my-5 ">🌇 My City Places</div>
               <grid className="grid grid-cols-2 m-3 gap-3">
                 <place className="PlaceBG">
                   <div className="row-span-4">

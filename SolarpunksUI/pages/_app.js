@@ -56,7 +56,7 @@ export default function App({ Component, pageProps }) {
         <ApolloProvider client={apolloClient}>
           <Head>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>Solarpuks</title>
+            <title>Punk Cities V0.2</title>
           </Head>
           <Component {...pageProps} />
         </ApolloProvider>

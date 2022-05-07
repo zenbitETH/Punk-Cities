@@ -64,36 +64,32 @@ const SwitchNetworkDialog = () => {
   }, []);
 
   return (
-    <div className="credit-card w-full lg:w-2/3 sm:w-auto shadow-lg mx-auto rounded-xl bg-white">
-      <main className="mt-4 p-4">
-        <div className="mt-4 text-md">
-          <button
-            onClick={() => handleNetworkSwitch("bsc")}
-            className="mt-2 mb-2 bg-warning border-warning btn submit-button focus:ring focus:outline-none w-full"
-          >
-            Avalanche Mainnet
-          </button>
-          <button
-            onClick={() => handleNetworkSwitch("bsc")}
-            className="mt-2 mb-2 bg-warning border-warning btn submit-button focus:ring focus:outline-none w-full"
-          >
-            Binance Chain
-          </button>
-          <button
-            onClick={() => handleNetworkSwitch("polygon")}
-            className="mt-2 mb-2 btn btn-primary submit-button focus:ring focus:outline-none w-full"
-          >
-            Polygon Mainnet
-          </button>
-          <button
-            onClick={() => handleNetworkSwitch("mumbai")}
-            className="mt-2 mb-2 btn btn-primary submit-button focus:ring focus:outline-none w-full"
-          >
-            Polygon Mumbai
-          </button>
-          <ErrorMessage message={error} />
-        </div>
-      </main>
+    <div >
+      {/*<button
+        onClick={() => handleNetworkSwitch("bsc")}
+        className="mt-2 mb-2 bg-warning border-warning btn submit-button focus:ring focus:outline-none w-full"
+      >
+        Avalanche Mainnet
+      </button>
+      <button
+        onClick={() => handleNetworkSwitch("bsc")}
+        className="mt-2 mb-2 bg-warning border-warning btn submit-button focus:ring focus:outline-none w-full"
+      >
+        Binance Chain
+      </button>
+      <button
+        onClick={() => handleNetworkSwitch("polygon")}
+        className="mt-2 mb-2 btn btn-primary submit-button focus:ring focus:outline-none w-full"
+      >
+        Polygon Mainnet
+      </button>*/}
+      <button
+        onClick={() => handleNetworkSwitch("mumbai")}
+        className="ProButton2"
+      >
+        Polygon Mumbai
+      </button>
+      <ErrorMessage message={error} />
     </div>
   );
 };
@@ -108,11 +104,11 @@ const SwitchNetwork = () => {
 
   return (
     <div>
-      <button onClick={openDialogModal}>Switch Network</button>
+      <button onClick={openDialogModal}>Are you on the right network?</button>
       <DialogModal
         isOpen={isDialogOpen}
         handleClose={closeDialogModal}
-        title="Switch Metamask Network"
+        title="Please switch to Mumbai Testnet to play Punk Cities "
       >
         {metamaskRef.current ? <SwitchNetworkDialog /> : <div>Please install Metamask</div>}
       </DialogModal>
