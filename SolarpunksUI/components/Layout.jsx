@@ -96,11 +96,38 @@ const Layout = ({ children, home }) => {
   return (
     <div>
       <nav className="top-hud">
+        {!account && (
+          <span className="hud0">
+            <SwitchNetwork />
+          </span>
+        )}
         <Account />
         {/*account && isAuthenticated && <Authenticate />*/}
         
         {account && isAuthenticated /*&& isLensReady*/ && (
           <Menu>
+          {account && (
+          <div className="hud3">
+            <span> 🏢 </span>
+            <span className="mx-2">{chip?.toString() ?? "N/A"}</span>
+          </div>
+        )}
+          {account && (
+          <div className="hud3">
+            <span> ⚡ </span>
+            <span className="mx-2">{energy?.toString() ?? "N/A"}</span>
+          </div>
+        )}
+        {account && (
+          <div className="hud4">
+            <span> 💽 </span>
+            <span className="mx-2">{chip?.toString() ?? "N/A"}</span>
+          </div>
+        )}
+        
+
+        {/* Lens Api interactions hidden for pilot testing
+
             <Menu.Button className="hud3">Profiles</Menu.Button>
             <Transition
               as={Fragment}
@@ -141,54 +168,53 @@ const Layout = ({ children, home }) => {
                 </Menu.Item>
               </Menu.Items>
             </Transition>
+            */}
           </Menu>
         )}
 
-        {account && isAuthenticated /*&& isLensReady*/ && (
+        {/* Lens Api interactions hidden for pilot testing
+
+        account && isAuthenticated && isLensReady && (
           <Link href="/dashboard">
             <a className="hud4">Solarpunk DAO</a>
           </Link>
-        )}
-        {/*account && isAuthenticated && isLensReady && (
+        )      
           <Link href={`/profiles/${defaultHandle}/timeline`}>
             <a className="hud4">Timeline</a>
           </Link>
         )*/}
         
-        {!account && (
-          <span className="hud0">
-            <SwitchNetwork />
-          </span>
-        )}
+        
       </nav>
       <main>{children}</main>
       <nav className="bottom-hud">
         {/* This needs an before state to not show until the user is joined to the DAO*/}      
       {account && isAuthenticated /*&& isLensReady*/ && (
-          <Link href={`/profiles/${defaultHandle}/publications/create-post`}>
-            <a className="huda">💡 New proposal</a>
+          <Link href={``}>
+            <a className="huda">⛲ New place</a>
           </Link>
         )}
 
         {/* This needs an after state to show that user is already joined to DAO*/}      
         {account && isAuthenticated /*&& isLensReady*/ && (
-          <Link href={`/profiles/${defaultHandle}/publications/create-post`}>
-            <a className="hudb">🌞Join to the DAO</a>
+          <Link href={``}>
+            <a className="hudb">🌇 My City Places</a>
+          </Link>
+        )}
+         {/* This needs an after state to show that user is already joined to DAO*/}      
+         {account && isAuthenticated /*&& isLensReady*/ && (
+          <Link href={``}>
+            <a className="hudb">🌎 All places</a>
+          </Link>
+        )}
+         {/* This needs an after state to show that user is already joined to DAO*/}      
+         {account && isAuthenticated /*&& isLensReady*/ && (
+          <Link href={``}>
+            <a className="hudd">🌞 Solarpunk DAO</a>
           </Link>
         )}
         
-        {account && (
-          <div className="hudc">
-            <span> ⚡ </span>
-            <span className="mx-2">{energy?.toString() ?? "N/A"}</span>
-          </div>
-        )}
-        {account && (
-          <div className="hudd">
-            <span> 💽 </span>
-            <span className="mx-2">{chip?.toString() ?? "N/A"}</span>
-          </div>
-        )}
+
         
       </nav>
     </div>
