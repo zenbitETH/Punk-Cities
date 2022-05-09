@@ -90,8 +90,7 @@ contract PunkCity is ERC1155 {
         _;
     }
 
-    event PlaceCreated(address indexed _from, uint256 _placeId, uint256 _questType, uint256 _placeType);
-    event PlaceVerified(address indexed _from, uint256 _placeId, uint256 _questType);
+    event PlaceUpdated(address indexed _from, uint256 _placeId, Type _placeType, uint256 _energyPerPlace, uint256 _chipPerPlace, uint256 _placeLevel, uint256 _verificationTimes);
     event EnergyTransfer(address indexed _from, uint256 _placeId);
     event ChipTransfer(address indexed _from, uint256 _placeId);
 
@@ -102,7 +101,6 @@ contract PunkCity is ERC1155 {
     /**
      * @dev Registering user in the game
      */
-
     function registerUser(string memory _name, string memory _hometown, string memory _country) public {
 
         require(userRegistered[msg.sender] == false, "You are already registered");
@@ -118,7 +116,6 @@ contract PunkCity is ERC1155 {
     /**
      * @dev User is registering a place in the game
      */
-
     function registerPlace(uint256 _placeType, uint256 _questType, string memory _ipfsuri) public isUserRegistered(msg.sender) {
 
         // updating the place struct
@@ -141,7 +138,7 @@ contract PunkCity is ERC1155 {
         mint(msg.sender, placeId, 1, "");
         setTokenUri(placeId, _ipfsuri);
 
-        emit PlaceCreated(msg.sender, placeId, _questType, _placeType);
+        emit PlaceUpdated(placeIdToPlaceDetail[placeId].registerAddress, placeId,placeIdToPlaceDetail[placeId].placeType, placeIdToPlaceDetail[placeId].energyPerPlace, placeIdToPlaceDetail[placeId].chipPerPlace, placeIdToPlaceDetail[placeId].placeIdLevel, placeIdToPlaceDetail[placeId].verificationTimes);
         emit EnergyTransfer(msg.sender, placeId);        
 
         placeId += 1;
@@ -170,7 +167,7 @@ contract PunkCity is ERC1155 {
         verifiersPerPlaceId[msg.sender][_placeId] = true;  
         playerQuestTypePerPlaceId[msg.sender][_placeId] = Quest(_questType); 
 
-        emit PlaceVerified(msg.sender, _placeId, _questType );
+        emit PlaceUpdated(placeIdToPlaceDetail[_placeId].registerAddress, _placeId ,placeIdToPlaceDetail[_placeId].placeType, placeIdToPlaceDetail[_placeId].energyPerPlace, placeIdToPlaceDetail[_placeId].chipPerPlace, placeIdToPlaceDetail[_placeId].placeIdLevel, placeIdToPlaceDetail[_placeId].verificationTimes);
         emit EnergyTransfer(msg.sender, _placeId);
     }
 
@@ -192,6 +189,7 @@ contract PunkCity is ERC1155 {
         //energyPerPlace[_placeId] += _energy;
         energyPerAddress[msg.sender] -= _energy;
 
+        emit PlaceUpdated(placeIdToPlaceDetail[_placeId].registerAddress, _placeId ,placeIdToPlaceDetail[_placeId].placeType, placeIdToPlaceDetail[_placeId].energyPerPlace, placeIdToPlaceDetail[_placeId].chipPerPlace, placeIdToPlaceDetail[_placeId].placeIdLevel, placeIdToPlaceDetail[_placeId].verificationTimes);
         emit EnergyTransfer(msg.sender, _placeId);                
     }
 
@@ -205,6 +203,7 @@ contract PunkCity is ERC1155 {
         placeIdToPlaceDetail[_placeId].chipPerPlace += _chips;
         chipPerAddress[msg.sender] -= _chips;
 
+        emit PlaceUpdated(placeIdToPlaceDetail[_placeId].registerAddress, _placeId ,placeIdToPlaceDetail[_placeId].placeType, placeIdToPlaceDetail[_placeId].energyPerPlace, placeIdToPlaceDetail[_placeId].chipPerPlace, placeIdToPlaceDetail[_placeId].placeIdLevel, placeIdToPlaceDetail[_placeId].verificationTimes);
         emit ChipTransfer(msg.sender, _placeId);                
     }
 
@@ -265,7 +264,9 @@ contract PunkCity is ERC1155 {
             }     
         }
         //upgrade next level
-        placeIdToPlaceDetail[_placeId].placeIdLevel += 1;        
+        placeIdToPlaceDetail[_placeId].placeIdLevel += 1; 
+        
+        emit PlaceUpdated(placeIdToPlaceDetail[_placeId].registerAddress, _placeId ,placeIdToPlaceDetail[_placeId].placeType, placeIdToPlaceDetail[_placeId].energyPerPlace, placeIdToPlaceDetail[_placeId].chipPerPlace, placeIdToPlaceDetail[_placeId].placeIdLevel, placeIdToPlaceDetail[_placeId].verificationTimes);       
 
     }
 
