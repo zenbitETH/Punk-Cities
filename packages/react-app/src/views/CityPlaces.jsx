@@ -1,6 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { PunkCityABI } from "../contracts/PunkCity";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+const APIURL = "https://api.thegraph.com/subgraphs/name/alessandromaci/punk-cities";
 require("dotenv").config();
+
+// const tokensQuery = `
+// {
+//   places(
+//     first: 1,
+//     orderBy: createdAtTimestamp,
+//     orderDirection: desc,
+//     where: {
+//       placeId: ${i}
+//     }) {
+//     createdAtTimestamp
+//     from
+//     placeId
+//     questType
+//     chipPerPlace
+//     energyPerPlace
+//     verificationTimes
+//     placeIdLevel
+//   }
+// }
+// `;
+
+const client = new ApolloClient({
+  uri: APIURL,
+  cache: new InMemoryCache(),
+});
 
 const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
@@ -24,9 +52,7 @@ export default function CityPlaces({ address, readContracts, writeContracts, tx 
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setUpdateRequire(true);
-    }, 1500);
+    setUpdateRequire(true);
   }, []);
 
   if (updateRequired) {
@@ -44,7 +70,7 @@ export default function CityPlaces({ address, readContracts, writeContracts, tx 
     };
 
     const loadPlaces = async () => {
-      setLoading(true);
+      //setLoading(true);
       const placeNumber = await contractInstance.methods.placeId().call();
 
       const uriIPFS = [];
@@ -54,40 +80,78 @@ export default function CityPlaces({ address, readContracts, writeContracts, tx 
       }
       setUriIPFS(uriIPFS);
 
-      const instancePlaceIdDetails = [];
+      //const instancePlaceIdDetails = [];
+      // there are some errors in the querying of the places because values are messed up. Maybe it's cache ??
       for (let i = 0; i < placeNumber; i++) {
-        const placeIdDetail = await contractInstance.methods.placeIdToPlaceDetail(i).call();
-        instancePlaceIdDetails.push(placeIdDetail);
-      }
-      setPlaceIdDetails(instancePlaceIdDetails);
+        client
+          .query({
+            query: gql(`
+            {
+              places(
+                first: 1, 
+                orderBy: createdAtTimestamp,
+                orderDirection: desc, 
+                where: {
+                  placeId: ${i}
+                }) {
+                createdAtTimestamp
+                from
+                placeId
+                questType
+                chipPerPlace
+                energyPerPlace
+                verificationTimes
+                placeIdLevel
+              }
+            }
+            `),
+          })
+          .then(data => {
+            const [places] = data.data.places;
+            console.log(i);
+            console.log(places);
+            //instancePlaceIdDetails.push(places);
+            setPlaceIdDetails(prevPlaceIdDetails => {
+              const updatedPlaces = [...prevPlaceIdDetails];
+              updatedPlaces.push(places);
+              return updatedPlaces;
+            });
+          })
+          .catch(err => {
+            console.log("Error fetching data: ", err);
+          });
 
-      const registersList = [];
-      const levelList = [];
-      const verificationList = [];
-      const energyList = [];
-      const chipList = [];
-      for (let i = 0; i < placeNumber; i++) {
-        const placeDetail = instancePlaceIdDetails[i];
-        const register = placeDetail.registerAddress;
-        const level = placeDetail.placeIdLevel;
-        const verification = placeDetail.verificationTimes;
-        const energy = placeDetail.energyPerPlace;
-        const chip = placeDetail.chipPerPlace;
-        registersList.push(register);
-        levelList.push(level);
-        verificationList.push(verification);
-        energyList.push(energy);
-        chipList.push(chip);
+        //const placeIdDetail = await contractInstance.methods.placeIdToPlaceDetail(i).call();
+        //instancePlaceIdDetails.push(placeIdDetail);
       }
-      setRegistersPerPLaceId(registersList);
-      setlevelPerPlaceId(levelList);
-      setVerificationPerPlaceId(verificationList);
-      setEnergyPerPlaceId(energyList);
-      setChipPerPlaceId(chipList);
+
+      //   const registersList = [];
+      //   const levelList = [];
+      //   const verificationList = [];
+      //   const energyList = [];
+      //   const chipList = [];
+      //   for (let i = 0; i < placeNumber; i++) {
+      //     const placeDetail = instancePlaceIdDetails[i];
+      //     const register = placeDetail.registerAddress;
+      //     const level = placeDetail.placeIdLevel;
+      //     const verification = placeDetail.verificationTimes;
+      //     const energy = placeDetail.energyPerPlace;
+      //     const chip = placeDetail.chipPerPlace;
+      //     registersList.push(register);
+      //     levelList.push(level);
+      //     verificationList.push(verification);
+      //     energyList.push(energy);
+      //     chipList.push(chip);
+      //   }
+      //   setRegistersPerPLaceId(registersList);
+      //   setlevelPerPlaceId(levelList);
+      //   setVerificationPerPlaceId(verificationList);
+      //   setEnergyPerPlaceId(energyList);
+      //   setChipPerPlaceId(chipList);
     };
 
     loadPlaces();
-    setLoading(false);
+    //setLoading(false);
     setUpdateRequire(false);
   }
 
@@ -131,13 +195,13 @@ export default function CityPlaces({ address, readContracts, writeContracts, tx 
           <a class="CityPL" href={`./PlaceDetail/${index}`}>
             <div class="PLheader">
               <div class="PLtitle">{uriIPFS[index].name}</div>
-              <div class="PLlevel">{`Lv${place[5]}`}</div>
+              <div class="PLlevel">{`Lv${place.placeIdLevel}`}</div>
             </div>
             <img src={uriIPFS[index].image3D} class="PLimage" />
             <div class="PLfooter">
-              <div class="PLtitle">{`${place[2]}/2👍`}</div>
-              <div class="PLlevel">{`${place[3]}/2⚡`}</div>
-              <div class="PLlevel">{`${place[4]}/2💽`}</div>
+              <div class="PLtitle">{`${place.verificationTimes}/2👍`}</div>
+              <div class="PLlevel">{`${place.energyPerPlace}/2⚡`}</div>
+              <div class="PLlevel">{`${place.chipPerPlace}/2💽`}</div>
             </div>
           </a>
         ))}
