@@ -24,9 +24,7 @@ export default function CityPlaces({ address, readContracts, writeContracts, tx 
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setUpdateRequire(true);
-    }, 1500);
+    setUpdateRequire(true);
   }, []);
 
   if (updateRequired) {
