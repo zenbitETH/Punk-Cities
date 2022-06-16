@@ -139,13 +139,13 @@ export default function Account({
   return (
     <div class="center">
       <nav class="topHud">
-        <div class="topGrid">
           <div class="hud0"> {display}</div>
-          <div class="hud2">
+          <div class="hud1">
             <Balance address={address} provider={localProvider} price={price} />
           </div>
-          <div class="hud2"> ⚡ {energy ?? "..."}</div>
-          <div class="hud3"> 💽 {chip ?? "..."}</div>
+          <div class="hud2"> ⛲ {energy ?? "..."}</div>
+          <div class="hud3"> ⚡ {energy ?? "..."}</div>
+          <div class="hud4"> 💽 {chip ?? "..."}</div>
           {/*<Wallet
             address={address}
             provider={localProvider}
@@ -154,8 +154,37 @@ export default function Account({
             price={price}
             color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
         />*/}
-        </div>
       </nav>
+
+    <nav className="leftHud">
+      <div className="huda">
+        <div className='bigIcon'>⛲</div>
+        <div> Nuevo Lugar</div>
+      </div>
+      <div className="hudb">
+        <div className='bigIcon'>🌇 </div>
+        <div>Mi ciudad</div>
+      </div>
+      <div className="hudc">
+        <div className='bigIcon'>🌎 </div>
+        <div>Explorar</div>
+      </div>
+    </nav>
+    <nav className='rightHud'>
+      <div className="hudd">
+        <div className='bigIcon'>🌞</div>
+        <div>Ciudad DAO</div>
+      </div>
+      <div className="hude">
+        <div className='bigIcon'>💬</div>
+        <div> Discord</div>
+      </div>
+      <div className="hudf">
+        <div className='bigIcon'>📖 </div>
+        <div>¿Cómo Jugar?</div>
+      </div>
+    </nav>
+
       <nav class="bottomHud">
         <div class="hud4">
           <a href="https://github.com/zenbitETH/Punk-Cities" class="hudBalance">

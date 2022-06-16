@@ -6,124 +6,147 @@ Nav {
   
 .topHud{
   position: fixed;
-  top: 0;
+  top: 0; 
   overflow: hidden;
   width: 100%;
   z-index: 2;
-  font-size: clamp(1.2em, -1.2em + 2vw, 2.35rem);}
-  
-.topGrid{
+  font-size: clamp(1.2em, -1.2em + 2vw, 2.35rem);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr)); 
+}
+  
+.leftHud{
+  display: grid; 
+  position: fixed; 
+  bottom: 0; 
+  left: 0; 
+  font-size: clamp(1em, -1.2em + 2vw, 2.35rem);
+  line-height: 1.25rem; 
+  font-weight: 500; 
+  align-items: center; 
+  grid-template-columns: repeat(3, minmax(0, 1fr)); 
 }
 
-.bottomHud {
-  display: grid;
-  width:100%;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  font-size: clamp(1.2em, -1.2em + 2vw, 2.35rem);
-  font-family: "Exo 2";
-  position: fixed;
+.rightHud {
+  display: grid; 
+  position: fixed; 
+  right: 0; 
   bottom: 0;
-  z-index: 2;
-  margin-left: 0;
-  align-self: center;
+  font-size: clamp(1em, -1.2em + 2vw, 2.35rem);
+  line-height: 1.25rem; 
+  font-weight: 500; 
+  align-items: center; 
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem; 
+  border-style: none; 
+  grid-template-columns: repeat(3, minmax(0, 1fr)); 
 }
   
 .hud0{
-  color:#01304E !important;
-  background: linear-gradient(180deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
+  background-color: #aaa6a141;
   background-size: 100% 100%;
   z-index: 1;
   padding: 0.25em 0.5em 0.25em 0.5em;
-  border-radius: 0 0 0 25px ;
+  border-radius: 0 0 0 0px ;
+  grid-column: span 3 / span 3; 
 }
 
 .hud1 {
-  color: #fff !important;
-  background: linear-gradient(180deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
+  background-color: #aaa6a141;
   background-size: 100% 100%;
   z-index: 1;
   padding: 0.25em 0.5em 0.25em 0.5em ;
   border-radius:  0 0 0 0;
+  grid-column: span 3 / span 3; 
 }
 
-.hud1:hover {
+.hud1:hover, .hud0:hover {
   cursor: pointer;
   background-size: 200% 200%;
   animation: gradient 2s ease infinite;
-  color: #fff !important;
+  background-color: #F6AF55;
+  color: #01304E;
 }
 
 .hud2 {
-  color: #fff !important;
-  background: linear-gradient(180deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
+  color: #ffffff;
+  background-color: #aaa6a141;
   background-size: 100% 100%;
   z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em ;
-  border-radius:  0 0 0 0;
+  padding: 0.25em 0.5em 0.25em 0.5em;
+  border-radius:  0 0 0 25px;
+  grid-column: span 2 / span 2;
 }
 
 .hud3 {
   color: #ffffff;
-  background: linear-gradient(180deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
+  background-color: #aaa6a141;
+  background-size: 100% 100%;
+  z-index: 1;
+  padding: 0.25em 0.5em 0.25em 0.5em ;
+  border-radius:  0 0 0px 0px;
+  grid-column: span 2 / span 2; 
+}
+
+.hud4 {
+  color: #ffffff;
+  background-color: #aaa6a141;
   background-size: 100% 100%;
   z-index: 1;
   padding: 0.25em 0.5em 0.25em 0.5em ;
   border-radius:  0 0 25px 0px;
+  grid-column: span 2 / span 2; 
 }
 
-.hud4 {
-  color: #fff !important;
-  background: linear-gradient(0deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
-  background-size: 100% 100%;
-  z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em ;
-  border-radius:  25px 0 0 0;
+.bigIcon {
+  font-size: 2em;
+  margin: 0.5em;
 }
 
-.hud4:hover {
+.huda {
+  background-color: #aaa6a141;
+  border-radius:  0px 0 0px 0px;
+  padding: 0.5em;
+  border-style: none;
   cursor: pointer;
-  background-size: 200% 200%;
-  animation: gradient 2s ease infinite;
-  color: #fff !important;
 }
 
-.hud5 {
-  color: #fff !important;
-  background: linear-gradient(180deg,  #f6b0559d, #f6b0559d,#f6b0559d, #b3803e85);
-  background-size: 100% 100%;
-  z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em ;
-  border-radius:  0 0 0 0;
-}
-
-.hud5:hover {
+.hudb {
+  background-color: #aaa6a141;
+  padding: 0.5em;
+  border-style: none;
   cursor: pointer;
-  background-size: 200% 200%;
-  animation: gradient 2s ease infinite;
-  color: #fff !important;
 }
 
-.hud6 {
-  color: #fff !important;
-  background: linear-gradient(0deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
-  background-size: 100% 100%;
-  z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em ;
-  border-radius:  0 25px 0 0;
-}
-
-.hud6:hover {
+.hudc {
+  background-color: #aaa6a141;
+  border-radius:  0px 25px 0px 0px;
+  padding: 0.5em;
+  border-style: none;
   cursor: pointer;
-  background-size: 200% 200%;
-  animation: gradient 2s ease infinite;
-  color: #fff !important;
 }
 
+.hudd {
+  background-color: #aaa6a141;
+  border-radius:  25px 0px 0px 0px;
+  border-style: none;
+  cursor: pointer;
+  padding: 0.5em;
+}
 
+.hude {
+  background-color: #aaa6a141;
+  border-style: none;
+  cursor: pointer;
+  padding: 0.5em;
+}
 
-
+.hudf {
+  background-color: #aaa6a141;
+  border-style: none;
+  cursor: pointer;
+  padding: 0.5em;
+}
 
 
 
