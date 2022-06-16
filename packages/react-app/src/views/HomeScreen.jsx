@@ -9,9 +9,7 @@ export default function HomeScreen() {
       <main className="HomeCon2">
         <div className="hero">
           <div className="center"><img src={PC} class="logo" alt="Punk Cities"/></div>
-          
-            <div className="HomeBT">Conectar</div>
-
+          <div className="HomeBT">Conectar</div>
         </div>
       </main>
     </div>
