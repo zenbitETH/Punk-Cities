@@ -184,20 +184,6 @@ export default function Account({
         <div>¿Cómo Jugar?</div>
       </div>
     </nav>
-
-      <nav class="bottomHud">
-        <div class="hud4">
-          <a href="https://github.com/zenbitETH/Punk-Cities" class="hudBalance">
-            Docs
-          </a>
-        </div>
-        <div class="hud5">{modalButtons}</div>
-        <div class="hud6">
-          <a href="" class="hudBalance">
-            Discord
-          </a>
-        </div>
-      </nav>
     </div>
   );
 }
