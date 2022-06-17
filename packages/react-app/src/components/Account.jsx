@@ -3,6 +3,7 @@ import { useThemeSwitcher } from "react-css-theme-switcher";
 
 import Address from "./Address";
 import Balance from "./Balance";
+import PC from "../assets/punkcities.png"
 import NetworkDisplay from "./NetworkDisplay";
 import Wallet from "./Wallet";
 import { PunkCityABI } from "../contracts/PunkCity";
@@ -91,28 +92,7 @@ export default function Account({
     }, 800);
   }, []);
 
-  const modalButtons = [];
-  if (web3Modal) {
-    if (web3Modal.cachedProvider) {
-      modalButtons.push(
-        <div key="logoutbutton" shape="round" size="large" onClick={logoutOfWeb3Modal}>
-          🔌 Logout
-        </div>,
-      );
-    } else {
-      modalButtons.push(
-        <div
-          key="loginbutton"
-          shape="round"
-          size="large"
-          /* type={minimized ? "default" : "primary"}     too many people just defaulting to MM and having a bad time */
-          onClick={loadWeb3Modal}
-        >
-          🎮 Connect
-        </div>,
-      );
-    }
-  }
+
   const display = minimized ? (
     ""
   ) : (
@@ -134,18 +114,39 @@ export default function Account({
         <></>
       )}
     </span>
-  );
+  )
+  const modalButtons = [];
+  if (web3Modal) {
+    if (web3Modal.cachedProvider) {
+      modalButtons.push(
+
+        <div class="player">
+          <div class="disconnect">
+            <div> {display}</div>
+            {/*<Balance address={address} provider={localProvider} price={price} />*/}
+          </div>
+          <div class="disconnect2" key="logoutbutton" onClick={logoutOfWeb3Modal}>
+            <div>Desconectar</div>
+          </div>
+        </div>,
+      );
+    } else {
+      modalButtons.push(
+        <div>
+          <img src={PC} class="logo" alt="Punk Cities"/>
+          <div class="connect" key="loginbutton" onClick={loadWeb3Modal}>Conectar</div>
+        </div>
+        ,
+      );
+    }
+  };
 
   return (
     <div class="center">
       <nav class="topHud">
-          <div class="hud0"> {display}</div>
-          <div class="hud1">
-            <Balance address={address} provider={localProvider} price={price} />
-          </div>
-          <div class="hud2"> ⛲ {energy ?? "..."}</div>
-          <div class="hud3"> ⚡ {energy ?? "..."}</div>
-          <div class="hud4"> 💽 {chip ?? "..."}</div>
+          <div class="hud1"> ⛲ {energy ?? "..."}</div>
+          <div class="hud2"> ⚡ {energy ?? "..."}</div>
+          <div class="hud3"> 💽 {chip ?? "..."}</div>
           {/*<Wallet
             address={address}
             provider={localProvider}
@@ -155,35 +156,35 @@ export default function Account({
             color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
         />*/}
       </nav>
-
-    <nav className="leftHud">
-      <div className="huda">
-        <div className='bigIcon'>⛲</div>
-        <div> Nuevo Lugar</div>
-      </div>
-      <div className="hudb">
-        <div className='bigIcon'>🌇 </div>
-        <div>Mi ciudad</div>
-      </div>
-      <div className="hudc">
-        <div className='bigIcon'>🌎 </div>
-        <div>Explorar</div>
-      </div>
-    </nav>
-    <nav className='rightHud'>
-      <div className="hudd">
-        <div className='bigIcon'>🌞</div>
-        <div>Ciudad DAO</div>
-      </div>
-      <div className="hude">
-        <div className='bigIcon'>💬</div>
-        <div> Discord</div>
-      </div>
-      <div className="hudf">
-        <div className='bigIcon'>📖 </div>
-        <div>¿Cómo Jugar?</div>
-      </div>
-    </nav>
+      {modalButtons}      
+      <nav className="leftHud">
+        <div className="huda">
+          <div className='bigIcon'>⛲</div>
+          <div> Nuevo Lugar</div>
+        </div>
+        <div className="hudb">
+          <div className='bigIcon'>🌇 </div>
+          <div>Mi ciudad</div>
+        </div>
+        <div className="hudc">
+          <div className='bigIcon'>🌎 </div>
+          <div>Explorar</div>
+        </div>
+      </nav>
+      <nav className='rightHud'>
+        <div className="hudd">
+          <div className='bigIcon'>🌞</div>
+          <div>Ciudad DAO</div>
+        </div>
+        <div className="hude">
+          <div className='bigIcon'>💬</div>
+          <div> Discord</div>
+        </div>
+        <div className="hudf">
+          <div className='bigIcon'>📖 </div>
+          <div>¿Cómo Jugar?</div>
+        </div>
+      </nav>
     </div>
   );
 }

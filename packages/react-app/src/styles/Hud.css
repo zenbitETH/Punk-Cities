@@ -3,24 +3,67 @@
 Nav {
   font-family: 'Exo 2';
 }
+
+.player {
+  position: fixed;
+  top: 0;
+  right: 0;
+  border-radius: 0px 0 25px 25px;
+  z-index: 20;
+}
+
+.connect {
+  position: fixed;
+  bottom: 20%; 
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: #AAA6A150;
+  border-radius: 25px;
+  font-size: 2em;
+  
+}
+
+.disconnect {
+  background-color: #119195;
+  font-size: 1em;
+  font-size: 1.2em;
+  padding: 0.5em 1em 0.5em 1em;
+}
+
+.disconnect2 {
+  background-color: #AAA6A1;
+  font-size: 1em;
+}
+
+.connect:hover, .disconnect2:hover {
+  background-color: #F6AF55;
+  color: #01304E;
+  cursor: pointer;
+}
+
+.disconnect2 {
+  cursor: pointer;
+  border-radius: 0 0 25px 25px;
+  padding: 0.75em 1em 0.75em 1em;
+}
   
 .topHud{
   position: fixed;
   top: 0; 
   overflow: hidden;
-  width: 100%;
+  width: 75%;
   z-index: 2;
-  font-size: clamp(1.2em, -1.2em + 2vw, 2.35rem);
+  font-size: clamp(2em, -1.2em + 2vw, 2.35rem);
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr)); 
 }
   
-.leftHud{
+.leftHud, .rightHud {
   display: grid; 
   position: fixed; 
-  bottom: 0; 
-  left: 0; 
-  font-size: clamp(1em, -1.2em + 2vw, 2.35rem);
+  bottom: 0;
+  font-size: clamp(1.2em, -1.2em + 2vw, 2.35rem);
   line-height: 1.25rem; 
   font-weight: 500; 
   align-items: center; 
@@ -28,74 +71,26 @@ Nav {
 }
 
 .rightHud {
-  display: grid; 
-  position: fixed; 
   right: 0; 
-  bottom: 0;
-  font-size: clamp(1em, -1.2em + 2vw, 2.35rem);
-  line-height: 1.25rem; 
-  font-weight: 500; 
-  align-items: center; 
-  border-bottom-right-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem; 
-  border-style: none; 
-  grid-template-columns: repeat(3, minmax(0, 1fr)); 
 }
-  
-.hud0{
+
+.hud1, .hud2, .hud3 {
   background-color: #aaa6a141;
   background-size: 100% 100%;
   z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em;
-  border-radius: 0 0 0 0px ;
-  grid-column: span 3 / span 3; 
+  padding: 0.75em 0.5em 0.75em 0.5em;
 }
 
-.hud1 {
-  background-color: #aaa6a141;
-  background-size: 100% 100%;
-  z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em ;
-  border-radius:  0 0 0 0;
-  grid-column: span 3 / span 3; 
-}
-
-.hud1:hover, .hud0:hover {
-  cursor: pointer;
-  background-size: 200% 200%;
-  animation: gradient 2s ease infinite;
-  background-color: #F6AF55;
-  color: #01304E;
-}
-
-.hud2 {
-  color: #ffffff;
-  background-color: #aaa6a141;
-  background-size: 100% 100%;
-  z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em;
-  border-radius:  0 0 0 25px;
+.hud1, .hud2, .hud3 {
   grid-column: span 2 / span 2;
 }
 
-.hud3 {
-  color: #ffffff;
-  background-color: #aaa6a141;
-  background-size: 100% 100%;
-  z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em ;
-  border-radius:  0 0 0px 0px;
-  grid-column: span 2 / span 2; 
+.hud1 {
+  border-radius:  0 0 0 25px;
 }
 
-.hud4 {
-  color: #ffffff;
-  background-color: #aaa6a141;
-  background-size: 100% 100%;
-  z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em ;
-  border-radius:  0 0 25px 0px;
-  grid-column: span 2 / span 2; 
+.hud3 {
+  border-radius:  0 0 25px 0px; 
 }
 
 .bigIcon {
@@ -103,50 +98,25 @@ Nav {
   margin: 0.5em;
 }
 
-.huda {
+.huda, .hudb, .hudc, .hudd, .hude, .hudf{
   background-color: #aaa6a141;
-  border-radius:  0px 0 0px 0px;
   padding: 0.5em;
   border-style: none;
   cursor: pointer;
 }
+.huda:hover, .hudb:hover, .hudc:hover, .hudd:hover, .hude:hover, .hudf:hover  {
+  background-color: #F6AF55;
+  color: #01304E;
+}
 
-.hudb {
-  background-color: #aaa6a141;
-  padding: 0.5em;
-  border-style: none;
-  cursor: pointer;
+.huda {
+  border-radius:  0px 0 0px 0px;
 }
 
 .hudc {
-  background-color: #aaa6a141;
   border-radius:  0px 25px 0px 0px;
-  padding: 0.5em;
-  border-style: none;
-  cursor: pointer;
 }
 
 .hudd {
-  background-color: #aaa6a141;
   border-radius:  25px 0px 0px 0px;
-  border-style: none;
-  cursor: pointer;
-  padding: 0.5em;
 }
-
-.hude {
-  background-color: #aaa6a141;
-  border-style: none;
-  cursor: pointer;
-  padding: 0.5em;
-}
-
-.hudf {
-  background-color: #aaa6a141;
-  border-style: none;
-  cursor: pointer;
-  padding: 0.5em;
-}
-
-
-
