@@ -10,6 +10,7 @@
   align-items: center; 
   min-height: 100vh; 
   text-align: center; 
+
 }
 
 .logo {
@@ -23,7 +24,7 @@
 }
 
 
-.HomeBT:hover {
+.HomeBT:hover, .MetaBT:hover, .HowBT:hover {
   background-color: #F6AF55;
   cursor: pointer;
   color: #01304E;
@@ -91,11 +92,17 @@
 @media (min-width: 1280px) { 
   
   .connect {
-    bottom: 20% !important; 
+    bottom: 25% !important; 
+    font-size: 2em !important;
   }
   .disconnect, .disconnect2 {
     padding: 0.25em 1em 0.25em 1em !important;
     font-size: 1.2em !important;
+  }
+
+  .options {
+    bottom: 5% !important; 
+    width: 15% !important;
   }
   .hero {
     padding: 10em 5em 0 5em;
@@ -118,11 +125,14 @@
   .logo {
     height: 600px;
     width: 600px;
-    bottom: 20%;
+    bottom: 30%;
+    z-index: -10;
   }
   .topHud {
     padding: 0 10em 0 10em;
-    width: 100% !important;
+    width: 50% !important;
+    left: 50%;
+    transform: translateX(-50%);
   }
   .rightHud {
     grid-template-columns: 1fr !important; 

@@ -20,8 +20,8 @@ Nav {
   padding: 0.5em 1em 0.5em 1em;
   background-color: #AAA6A150;
   border-radius: 25px;
-  font-size: 2em;
-  
+  font-size: 3em;
+
 }
 
 .disconnect {
@@ -47,12 +47,39 @@ Nav {
   border-radius: 0 0 25px 25px;
   padding: 0.75em 1em 0.75em 1em;
 }
+
+.options {
+  position: fixed;
+  bottom: 15%; 
+  width: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1em;
+  font-size: clamp(1.2em, -1.2em + 2vw, 2.35rem);
+  
+}
+
+.MetaBT, .HowBT {
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: #AAA6A150;
+  border-radius: 25px;
+  margin-top: 1em;
+}
+
+.zenbit {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
   
 .topHud{
   position: fixed;
   top: 0; 
   overflow: hidden;
-  width: 75%;
+  width: 65%;
   z-index: 2;
   font-size: clamp(2em, -1.2em + 2vw, 2.35rem);
   display: grid;
@@ -87,15 +114,23 @@ Nav {
 
 .hud1 {
   border-radius:  0 0 0 25px;
+  border-right: solid;
+  border-color: #AAA6A115;
 }
 
 .hud3 {
   border-radius:  0 0 25px 0px; 
+  border-left: solid;
+  border-color: #AAA6A115;
 }
 
 .bigIcon {
   font-size: 2em;
   margin: 0.5em;
+}
+
+.bigIcon2 {
+  font-size: 2em;
 }
 
 .huda, .hudb, .hudc, .hudd, .hude, .hudf{

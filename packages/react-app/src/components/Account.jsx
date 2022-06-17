@@ -115,11 +115,12 @@ export default function Account({
       )}
     </span>
   )
+  
   const modalButtons = [];
   if (web3Modal) {
     if (web3Modal.cachedProvider) {
       modalButtons.push(
-
+      <div>
         <div class="player">
           <div class="disconnect">
             <div> {display}</div>
@@ -128,25 +129,12 @@ export default function Account({
           <div class="disconnect2" key="logoutbutton" onClick={logoutOfWeb3Modal}>
             <div>Desconectar</div>
           </div>
-        </div>,
-      );
-    } else {
-      modalButtons.push(
-        <div>
-          <img src={PC} class="logo" alt="Punk Cities"/>
-          <div class="connect" key="loginbutton" onClick={loadWeb3Modal}>Conectar</div>
         </div>
-        ,
-      );
-    }
-  };
-
-  return (
-    <div class="center">
+        <div class="center">
       <nav class="topHud">
-          <div class="hud1"> ⛲ {energy ?? "..."}</div>
-          <div class="hud2"> ⚡ {energy ?? "..."}</div>
-          <div class="hud3"> 💽 {chip ?? "..."}</div>
+          <div class="hud1">⛲ {energy ?? "..."}</div>
+          <div class="hud2">⚡ {energy ?? "..."}</div>
+          <div class="hud3">💽 {chip ?? "..."}</div>
           {/*<Wallet
             address={address}
             provider={localProvider}
@@ -156,7 +144,7 @@ export default function Account({
             color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
         />*/}
       </nav>
-      {modalButtons}      
+         
       <nav className="leftHud">
         <div className="huda">
           <div className='bigIcon'>⛲</div>
@@ -185,6 +173,33 @@ export default function Account({
           <div>¿Cómo Jugar?</div>
         </div>
       </nav>
+    </div>
+      </div>,
+      );
+    } else {
+      modalButtons.push(
+        <div>
+          <img src={PC} class="logo" alt="Punk Cities"/>
+          <div class="connect" key="loginbutton" onClick={loadWeb3Modal}>Conectar</div>
+          <div class="options">
+            <div>
+              <div class="bigIcon2">🙀</div>
+              <div>¿Sin wallet para conectar?</div>
+              <div class="MetaBT">Obtener Wallet</div>
+            </div>
+          </div>
+          <div class="zenbit">
+            <a href="https://zenbit.mx">zenbit.eth /</a><span> 2022</span>
+          </div>
+        </div>
+        ,
+      );
+    }
+  };
+
+  return (
+    <div class="center">
+      {modalButtons}
     </div>
   );
 }
