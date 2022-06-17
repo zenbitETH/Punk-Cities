@@ -10,3 +10,4 @@ export { default as PlaceDetail } from "./PlaceDetail";
 export { default as VerifyPlace } from "./VerifyPlace";
 export { default as UpgradePlace } from "./UpgradePlace";
 export { default as HomeScreen } from "./HomeScreen";
+export { default as Docs } from "./Docs";

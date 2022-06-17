@@ -39,6 +39,7 @@ import {
   VerifyPlace,
   CityPlaces,
   HomeScreen,
+  Docs,
 } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 
@@ -340,6 +341,10 @@ function App(props) {
 
         <Route exact path="/UpgradePlace/:id">
           <UpgradePlace address={address} />
+        </Route>
+
+        <Route exact path="/Docs">
+          <Docs />
         </Route>
 
         <Route exact path="/">
