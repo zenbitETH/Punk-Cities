@@ -10,7 +10,7 @@
   align-items: center; 
   min-height: 100vh; 
   text-align: center; 
-
+  z-index: 1;
 }
 
 .logo {
@@ -28,6 +28,61 @@
   background-color: #F6AF55;
   cursor: pointer;
   color: #01304E;
+}
+
+.NewBT {
+  height: 500px;
+  width: 500px;
+  background-color: #AAA6A150;
+  border-radius: 25px;
+  padding: 1em;
+  text-align: center;
+}
+
+.NewIMG {
+  max-width: 200px;
+  height: auto;
+}
+
+.NewDialog {
+  padding: 1em;
+  border-radius: 0px 25px 25px 25px;
+  background-color: #ffffff;
+  color: #01304E;
+  transition: width 0.75s, height 0.5s;
+  font-size: 1.5em;
+  margin-bottom: 2em;
+}
+
+.NewDialog2 {
+  border-radius: 25px 25px 25px 25px;
+  background-color: #AAA6A150;
+  font-size: 1.5em;
+  transition: width 2s, height 2s;
+  padding: 1em;
+}
+
+.NewDialog2:hover {
+  border-radius: 25px 25px 0px 25px;
+  background-color: #F6AF55;
+  transition: border-radius 0.25s;
+}
+
+.NewOrb {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  background-color: #F6AF55;
+  transition: width 0.75s, height 0.5s;
+}
+
+.NewOrb:hover {
+  width: 250px;
+  height: 250px;
+  border-radius: 25px 25px 25px 2px;
 }
 
 .HomeGrid {
@@ -55,6 +110,7 @@
 .HowBG:hover {
   background-color: #F6AF55;
   color: #01304E;
+  
 }
 
 .HowIcon {
@@ -126,7 +182,6 @@
     height: 600px;
     width: 600px;
     bottom: 30%;
-    z-index: -10;
   }
   .topHud {
     padding: 0 10em 0 10em;
@@ -145,8 +200,6 @@
     top: 5em; 
     bottom: auto !important; 
   }
-
-  
   .hud1, .hud2, .hud3 {
     padding: 0.25em 0.5em 0.25em 0.5em !important;
   }
