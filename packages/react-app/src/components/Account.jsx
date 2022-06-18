@@ -179,11 +179,13 @@ export default function Account({
     } else {
       modalButtons.push(
         <div>
+          <div class="locked">
           <img src={PC} class="logo" alt="Punk Cities"/>
           <div class="connect" key="loginbutton" onClick={loadWeb3Modal}>Conectar</div>
+          </div>
+          
           <div class="options">
-            <div>
-              <div class="bigIcon2">🙀</div>
+            <div>            
               <div>¿Sin wallet para conectar?</div>
               <div class="MetaBT">Obtener Wallet</div>
             </div>
