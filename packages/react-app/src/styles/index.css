@@ -99,18 +99,20 @@ a:hover {
   height: 100%;
   padding: 5em 5em 5em 5em;
   box-sizing: border-box;
-  background: #f6b055;
-  border-radius: 25px 25px 0px 25px;
+  border-radius: 75px;
+  color: #fff;
+  background-color: #AAA6A150;
 }
 
 .container2 {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 0px 25px 25px 0;
+  border-radius: 25px;
   padding: 2em;
   box-sizing: border-box;
   background: #119195;
+
 }
 
 .container3 {
@@ -274,20 +276,18 @@ code {
 .NewGame-title {
   font-weight: 900;
   font-size: 2em;
-  color: #01304e;
 }
 
 .inputs {
   text-align: left;
   margin-top: 2em;
-  color: #01304e;
 }
 
 .inputs2 {
   text-align: left;
   color: #01304e;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 2em;
 }
 
@@ -302,7 +302,6 @@ input {
 }
 
 .inputs, label {
-  color: #01304e;
   font-size: 1.2em;
 }
 
@@ -316,7 +315,8 @@ input {
   padding-left: 20px;
   height: 50px;
   font-size: 1em;
-  border-radius: 50px;
+  border-radius: 25px 25px 0px 25px;
+  color: #01304e !important;
 }
 
 select {
@@ -325,13 +325,19 @@ select {
   background-color: transparent !important;
   border: 0 !important;
   border-width: 0 !important;
+  background-color: #fff !important;
   color: #01304e !important;
+  padding: 12.5px;
+  padding-left: 20px;
+  width: 100%;
+  border-radius: 25px 25px 0px 25px;
 }
 
 select option {
   border-color: transparent !important;
   border: 0 !important;
   border-width: 0 !important;
+  color: #01304e;
 }
 
 option {
@@ -340,6 +346,7 @@ option {
 
 option:disabled:checked {
   border: 0 !important;
+  
 }
 
 select option:checked {
@@ -360,7 +367,8 @@ select option:checked {
 }
 
 .CreateAcc:hover {
-  background-color: #124b6e;
+  background-color: #f6af55;
+  color: #01304e;
 }
 
 .UploadBt {
