@@ -313,11 +313,11 @@ function App(props) {
         </Menu>*/}
 
       <Switch>
-        <Route exact path="/NewGame">
-          {/* pass in any web3 props to this Home component. For example, yourLocalBalance 
-          <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />*/}
+        {/* <Route exact path="/NewGame">
+          pass in any web3 props to this Home component. For example, yourLocalBalance 
+          <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
           <NewGame tx={tx} writeContracts={writeContracts} />
-        </Route>
+        </Route>*/}
 
         <Route exact path="/MyPlaces">
           <MyPlaces address={address} />
@@ -348,7 +348,7 @@ function App(props) {
         </Route>
 
         <Route exact path="/">
-          <HomeScreen />
+          <NewGame tx={tx} writeContracts={writeContracts} />
         </Route>
 
         <Route exact path="/debug">
