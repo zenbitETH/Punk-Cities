@@ -143,6 +143,10 @@ Nav {
   font-size: 2em;
 }
 
+.bigIcon3 {
+  font-size: 6em;
+}
+
 .huda, .hudb, .hudc, .hudd, .hude, .hudf{
   background-color: #aaa6a141;
   padding: 0.5em;

@@ -47,7 +47,7 @@ export default function NewGame({ tx, writeContracts }) {
             type="submit"
             onClick={() => tx(writeContracts.YourContract.registerUser(name, hometown))}
           >
-            Crear perfil
+            Start new game
           </div>
         </div>
       </div>

@@ -127,7 +127,7 @@ export default function Account({
             {/*<Balance address={address} provider={localProvider} price={price} />*/}
           </div>
           <div class="disconnect2" key="logoutbutton" onClick={logoutOfWeb3Modal}>
-            <div>Desconectar</div>
+            <div>Disconnect</div>
           </div>
         </div>
         <div class="center">
@@ -148,21 +148,21 @@ export default function Account({
       <nav className="leftHud">
         <a href="../NewPlace"><div className="huda">
           <div className='bigIcon'>⛲</div>
-          <div> Nuevo Lugar</div>
+          <div> New Place</div>
         </div></a>        
         <a href="../MyPlaces"><div className="hudb">
           <div className='bigIcon'>🌇 </div>
-          <div>Mi ciudad</div>
+          <div>My placs</div>
         </div></a>
         <a href="../CityPlaces"><div className="hudc">
           <div className='bigIcon'>🌎 </div>
-          <div>Explorar</div>
+          <div>All Places</div>
         </div></a>
       </nav>
       <nav className='rightHud'>
         <div className="hudd">
           <div className='bigIcon'>🌞</div>
-          <div>Ciudad DAO</div>
+          <div>DAO</div>
         </div>
         <div className="hude">
           <div className='bigIcon'>💬</div>
@@ -170,7 +170,7 @@ export default function Account({
         </div>
         <div className="hudf">
           <div className='bigIcon'>📖 </div>
-          <div>¿Cómo Jugar?</div>
+          <div>Docs</div>
         </div>
       </nav>
     </div>
@@ -181,13 +181,13 @@ export default function Account({
         <div>
           <div class="locked">
           <img src={PC} class="logo" alt="Punk Cities"/>
-          <div class="connect" key="loginbutton" onClick={loadWeb3Modal}>Conectar</div>
+          <div class="connect" key="loginbutton" onClick={loadWeb3Modal}>Connect</div>
           </div>
           
           <div class="options">
             <div>            
-              <div>¿Sin wallet para conectar?</div>
-              <div class="MetaBT">Obtener Wallet</div>
+              <div>No wallet to connect?</div>
+              <div class="MetaBT">Get wallet</div>
             </div>
           </div>
           <div class="zenbit">
