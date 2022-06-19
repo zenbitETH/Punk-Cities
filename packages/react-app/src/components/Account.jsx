@@ -146,18 +146,18 @@ export default function Account({
       </nav>
          
       <nav className="leftHud">
-        <div className="huda">
+        <a href="../NewPlace"><div className="huda">
           <div className='bigIcon'>⛲</div>
           <div> Nuevo Lugar</div>
-        </div>
-        <div className="hudb">
+        </div></a>        
+        <a href="../MyPlaces"><div className="hudb">
           <div className='bigIcon'>🌇 </div>
           <div>Mi ciudad</div>
-        </div>
-        <div className="hudc">
+        </div></a>
+        <a href="../CityPlaces"><div className="hudc">
           <div className='bigIcon'>🌎 </div>
           <div>Explorar</div>
-        </div>
+        </div></a>
       </nav>
       <nav className='rightHud'>
         <div className="hudd">
