@@ -142,36 +142,6 @@ export default function MyPlaces({ address }) {
 
   return (
     <div class="CityDiv">
-      <div class="CityMenu">
-        <a class="CityBT" href="./NewPlace">
-          New Place
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmYpNQUw9Pw48amwLnjjS7rDXRCB1xfo8DLZUJNnkYeQVo"}
-            class="homevan"
-          />
-        </a>
-        <a class="CityBT" href="./CityPlaces">
-          All places
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmSm6Ec8xEBTEB6ATkVmPybw4VRLiapm9K9fxLLxthgvq4"}
-            class="homevan"
-          />
-        </a>
-        <a class="CityBT" href="https://solarpunks.vercel.app/">
-          New Friends
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmPoSnaj68Lcbs8TiAT1Lg9aodWcXE27t94kjhAw8xYZwn"}
-            class="homevan2"
-          />
-        </a>
-        <a class="CityBT" type="submit" href="./debug">
-          🧙🏽 Wizard Mode (Hard){" "}
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmREGJmweJGKqWHFM1oF8WnsgMc9gTSV8t4ZkFBk3aBsPx"}
-            class="homevan"
-          />
-        </a>
-      </div>
       <div class="CityPlaces">
         <div class="PlaceQuest">
           <div class="QuestIc">⚡</div>My Solarpunk places

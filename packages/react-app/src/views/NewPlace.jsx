@@ -270,36 +270,6 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
 
   return (
     <div class="HomeDiv">
-      <div class="CityMenu">
-        <a class="CityBT" href="./MyPlaces">
-          My places
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmcbcgbhvpznC8zns7zRY5KKN1WvS1QQ7t1M3BaPjfUE9E"}
-            class="homevan"
-          />
-        </a>
-        <a class="CityBT" href="./CityPlaces">
-          All places
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmSm6Ec8xEBTEB6ATkVmPybw4VRLiapm9K9fxLLxthgvq4"}
-            class="homevan"
-          />
-        </a>
-        <a class="CityBT" href="https://solarpunks.vercel.app/">
-          New Friends{" "}
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmPoSnaj68Lcbs8TiAT1Lg9aodWcXE27t94kjhAw8xYZwn"}
-            class="homevan2"
-          />
-        </a>
-        <a class="CityBT" type="submit" href="./debug">
-          🧙🏽 Wizard Mode (Hard){" "}
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmREGJmweJGKqWHFM1oF8WnsgMc9gTSV8t4ZkFBk3aBsPx"}
-            class="homevan"
-          />
-        </a>
-      </div>
       <div class="NewGame">
         <div class="container2">
           <div class="NewPlace"></div>
