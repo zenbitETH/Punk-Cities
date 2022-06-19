@@ -50,9 +50,13 @@ a:hover {
 }
 
 .HomeDiv {
-  display: grid;
+  position: fixed;
   border-radius: 25px;
   margin-top: 2em;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 20%;
 }
 
 .homevan {
@@ -96,6 +100,7 @@ a:hover {
   padding: 5em 5em 5em 5em;
   box-sizing: border-box;
   background: #f6b055;
+  border-radius: 25px 25px 0px 25px;
 }
 
 .container2 {
@@ -267,7 +272,6 @@ code {
 }
 
 .NewGame-title {
-  margin-top: 10px;
   font-weight: 900;
   font-size: 2em;
   color: #01304e;
@@ -297,8 +301,8 @@ input {
   box-sizing: border-box;
 }
 
-label {
-  color: #ffffff;
+.inputs, label {
+  color: #01304e;
   font-size: 1.2em;
 }
 
@@ -313,7 +317,6 @@ input {
   height: 50px;
   font-size: 1em;
   border-radius: 50px;
-  color: #119195 !important;
 }
 
 select {

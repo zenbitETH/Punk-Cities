@@ -33,14 +33,13 @@
 .NewBT {
   height: 500px;
   width: 500px;
-  background-color: #AAA6A150;
   border-radius: 25px;
   padding: 1em;
   text-align: center;
 }
 
 .NewIMG {
-  max-width: 200px;
+  max-width: 150px;
   height: auto;
 }
 
@@ -51,7 +50,7 @@
   color: #01304E;
   transition: width 0.75s, height 0.5s;
   font-size: 1.5em;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 .NewDialog2 {
@@ -214,5 +213,9 @@
   }
   .hudf{
     border-radius: 0 0 0 25px;
+  }
+  .HomeDiv {
+    width: 40%;
+    top: 10%;
   }
 }
