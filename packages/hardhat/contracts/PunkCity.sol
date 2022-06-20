@@ -89,7 +89,7 @@ contract PunkCity is ERC1155 {
     /**
      * @dev Registering user in the game
      */
-    function registerUser(string memory _name, string memory _hometown, string memory _country) public {
+    function registerUser(string memory _name, string memory _hometown/* string memory _country*/) public {
 
         require(userRegistered[msg.sender] == false, "You are already registered");
 
@@ -98,7 +98,7 @@ contract PunkCity is ERC1155 {
 
         addressToUserDetail[msg.sender].name = _name;
         addressToUserDetail[msg.sender].hometown = _hometown;
-        addressToUserDetail[msg.sender].country = _country;
+        /*addressToUserDetail[msg.sender].country = _country;*/
     }
 
     /**
