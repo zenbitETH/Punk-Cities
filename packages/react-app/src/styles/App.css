@@ -218,4 +218,23 @@
     width: 40%;
     top: 10%;
   }
+
+  .AllDiv {
+    width: 80%;
+    top: 10%;
+  }
+
+  .CityDiv {
+    grid-template-columns: 1fr 1fr;
+    margin: 8em 10em 0em 10em;
+  }
+
+  .CityPlaces {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  
+  .CityPlaces3 {
+    grid-template-columns: repeat(7, minmax(0, 1fr)); 
+    grid-template-rows: repeat(4, minmax(0, 1fr)); 
+  }
 }
