@@ -1,9 +1,8 @@
-//SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 
-contract PunkCity is ERC1155 {
+contract PunkCities is ERC1155 {
 
     struct User {
         string name;
@@ -23,22 +22,34 @@ contract PunkCity is ERC1155 {
     address[] public registeredUsers;
 
     enum Type {
-        Public_Park,
-        Skate_Park,
-        Soccer_Field,
-        Basketball_Court,
-        Playground,
-        Outdoor_Gym,
-        ArtGallery_Museum,
-        Stadium,
-        Beach,
-        Recycling_Deposit,
-        Bus_Stop,
-        Library,
-        University,
-        Church_Temple,
-        Government_Office,
-        Tree
+         Basketball_court,
+         Bus_Stop,
+         City_Hall,
+         Cityzen_Theater,
+         Community_center,
+         Fireman_Station,
+         Hospital,
+         Kids_playground,
+         Landmark,
+         Open_air_gym,
+         Police_Station,
+         Public_Park,
+         Soccer_court,
+         Stadium,
+         Temple,
+         Art_Gallery,
+         Beach,
+         Bike_Road,
+         Camping_site,
+         Museum,
+         Recycling_can,
+         Skate_Park,
+         Library,
+         University,
+         Coworking_space,
+         Industrial_Park,
+         Tech_company,
+         Technology_Cluster
     }
 
     enum Quest {
@@ -89,7 +100,7 @@ contract PunkCity is ERC1155 {
     /**
      * @dev Registering user in the game
      */
-    function registerUser(string memory _name, string memory _hometown/* string memory _country*/) public {
+    function registerUser(string memory _name, string memory _hometown, string memory _country) public {
 
         require(userRegistered[msg.sender] == false, "You are already registered");
 
@@ -98,7 +109,7 @@ contract PunkCity is ERC1155 {
 
         addressToUserDetail[msg.sender].name = _name;
         addressToUserDetail[msg.sender].hometown = _hometown;
-        /*addressToUserDetail[msg.sender].country = _country;*/
+        addressToUserDetail[msg.sender].country = _country;
     }
 
     /**

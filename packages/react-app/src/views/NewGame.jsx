@@ -4,7 +4,7 @@ import NG from "../assets/NewGame.svg"
 export default function NewGame({ tx, writeContracts }) {
   const [name, setName] = useState("");
   const [hometown, setHometown] = useState("");
-  {/*const [country, setCountry] = useState("");*/}
+  const [country, setCountry] = useState("");
 
   const handleNameChange = e => {
     const name = e.target.value;
@@ -14,10 +14,10 @@ export default function NewGame({ tx, writeContracts }) {
     const hometown = e.target.value;
     setHometown(hometown);
   };
-  {/*const handleCountryChange = e => {
+  const handleCountryChange = e => {
     const country = e.target.value;
     setCountry(country);
-  };*/}
+  };
 
   return (
     <div class="HomeDiv">
@@ -29,23 +29,17 @@ export default function NewGame({ tx, writeContracts }) {
         <div class="container">
           <div class="NewGame-title">Answer</div>
           <div class="inputs">
-            <label>I am:</label>
-            <input type="text" onChange={handleNameChange} placeholder="Choose a name or nickname" />
-            <label>From:</label>
-            <select type="text" onChange={handleHometownChange} placeholder="The city where you are going to play">
-              <option disabled selected>
-                The city where you i going to play...
-              </option>
-              <option>Querétaro</option>
-              <option>CDMX</option>
-              <option>Bogotá</option>
-              <option>Global Citizen</option>
-            </select>
+            <label>Twitter profile URL</label>
+            <input type="text" onChange={handleNameChange} placeholder="https://twitter.com/YourAccount" />
+            <label>Current City or Hometown</label>
+            <input type="text" onChange={handleHometownChange} placeholder="Mexico City" />
+            <label>Your Country</label>
+            <input type="text" onChange={handleCountryChange} placeholder="Mexico" />
           </div>
           <div
             class="CreateAcc"
             type="submit"
-            onClick={() => tx(writeContracts.YourContract.registerUser(name, hometown))}
+            onClick={() => tx(writeContracts.YourContract.registerUser(name, hometown, country))}
           >
             Start new game
           </div>
