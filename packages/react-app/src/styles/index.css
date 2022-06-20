@@ -22,7 +22,7 @@ a:link {
 }
 
 a:active {
-  color: #01304e !important;
+  color: #01304e;
 }
 
 a:visited {
@@ -31,7 +31,7 @@ a:visited {
 
 a:hover {
   text-decoration: none;
-  color: #01304e;
+  color: #ffb34f;
 }
 
 .App {
@@ -47,6 +47,15 @@ a:hover {
   place-items: center;
   display: flex;
   font-family: "Exo 2";
+}
+
+.AllDiv {
+  position: fixed;
+  border-radius: 25px;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 20%;
 }
 
 .HomeDiv {
@@ -508,14 +517,11 @@ h1 {
 }
 
 .CityPlaces3 {
-  background-color: #cbced10c;
-  border-radius: 0px 25px 25px 0px;
   display: grid;
   align-items: center;
-  padding: 2em;
   grid-gap: 1em;
-  grid-template-columns: repeat(auto, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr)); 
+  grid-template-rows: repeat(6, minmax(0, 1fr)); 
 }
 
 .PlaceAsset {
@@ -748,6 +754,11 @@ h1 {
   height: 100%;
   color: #fff;
   position: relative;
+}
+
+.CityPL:hover {
+  background-color: #ffb34f25;
+
 }
 
 .CityPL2 {

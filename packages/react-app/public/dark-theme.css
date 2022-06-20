@@ -777,30 +777,7 @@ sub {
 sup {
   top: -0.5em;
 }
-a {
-  color: #2caad9;
-  text-decoration: none;
-  background-color: transparent;
-  outline: 0;
-  cursor: pointer;
-  transition: color 0.3s;
-  -webkit-text-decoration-skip: objects;
-}
-a:hover {
-  color: #287a99;
-}
-a:active {
-  color: #4eb3d2;
-}
-a:active,
-a:hover {
-  text-decoration: none;
-  outline: 0;
-}
-a:focus {
-  text-decoration: none;
-  outline: 0;
-}
+
 a[disabled] {
   color: rgba(255, 255, 255, 0.3);
   cursor: not-allowed;

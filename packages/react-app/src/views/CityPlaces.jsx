@@ -90,7 +90,7 @@ export default function CityPlaces({ address, readContracts, writeContracts, tx 
   }
 
   return (
-    <div class="CityDivAll">
+    <div className="AllDiv">
       <div class="CityPlaces3">
         <div class="PlaceQuest">
           <div class="QuestIc">🏙️</div>All places
