@@ -471,17 +471,10 @@ h1 {
 
 .CityDiv {
   display: grid;
-  grid-template-rows: 0.3fr 10fr;
-  padding: 3em 3em 3em 3em;
+  grid-template-rows: 1fr 1fr;
   border-radius: 25px;
-  margin-top: 2em;
-}
-
-.CityDivAll {
-  display: grid;
-  padding: 5em 5em 5em 5em;
-  border-radius: 25px;
-  margin-top: 3em;
+  margin: 8em 2em 0 2em;
+  gap: 1em;
 }
 
 .CityMenu {
@@ -501,8 +494,8 @@ h1 {
   align-items: center;
   padding: 2em;
   grid-gap: 1em;
-  grid-template-columns: repeat(auto, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr)); 
+  grid-template-rows: repeat(4, minmax(0, 1fr)); 
 }
 
 .CityPlaces2 {
@@ -512,8 +505,8 @@ h1 {
   align-items: center;
   padding: 2em;
   grid-gap: 1em;
-  grid-template-columns: repeat(auto, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr)); 
+  grid-template-rows: repeat(4, minmax(0, 1fr)); 
 }
 
 .CityPlaces3 {
