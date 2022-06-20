@@ -21,13 +21,13 @@ export default function NewGame({ tx, writeContracts }) {
 
   return (
     <div class="HomeDiv">
-      <div class="">
         <img class="NewIMG" src={NG}/>
         <div class="NewDialog">
           Welcome stranger<br/>
           Who are you and what city do you come from?
         </div>
         <div class="container">
+          <div class="NewGame-title">Answer</div>
           <div class="inputs">
             <label>I am:</label>
             <input type="text" onChange={handleNameChange} placeholder="Choose a name or nickname" />
@@ -50,7 +50,6 @@ export default function NewGame({ tx, writeContracts }) {
             Start new game
           </div>
         </div>
-      </div>
     </div>
   );
 }

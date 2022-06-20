@@ -21,6 +21,7 @@
   left: 50%;
   transform: translateX(-50%);
   bottom: 40%;
+  
 }
 
 
@@ -46,8 +47,7 @@
 .NewDialog {
   padding: 1em;
   border-radius: 0px 25px 25px 25px;
-  background-color: #ffffff;
-  color: #01304E;
+  background-color: #119195;
   transition: width 0.75s, height 0.5s;
   font-size: 1.5em;
   margin-bottom: 1em;
