@@ -45,7 +45,7 @@ export default function NewGame({ tx, writeContracts }) {
           <div
             class="CreateAcc"
             type="submit"
-            onClick={() => tx(writeContracts.YourContract.registerUser(name, hometown))}
+            onClick={() => tx(writeContracts.PunkCity.registerUser(name, hometown))}
           >
             Start new game
           </div>

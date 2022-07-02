@@ -160,7 +160,7 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
   const handleQuestTypeChange = e => setQuestType(e.target.value);
 
   const registerPlace = async () => {
-    const placeId = (await tx(readContracts.YourContract.placeId())).toString();
+    const placeId = (await tx(readContracts.PunkCity.placeId())).toString();
 
     const metadata = {
       version: "1.0.0",
@@ -194,7 +194,7 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
     let placeInput = convertPlaceType(placeType);
     let questInput = convertQuestType(questType);
 
-    tx(writeContracts.YourContract.registerPlace(placeInput, questInput, url));
+    tx(writeContracts.PunkCity.registerPlace(placeInput, questInput, url));
   };
 
   return (
