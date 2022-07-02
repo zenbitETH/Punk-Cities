@@ -7,7 +7,7 @@ const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey);
 
-const contractAddressLocal = "0x092BBe9022D421940B6D74799179267e5c822895"; // to find a better way to retrieve this address
+const contractAddressLocal = "0x7Afc190ea94f920563d057B868376fA7705D0f4C"; // to find a better way to retrieve this address
 const contractInstance = new web3.eth.Contract(PunkCityABI, contractAddressLocal);
 
 export default function MyPlaces() {
@@ -120,37 +120,6 @@ export default function MyPlaces() {
 
   return (
     <div class="CityDiv">
-      <div class="CityMenu">
-        <a class="CityBT" href="../NewPlace">
-          New Place
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmYpNQUw9Pw48amwLnjjS7rDXRCB1xfo8DLZUJNnkYeQVo"}
-            class="homevan"
-          />
-        </a>
-        <a class="CityBT" href="../MyPlaces">
-          My places
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmcbcgbhvpznC8zns7zRY5KKN1WvS1QQ7t1M3BaPjfUE9E"}
-            class="homevan"
-          />
-        </a>
-        <a class="CityBT" href="../CityPlaces">
-          My city places
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmSm6Ec8xEBTEB6ATkVmPybw4VRLiapm9K9fxLLxthgvq4"}
-            class="homevan"
-          />
-        </a>
-        <a class="CityBT" href="https://solarpunks.vercel.app/">
-          New Friends{" "}
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmPoSnaj68Lcbs8TiAT1Lg9aodWcXE27t94kjhAw8xYZwn"}
-            class="homevan2"
-          />
-
-        </a>
-      </div>
       <div class="PlaceAsset">
         <div class="AssetTl">
           <div class="">{`${ipfsResponse?.name} / ${ipfsResponse?.attributes[0].value}`}</div>

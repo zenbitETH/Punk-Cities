@@ -3,6 +3,7 @@ import { useThemeSwitcher } from "react-css-theme-switcher";
 
 import Address from "./Address";
 import Balance from "./Balance";
+import PC from "../assets/punkcities.png"
 import NetworkDisplay from "./NetworkDisplay";
 import Wallet from "./Wallet";
 import { PunkCityABI } from "../contracts/PunkCity";
@@ -12,7 +13,7 @@ const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey);
 
-const contractAddressLocal = "0x092BBe9022D421940B6D74799179267e5c822895"; // to find a better way to retrieve this address
+const contractAddressLocal = "0x7Afc190ea94f920563d057B868376fA7705D0f4C"; // to find a better way to retrieve this address
 const contractInstance = new web3.eth.Contract(PunkCityABI, contractAddressLocal);
 
 /** 
@@ -91,28 +92,7 @@ export default function Account({
     }, 800);
   }, []);
 
-  const modalButtons = [];
-  if (web3Modal) {
-    if (web3Modal.cachedProvider) {
-      modalButtons.push(
-        <div key="logoutbutton" shape="round" size="large" onClick={logoutOfWeb3Modal}>
-          🔌 Logout
-        </div>,
-      );
-    } else {
-      modalButtons.push(
-        <div
-          key="loginbutton"
-          shape="round"
-          size="large"
-          /* type={minimized ? "default" : "primary"}     too many people just defaulting to MM and having a bad time */
-          onClick={loadWeb3Modal}
-        >
-          🎮 Connect
-        </div>,
-      );
-    }
-  }
+
   const display = minimized ? (
     ""
   ) : (
@@ -134,18 +114,27 @@ export default function Account({
         <></>
       )}
     </span>
-  );
-
-  return (
-    <div class="center">
-      <nav class="topHud">
-        <div class="topGrid">
-          <div class="hud0"> {display}</div>
-          <div class="hud2">
-            <Balance address={address} provider={localProvider} price={price} />
+  )
+  
+  const modalButtons = [];
+  if (web3Modal) {
+    if (web3Modal.cachedProvider) {
+      modalButtons.push(
+      <div>
+        <div class="player">
+          <div class="disconnect">
+            <div> {display}</div>
+            {/*<Balance address={address} provider={localProvider} price={price} />*/}
           </div>
-          <div class="hud2"> ⚡ {energy ?? "..."}</div>
-          <div class="hud3"> 💽 {chip ?? "..."}</div>
+          <div class="disconnect2" key="logoutbutton" onClick={logoutOfWeb3Modal}>
+            <div>Disconnect</div>
+          </div>
+        </div>
+        <div class="center">
+      <nav class="topHud">
+          <div class="hud1">⛲ {energy ?? "..."}</div>
+          <div class="hud2">⚡ {energy ?? "..."}</div>
+          <div class="hud3">💽 {chip ?? "..."}</div>
           {/*<Wallet
             address={address}
             provider={localProvider}
@@ -154,21 +143,65 @@ export default function Account({
             price={price}
             color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
         />*/}
+      </nav>
+         
+      <nav className="leftHud">
+        <a href="../NewPlace"><div className="huda">
+          <div className='bigIcon'>⛲</div>
+          <div> New Place</div>
+        </div></a>        
+        <a href="../MyPlaces"><div className="hudb">
+          <div className='bigIcon'>🌇 </div>
+          <div>My placs</div>
+        </div></a>
+        <a href="../CityPlaces"><div className="hudc">
+          <div className='bigIcon'>🌎 </div>
+          <div>All Places</div>
+        </div></a>
+      </nav>
+      <nav className='rightHud'>
+        <div className="hudd">
+          <div className='bigIcon'>🌞</div>
+          <div>DAO</div>
+        </div>
+        <div className="hude">
+          <div className='bigIcon'>💬</div>
+          <div> Discord</div>
+        </div>
+        <div className="hudf">
+          <div className='bigIcon'>📖 </div>
+          <div>Docs</div>
         </div>
       </nav>
-      <nav class="bottomHud">
-        <div class="hud4">
-          <a href="https://github.com/zenbitETH/Punk-Cities" class="hudBalance">
-            Docs
-          </a>
+    </div>
+      </div>,
+      );
+    } else {
+      modalButtons.push(
+        <div>
+          <div class="locked">
+          <img src={PC} class="logo" alt="Punk Cities"/>
+          <div class="connect" key="loginbutton" onClick={loadWeb3Modal}>Connect</div>
+          </div>
+          
+          <div class="options">
+            <div>            
+              <div>No wallet to connect?</div>
+              <div class="MetaBT">Get wallet</div>
+            </div>
+          </div>
+          <div class="zenbit">
+            <a href="https://zenbit.mx">zenbit.eth /</a><span> 2022</span>
+          </div>
         </div>
-        <div class="hud5">{modalButtons}</div>
-        <div class="hud6">
-          <a href="" class="hudBalance">
-            Discord
-          </a>
-        </div>
-      </nav>
+        ,
+      );
+    }
+  };
+
+  return (
+    <div class="center">
+      {modalButtons}
     </div>
   );
 }

@@ -39,6 +39,7 @@ import {
   VerifyPlace,
   CityPlaces,
   HomeScreen,
+  Docs,
 } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 
@@ -312,11 +313,11 @@ function App(props) {
         </Menu>*/}
 
       <Switch>
-        <Route exact path="/NewGame">
-          {/* pass in any web3 props to this Home component. For example, yourLocalBalance 
-          <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />*/}
+        {/* <Route exact path="/NewGame">
+          pass in any web3 props to this Home component. For example, yourLocalBalance 
+          <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
           <NewGame tx={tx} writeContracts={writeContracts} />
-        </Route>
+        </Route>*/}
 
         <Route exact path="/MyPlaces">
           <MyPlaces address={address} />
@@ -342,8 +343,12 @@ function App(props) {
           <UpgradePlace address={address} />
         </Route>
 
+        <Route exact path="/Docs">
+          <Docs />
+        </Route>
+
         <Route exact path="/">
-          <HomeScreen />
+          <NewGame tx={tx} writeContracts={writeContracts} />
         </Route>
 
         <Route exact path="/debug">

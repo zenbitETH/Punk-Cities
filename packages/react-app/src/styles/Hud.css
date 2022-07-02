@@ -3,127 +3,169 @@
 Nav {
   font-family: 'Exo 2';
 }
+
+.player {
+  position: fixed;
+  top: 0;
+  right: 0;
+  border-radius: 0px 0 25px 25px;
+  z-index: 20;
+}
+
+.locked {
+  background-color: #212121;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+}
+
+.connect {
+  position: fixed;
+  bottom: 35%; 
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: #AAA6A150;
+  border-radius: 25px;
+  font-size: 3em;
+  z-index: 20;
+}
+
+.disconnect {
+  background-color: #119195;
+  font-size: 1em;
+  font-size: 1.2em;
+  padding: 0.5em 1em 0.5em 1em;
+}
+
+.disconnect2 {
+  background-color: #AAA6A1;
+  font-size: 1em;
+}
+
+.connect:hover, .disconnect2:hover {
+  background-color: #F6AF55;
+  color: #01304E;
+  cursor: pointer;
+}
+
+.disconnect2 {
+  cursor: pointer;
+  border-radius: 0 0 25px 25px;
+  padding: 0.75em 1em 0.75em 1em;
+}
+
+.options {
+  position: fixed;
+  bottom: 15%; 
+  width: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1em;
+  font-size: clamp(1.2em, -1.2em + 2vw, 2.35rem);
+  
+}
+
+.MetaBT, .HowBT {
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: #AAA6A150;
+  border-radius: 25px;
+  margin-top: 1em;
+}
+
+.zenbit {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
   
 .topHud{
   position: fixed;
-  top: 0;
+  top: 0; 
   overflow: hidden;
-  width: 100%;
+  width: 65%;
   z-index: 2;
-  font-size: clamp(1.2em, -1.2em + 2vw, 2.35rem);}
-  
-.topGrid{
+  font-size: clamp(2em, -1.2em + 2vw, 2.35rem);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr)); 
+}
+  
+.leftHud, .rightHud {
+  display: grid; 
+  position: fixed; 
+  bottom: 0;
+  font-size: clamp(1.2em, -1.2em + 2vw, 2.35rem);
+  line-height: 1.25rem; 
+  font-weight: 500; 
+  align-items: center; 
+  grid-template-columns: repeat(3, minmax(0, 1fr)); 
 }
 
-.bottomHud {
-  display: grid;
-  width:100%;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  font-size: clamp(1.2em, -1.2em + 2vw, 2.35rem);
-  font-family: "Exo 2";
-  position: fixed;
-  bottom: 0;
-  z-index: 2;
-  margin-left: 0;
-  align-self: center;
+.rightHud {
+  right: 0; 
 }
-  
-.hud0{
-  color:#01304E !important;
-  background: linear-gradient(180deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
+
+.hud1, .hud2, .hud3 {
+  background-color: #aaa6a141;
   background-size: 100% 100%;
   z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em;
-  border-radius: 0 0 0 25px ;
+  padding: 0.75em 0.5em 0.75em 0.5em;
+}
+
+.hud1, .hud2, .hud3 {
+  grid-column: span 2 / span 2;
 }
 
 .hud1 {
-  color: #fff !important;
-  background: linear-gradient(180deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
-  background-size: 100% 100%;
-  z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em ;
-  border-radius:  0 0 0 0;
-}
-
-.hud1:hover {
-  cursor: pointer;
-  background-size: 200% 200%;
-  animation: gradient 2s ease infinite;
-  color: #fff !important;
-}
-
-.hud2 {
-  color: #fff !important;
-  background: linear-gradient(180deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
-  background-size: 100% 100%;
-  z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em ;
-  border-radius:  0 0 0 0;
+  border-radius:  0 0 0 25px;
+  border-right: solid;
+  border-color: #AAA6A115;
 }
 
 .hud3 {
-  color: #ffffff;
-  background: linear-gradient(180deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
-  background-size: 100% 100%;
-  z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em ;
-  border-radius:  0 0 25px 0px;
+  border-radius:  0 0 25px 0px; 
+  border-left: solid;
+  border-color: #AAA6A115;
 }
 
-.hud4 {
-  color: #fff !important;
-  background: linear-gradient(0deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
-  background-size: 100% 100%;
-  z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em ;
-  border-radius:  25px 0 0 0;
+.bigIcon {
+  font-size: 2em;
+  margin: 0.5em;
 }
 
-.hud4:hover {
+.bigIcon2 {
+  font-size: 2em;
+}
+
+.bigIcon3 {
+  font-size: 6em;
+}
+
+.huda, .hudb, .hudc, .hudd, .hude, .hudf{
+  background-color: #aaa6a141;
+  padding: 0.5em;
+  border-style: none;
   cursor: pointer;
-  background-size: 200% 200%;
-  animation: gradient 2s ease infinite;
-  color: #fff !important;
+}
+.huda:hover, .hudb:hover, .hudc:hover, .hudd:hover, .hude:hover, .hudf:hover  {
+  background-color: #F6AF55;
+  color: #01304E;
 }
 
-.hud5 {
-  color: #fff !important;
-  background: linear-gradient(180deg,  #f6b0559d, #f6b0559d,#f6b0559d, #b3803e85);
-  background-size: 100% 100%;
-  z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em ;
-  border-radius:  0 0 0 0;
+.huda {
+  border-radius:  0px 0 0px 0px;
 }
 
-.hud5:hover {
-  cursor: pointer;
-  background-size: 200% 200%;
-  animation: gradient 2s ease infinite;
-  color: #fff !important;
+.hudc {
+  border-radius:  0px 25px 0px 0px;
 }
 
-.hud6 {
-  color: #fff !important;
-  background: linear-gradient(0deg, #aaa6a170, #aaa6a141,#aaa6a141, #aaa6a141);
-  background-size: 100% 100%;
-  z-index: 1;
-  padding: 0.25em 0.5em 0.25em 0.5em ;
-  border-radius:  0 25px 0 0;
+.hudd {
+  border-radius:  25px 0px 0px 0px;
 }
-
-.hud6:hover {
-  cursor: pointer;
-  background-size: 200% 200%;
-  animation: gradient 2s ease infinite;
-  color: #fff !important;
-}
-
-
-
-
-
-
-

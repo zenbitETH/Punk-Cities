@@ -5,8 +5,8 @@ import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom";
 import App from "./App";
 import "./styles/index.css";
+import "./styles/App.css";
 import "./styles/Hud.css";
-import "./styles/Breakpoints.css"
 
 const themes = {
   dark: `${process.env.PUBLIC_URL}/dark-theme.css`,

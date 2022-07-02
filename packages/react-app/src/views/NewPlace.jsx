@@ -7,188 +7,116 @@ const ipfs = new IPFS({ host: "ipfs.infura.io", port: 5001, protocol: "https" })
 
 //list to update
 const convertPlaceType = placeInput => {
-  if (placeInput === "1 Basketball court") {
+  if (placeInput === "⛲ Public Park") {
     return 0;
-  } else if (placeInput === "2 Bus Stop") {
+  } else if (placeInput === "🛹 Skate Park") {
     return 1;
-  } else if (placeInput === "3 City Hall") {
+  } else if (placeInput === "⚽ Soccer Field") {
     return 2;
-  } else if (placeInput === "4 Cityzen Theater") {
+  } else if (placeInput === "🏀 Basketball Court") {
     return 3;
-  } else if (placeInput === "5 Community center") {
+  } else if (placeInput === "😄 Playground") {
     return 4;
-  } else if (placeInput === "6 Fireman Station") {
+  } else if (placeInput === "🏋️‍♀️ Outdoor Gym") {
     return 5;
-  } else if (placeInput === "7 Hospital") {
+  } else if (placeInput === "🎭 Art Gallery / Museum") {
     return 6;
-  } else if (placeInput === "8 Kid´s playground") {
+  } else if (placeInput === "🏟️ Stadium") {
     return 7;
-  } else if (placeInput === "9 Landmark") {
+  } else if (placeInput === "🏖️ Beach") {
     return 8;
-  } else if (placeInput === "10 Open-air gym") {
+  } else if (placeInput === "♻️ Recycling Deposit") {
     return 9;
-  } else if (placeInput === "11 Police Station") {
+  } else if (placeInput === "🚏 Bus stop") {
     return 10;
-  } else if (placeInput === "12 Public Park") {
+  } else if (placeInput === "📚 Library") {
     return 11;
-  } else if (placeInput === "13 Soccer court") {
+  } else if (placeInput === "🎓 University") {
     return 12;
-  } else if (placeInput === "14 Stadium") {
+  } else if (placeInput === "⛪ Church or Temple") {
     return 13;
-  } else if (placeInput === "15 Temple") {
+  } else if (placeInput === "🗳️ Government Office") {
     return 14;
-  } else if (placeInput === "16 Art Gallery") {
+  } else if (placeInput === "🌳 Tree") {
     return 15;
-  } else if (placeInput === "17 Beach") {
-    return 16;
-  } else if (placeInput === "18 Bike Road") {
-    return 17;
-  } else if (placeInput === "19 Camping site") {
-    return 18;
-  } else if (placeInput === "20 Museum") {
-    return 19;
-  } else if (placeInput === "21 Recycling can") {
-    return 20;
-  } else if (placeInput === "22 Skate Park") {
-    return 21;
-  } else if (placeInput === "23 Library") {
-    return 22;
-  } else if (placeInput === "24 University") {
-    return 23;
-  } else if (placeInput === "25 Co-working space") {
-    return 24;
-  } else if (placeInput === "26 Industrial Park") {
-    return 25;
-  } else if (placeInput === "27 Tech company") {
-    return 26;
-  } else if (placeInput === "28 Technology Cluster") {
-    return 27;
   } else {
     return 0;
   }
 };
 
 const formatPlaceType = placeInput => {
-  if (placeInput === "1 Basketball court") {
-    return "Basketball court";
-  } else if (placeInput === "2 Bus Stop") {
-    return "Bus Stop";
-  } else if (placeInput === "3 City Hall") {
-    return "City Hall";
-  } else if (placeInput === "4 Cityzen Theater") {
-    return "Cityzen Theater";
-  } else if (placeInput === "5 Community center") {
-    return "Community center";
-  } else if (placeInput === "6 Fireman Station") {
-    return "Fireman Station";
-  } else if (placeInput === "7 Hospital") {
-    return "Hospital";
-  } else if (placeInput === "8 Kid´s playground") {
-    return "Kid´s playground";
-  } else if (placeInput === "9 Landmark") {
-    return "Landmark";
-  } else if (placeInput === "10 Open-air gym") {
-    return "Open-air gym";
-  } else if (placeInput === "11 Police Station") {
-    return "Police Station";
-  } else if (placeInput === "12 Public Park") {
+  if (placeInput === "⛲ Public Park") {
     return "Public Park";
-  } else if (placeInput === "13 Soccer court") {
-    return "Soccer court";
-  } else if (placeInput === "14 Stadium") {
-    return "Stadium";
-  } else if (placeInput === "15 Temple") {
-    return "Temple";
-  } else if (placeInput === "16 Art Gallery") {
-    return 15;
-  } else if (placeInput === "17 Beach") {
-    return "Art Gallery";
-  } else if (placeInput === "18 Bike Road") {
-    return "Bike Road";
-  } else if (placeInput === "19 Camping site") {
-    return "Camping site";
-  } else if (placeInput === "20 Museum") {
-    return "Museum";
-  } else if (placeInput === "21 Recycling can") {
-    return "Recycling can";
-  } else if (placeInput === "22 Skate Park") {
+  } else if (placeInput === "🛹 Skate Park") {
     return "Skate Park";
-  } else if (placeInput === "23 Library") {
+  } else if (placeInput === "⚽ Soccer Field") {
+    return "Soccer Field";
+  } else if (placeInput === "🏀 Basketball Court") {
+    return "Basketball court";
+  } else if (placeInput === "😄 Playground") {
+    return "Playground";
+  } else if (placeInput === "🏋️‍♀️ Outdoor Gym") {
+    return "Outdoor gym";
+  } else if (placeInput === "🎭 Art Gallery / Museum") {
+    return "Art Gallery / Museum";
+  } else if (placeInput === "🏟️ Stadium") {
+    return "Stadium";
+  } else if (placeInput === "🏖️ Beach") {
+    return "Beach";
+  } else if (placeInput === "♻️ Recycling Deposit") {
+    return "Recycling Deposit";
+  } else if (placeInput === "🚏 Bus stop") {
+    return "Bus Stop";
+  } else if (placeInput === "📚 Library") {
     return "Library";
-  } else if (placeInput === "24 University") {
+  } else if (placeInput === "🎓 University") {
     return "University";
-  } else if (placeInput === "25 Co-working space") {
-    return "Co-working space";
-  } else if (placeInput === "26 Industrial Park") {
-    return "Industrial Park";
-  } else if (placeInput === "27 Tech company") {
-    return "Tech company";
-  } else if (placeInput === "28 Technology Cluster") {
-    return "Technology Cluster";
+  } else if (placeInput === "⛪ Church or Temple") {
+    return "Church or Temple";
+  } else if (placeInput === "🗳️ Government Office") {
+    return "Government Office";
+  } else if (placeInput === "🌳 Tree") {
+    return "Tree";
   } else {
     return "NA";
   }
 };
 
 const returnImagePerPlace = placeInput => {
-  if (placeInput === "1 Basketball court") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/1-Basketball-Court.png";
-  } else if (placeInput === "2 Bus Stop") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/2-Bus-Stop.png";
-  } else if (placeInput === "3 City Hall") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/3%20City%20Hall.png";
-  } else if (placeInput === "4 Cityzen Theater") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/4-Citizen-Theatre.png";
-  } else if (placeInput === "5 Community center") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/5-Community-Center.png";
-  } else if (placeInput === "6 Fireman Station") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/6-Fireman-station.png";
-  } else if (placeInput === "7 Hospital") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/7-Hospital.png";
-  } else if (placeInput === "8 Kid´s playground") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/8-Kids-Playground.png";
-  } else if (placeInput === "9 Landmark") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/9-Landmark.png";
-  } else if (placeInput === "10 Open-air gym") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/10-Open-air-Gym.png";
-  } else if (placeInput === "11 Police Station") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/11.Police-Station.png";
-  } else if (placeInput === "12 Public Park") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/12.Public-Park.png";
-  } else if (placeInput === "13 Soccer court") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/12.Public-Park.png";
-  } else if (placeInput === "14 Stadium") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/14-Stadium.png";
-  } else if (placeInput === "15 Temple") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/15-Temple.png";
-  } else if (placeInput === "16 Art Gallery") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/16-Art-Gallery.png";
-  } else if (placeInput === "17 Beach") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/17-Bech.png";
-  } else if (placeInput === "18 Bike Road") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/18-Bike-Road.png";
-  } else if (placeInput === "19 Camping site") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/19-camping-site.png";
-  } else if (placeInput === "20 Museum") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/20-Museum.png";
-  } else if (placeInput === "21 Recycling can") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/21-Recycling-center.png";
-  } else if (placeInput === "22 Skate Park") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/22-Skate-Park.png";
-  } else if (placeInput === "23 Library") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/23-Library.png";
-  } else if (placeInput === "24 University") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/24-University.png";
-  } else if (placeInput === "25 Co-working space") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/25-CoWorking-Space.png";
-  } else if (placeInput === "26 Industrial Park") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/26-Industrial-Park.png";
-  } else if (placeInput === "27 Tech company") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/27-Tech-Company.png";
-  } else if (placeInput === "28 Technology Cluster") {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/28-Tech-Cluster.png";
+  if (placeInput === "⛲ Public Park") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/0-Public-Park.png";
+  } else if (placeInput === "🛹 Skate Park") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/1-Skate-Park.png";
+  } else if (placeInput === "⚽ Soccer Field") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/2-Soccer-Court.png";
+  } else if (placeInput === "🏀 Basketball Court") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/3-Basketball-Court.png";
+  } else if (placeInput === "😄 Playground") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/4-Kids-Playground.png";
+  } else if (placeInput === "🏋️‍♀️ Outdoor Gym") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/5-Open-air-Gym.png";
+  } else if (placeInput === "🎭 Art Gallery / Museum") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/6-Art-Gallery.png";
+  } else if (placeInput === "🏟️ Stadium") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/7-Stadium.png";
+  } else if (placeInput === "🏖️ Beach") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/8-Bech.png";
+  } else if (placeInput === "♻️ Recycling Deposit") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/9-Recycling-center.png";
+  } else if (placeInput === "🚏 Bus stop") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/10-Bus-Stop.png";
+  } else if (placeInput === "📚 Library") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/11-Library.png";
+  } else if (placeInput === "🎓 University") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/12-University.png";
+  } else if (placeInput === "⛪ Church or Temple") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/13-Temple.png";
+  } else if (placeInput === "🗳️ Government Office") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/14-Goverment%20office.png";
+  } else if (placeInput === "🌳 Tree") {
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/15-Tree.png";
   } else {
-    return "https://punkcities.mypinata.cloud/ipfs/bafybeidufeb4xfrzwgzcx3iaabbyu7ck7p2tij3c2w2azixolxmlyouqii/28-Tech-Cluster.png";
+    return "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/0-Public-Park.png";
   }
 };
 
@@ -223,7 +151,8 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
     setPlaceType(e.target.value);
     const image3D = returnImagePerPlace(e.target.value);
     setImage3D(image3D);
-    const image3DWithourUrl = image3D.replace("https://punkcities.mypinata.cloud/ipfs/", "ipfs://");
+    //Is this the correct way to set the 3d asset url? //
+    const image3DWithourUrl = image3D.replace("https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/", "ipfs://");
     setImage(image3DWithourUrl);
   };
   const handleAddressChange = e => setAddress(e.target.value);
@@ -231,7 +160,7 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
   const handleQuestTypeChange = e => setQuestType(e.target.value);
 
   const registerPlace = async () => {
-    const placeId = (await tx(readContracts.YourContract.placeId())).toString();
+    const placeId = (await tx(readContracts.PunkCity.placeId())).toString();
 
     const metadata = {
       version: "1.0.0",
@@ -265,114 +194,60 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
     let placeInput = convertPlaceType(placeType);
     let questInput = convertQuestType(questType);
 
-    tx(writeContracts.YourContract.registerPlace(placeInput, questInput, url));
+    tx(writeContracts.PunkCity.registerPlace(placeInput, questInput, url));
   };
 
   return (
     <div class="HomeDiv">
-      <div class="CityMenu">
-        <a class="CityBT" href="./MyPlaces">
-          My places
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmcbcgbhvpznC8zns7zRY5KKN1WvS1QQ7t1M3BaPjfUE9E"}
-            class="homevan"
-          />
-        </a>
-        <a class="CityBT" href="./CityPlaces">
-          All places
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmSm6Ec8xEBTEB6ATkVmPybw4VRLiapm9K9fxLLxthgvq4"}
-            class="homevan"
-          />
-        </a>
-        <a class="CityBT" href="https://solarpunks.vercel.app/">
-          New Friends{" "}
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmPoSnaj68Lcbs8TiAT1Lg9aodWcXE27t94kjhAw8xYZwn"}
-            class="homevan2"
-          />
-        </a>
-        <a class="CityBT" type="submit" href="./debug">
-          🧙🏽 Wizard Mode (Hard){" "}
-          <img
-            src={"https://punkcities.mypinata.cloud/ipfs/QmREGJmweJGKqWHFM1oF8WnsgMc9gTSV8t4ZkFBk3aBsPx"}
-            class="homevan"
-          />
-        </a>
-      </div>
-      <div class="NewGame">
-        <div class="container2">
-          <div class="NewPlace"></div>
-          <div class="NewGame-title">New Place</div>
-          <div class="inputs2">
-            <label for="TypeOfPlace">
-              Type of place: <br />
-              <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handlePlaceTypeChange}>
-                <option disabled selected>
-                  The place I want to register is...
-                </option>
-                <option>1 Basketball court</option>
-                <option>2 Bus Stop</option>
-                <option>3 City Hall</option>
-                <option>4 Cityzen Theater</option>
-                <option>5 Community center</option>
-                <option>6 Fireman Station</option>
-                <option>7 Hospital</option>
-                <option>8 Kid´s playground</option>
-                <option>9 Landmark</option>
-                <option>10 Open-air gym</option>
-                <option>11 Police Station</option>
-                <option>12 Public Park</option>
-                <option>13 Soccer court</option>
-                <option>14 Stadium</option>
-                <option>15 Temple</option>
-                <option>16 Art Gallery</option>
-                <option>17 Beach</option>
-                <option>18 Bike Road</option>
-                <option>19 Camping site</option>
-                <option>20 Museum</option>
-                <option>21 Recycling can</option>
-                <option>22 Skate Park</option>
-                <option>23 Library</option>
-                <option>24 University</option>
-                <option>25 Co-working space</option>
-                <option>26 Industrial Park</option>
-                <option>27 Tech company</option>
-                <option>28 Technology Cluster</option>
-              </select>
-            </label>
+      <div class="container">
+        <div class="NewGame-title">New Place</div>
+        <div class="inputs">
+          <label for="TypeOfPlace">Type of place:</label>
+          <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handlePlaceTypeChange}>
+            <option disabled selected>
+              The place I want to register is...
+            </option>
+            <option>⛲ Public Park</option>
+            <option>🛹 Skate Park</option>
+            <option>⚽ Soccer Field</option>
+            <option>🏀 Basket Court</option>
+            <option>😄 Playground</option>
+            <option>🏋️‍♀️ Outdoor Gym</option>
+            <option>🎭 Art Gallery / Museum</option>
+            <option>🏟️ Stadium</option>
+            <option>🏖️ Beach</option>
+            <option>♻️ Recycling Deposit</option>
+            <option>🚏 Bus stop</option>
+            <option>📚 Library</option>
+            <option>🎓 University</option>
+            <option>⛪ Church or Temple</option>
+            <option>🗳️ Government Office</option>
+            <option>🌳 Tree</option>
+          </select>
 
-            <label>
-              Name:
-              <input type="text" placeholder="How this place is named in your city?" onChange={handleNameChange} />
-            </label>
+          <label>Name:</label>
+          <input type="text" placeholder="How this place is named in your city?" onChange={handleNameChange} />
 
-            <label>
-              Address
-              <input type="text" placeholder="Paste the Address from google maps" onChange={handleAddressChange} />
-            </label>
+          <label>Address</label>
+          <input type="text" placeholder="Paste the Address from google maps" onChange={handleAddressChange} />
 
-            <label>
-              Tags
-              <input type="text" placeholder="Camping, Climbing, Nature" onChange={handleTagChange} />
-            </label>
+          <label>Tags</label>
+            <input type="text" placeholder="Camping, Climbing, Nature" onChange={handleTagChange} />
+          <label>Choose your quest in this place:</label>
+          <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handleQuestTypeChange}>
+            <option disabled selected>
+              The quest defines the reward!
+            </option>
+            <option>1 Solarpunk (+1⚡)</option>
+            <option>2 Cyberpunk (+1💽)</option>
+          </select>
+        </div>
 
-            <label>
-              Choose your quest in this place:
-              <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handleQuestTypeChange}>
-                <option disabled selected>
-                  The quest defines the reward!
-                </option>
-                <option>1 Solarpunk (+1⚡)</option>
-                <option>2 Cyberpunk (+1💽)</option>
-              </select>
-            </label>
-          </div>
-          <div class="CreatePL" type="submit" onClick={registerPlace}>
-            Register New Place
-          </div>
+        <div class="CreatePL" type="submit" onClick={registerPlace}>
+          Register New Place
         </div>
       </div>
+      
     </div>
   );
 }
