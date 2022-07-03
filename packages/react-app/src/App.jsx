@@ -253,7 +253,7 @@ function App(props) {
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name*/}
-            <NetworkDisplay
+      <NetworkDisplay
         NETWORKCHECK={NETWORKCHECK}
         localChainId={localChainId}
         selectedChainId={selectedChainId}
@@ -357,7 +357,7 @@ function App(props) {
             */}
 
           <Contract
-            name="YourContract"
+            name="PunkCity"
             // price={price}
             signer={userSigner}
             provider={localProvider}

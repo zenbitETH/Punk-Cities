@@ -15427,13 +15427,8 @@ level-ws@^2.0.0:
     readable-stream "^3.1.0"
     xtend "^4.0.1"
 
-level@^7.0.0:
+level@^7.0.0, "level@https://github.com/buu700/level-null":
   version "7.0.0"
-  resolved "git+ssh://git@github.com/buu700/level-null.git#0dd9119a22f7a4e6dac889be87e1dbbf44d52aa8"
-
-"level@https://github.com/buu700/level-null":
-  version "7.0.0"
-  uid "0dd9119a22f7a4e6dac889be87e1dbbf44d52aa8"
   resolved "https://github.com/buu700/level-null#0dd9119a22f7a4e6dac889be87e1dbbf44d52aa8"
 
 levelup@3.1.1, levelup@^3.0.0:

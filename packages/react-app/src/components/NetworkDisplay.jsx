@@ -19,14 +19,14 @@ function NetworkDisplay({
       networkDisplay = (
         <div style={{ zIndex: 2, position: "absolute", right: 0, top: 60, padding: 16 }}>
           <Alert
+            className="networkAlert"
             message="⚠️ Wrong Network ID"
             description={
               <div>
                 You have <b>chain id 1337</b> for localhost and you need to change it to <b>31337</b> to work with
                 HardHat.
                 <div>(MetaMask -&gt; Settings -&gt; Networks -&gt; Chain ID -&gt; 31337)</div>
-              </div>
-            }
+              </div>}
             type="error"
             closable={false}
           />
@@ -34,13 +34,17 @@ function NetworkDisplay({
       );
     } else {
       networkDisplay = (
-        <div style={{ zIndex: 2, position: "absolute", right: 0, top: 60, padding: 16 }}>
+        <div >
           <Alert
-            message="⚠️ Wrong Network"
+            className="networkAlert"
             description={
               <div>
-                You have <b>{networkSelected && networkSelected.name}</b> selected and you need to be on{" "}
-                <Button
+                <div class="alertTitle"><div class="alertIcon">⚠️</div>Wrong Network</div> 
+                <div class="alertText">
+                  You are connected to <b>{networkSelected && networkSelected.name}</b>, please switch to Polygon Testnet {" "}
+                </div>
+                <div
+                  class="alertBT"
                   onClick={async () => {
                     const ethereum = window.ethereum;
                     const data = [
@@ -78,8 +82,8 @@ function NetworkDisplay({
                     }
                   }}
                 >
-                  <b>{networkLocal && networkLocal.name}</b>
-                </Button>
+                  <div>Switch to Polygon Testnet</div>
+                </div>
               </div>
             }
             type="error"
@@ -90,8 +94,8 @@ function NetworkDisplay({
     }
   } else {
     networkDisplay = USE_NETWORK_SELECTOR ? null : (
-      <div style={{ zIndex: -1, position: "absolute", right: 154, top: 28, padding: 16, color: targetNetwork.color }}>
-        {targetNetwork.name}
+      <div>
+        {/*targetNetwork.name*/}
       </div>
     );
   }
