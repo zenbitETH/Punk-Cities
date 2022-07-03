@@ -152,7 +152,7 @@ export default function Account({
         </div></a>        
         <a href="../MyPlaces"><div className="hudb">
           <div className='bigIcon'>🌇 </div>
-          <div>My placs</div>
+          <div>My places</div>
         </div></a>
         <a href="../CityPlaces"><div className="hudc">
           <div className='bigIcon'>🌎 </div>
