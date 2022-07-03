@@ -252,8 +252,8 @@ function App(props) {
 
   return (
     <div className="App">
-      {/* ✏️ Edit the header and change the title to your project name
-            <NetworkDisplay
+      {/* ✏️ Edit the header and change the title to your project name*/}
+      <NetworkDisplay
         NETWORKCHECK={NETWORKCHECK}
         localChainId={localChainId}
         selectedChainId={selectedChainId}
@@ -261,8 +261,6 @@ function App(props) {
         logoutOfWeb3Modal={logoutOfWeb3Modal}
         USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
       />
-       */}
-
       {/*
         <Menu
         style={{ textAlign: "center", paddingTop: 40, border: "none", background: "none" }}
@@ -359,7 +357,7 @@ function App(props) {
             */}
 
           <Contract
-            name="YourContract"
+            name="PunkCity"
             // price={price}
             signer={userSigner}
             provider={localProvider}

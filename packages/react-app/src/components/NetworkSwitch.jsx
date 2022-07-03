@@ -9,7 +9,7 @@ function NetworkSwitch({ networkOptions, selectedNetwork, setSelectedNetwork }) 
         .map(i => (
           <Menu.Item key={i}>
             <Button type="text" onClick={() => setSelectedNetwork(i)}>
-              <span style={{ textTransform: "capitalize" }}>{i}</span>
+              <span>{i}</span>
             </Button>
           </Menu.Item>
         ))}

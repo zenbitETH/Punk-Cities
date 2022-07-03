@@ -34,9 +34,58 @@ a:hover {
   color: #ffb34f;
 }
 
+body {
+ background-color: #192024;  
+}
+
 .App {
   text-align: center;
   font-family: "Exo 2";
+  color: white;
+}
+
+.networkAlert {
+  background: linear-gradient(90deg, #dc3840de, #e26c72de, #dc3840de);
+  background-size: 200% 200%;
+  animation: gradient 2s ease infinite;
+  border: none;
+  height: 100vh;
+  font-family: 'Exo 2';
+  z-index: 5;  
+  align-items: center;
+  color: white;
+}
+
+.alertTitle {
+  font-size: 4em;
+}
+
+.alertText {
+  font-size: 1.5em;
+  margin: 2em;
+}
+
+.alertIcon {
+  font-size: 2em;
+  margin: 0.75em;
+  margin-top: -1.25em;
+}
+
+.alertBT {
+  background-color: #01304e;
+  font-size: 2em;
+  padding: 1em;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  border-radius: 25px;
+}
+
+.alertBT:hover {
+  background-color: #f6af55;
+  cursor: pointer;
+  color: #01304e;
 }
 
 
