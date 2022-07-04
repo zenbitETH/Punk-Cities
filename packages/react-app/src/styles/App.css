@@ -21,11 +21,10 @@
   left: 50%;
   transform: translateX(-50%);
   bottom: 40%;
-  
 }
 
 
-.HomeBT:hover, .MetaBT:hover, .HowBT:hover {
+.HomeBT:hover, .MetaBT:hover, .HowBT:hover, .GMaps:hover, .HowBG:hover, .CreateAcc:hover {
   background-color: #F6AF55;
   cursor: pointer;
   color: #01304E;
@@ -106,12 +105,6 @@
   background-color: #AAA6A150;
 }
 
-.HowBG:hover {
-  background-color: #F6AF55;
-  color: #01304E;
-  
-}
-
 .HowIcon {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem; 
@@ -150,6 +143,7 @@
     bottom: 25% !important; 
     font-size: 2em !important;
   }
+  
   .disconnect, .disconnect2 {
     padding: 0.25em 1em 0.25em 1em !important;
     font-size: 1.2em !important;
@@ -159,10 +153,12 @@
     bottom: 5% !important; 
     width: 15% !important;
   }
+
   .hero {
     padding: 10em 5em 0 5em;
     height: 100vh;
   }
+
   .heroText {
     font-size: 2.5rem;
     line-height: 1; 
@@ -175,19 +171,21 @@
 
   .HowGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr)); 
-
   }
+
   .logo {
     height: 600px;
     width: 600px;
     bottom: 30%;
   }
+
   .topHud {
     padding: 0 10em 0 10em;
     width: 50% !important;
     left: 50%;
     transform: translateX(-50%);
   }
+
   .rightHud {
     grid-template-columns: 1fr !important; 
     top: 5em; 
@@ -199,21 +197,27 @@
     top: 5em; 
     bottom: auto !important; 
   }
+
   .hud1, .hud2, .hud3 {
     padding: 0.25em 0.5em 0.25em 0.5em !important;
   }
+
   .huda{
     border-radius: 0 25px 0 0 !important;
   }
+
   .hudc{
     border-radius: 0 0 25px 0 !important;
   }
+
   .hudd{
     border-radius: 25px 0 0 0 !important;
   }
+
   .hudf{
     border-radius: 0 0 0 25px;
   }
+
   .HomeDiv {
     width: 40%;
     top: 10%;
@@ -225,8 +229,8 @@
   }
 
   .CityDiv {
-    grid-template-columns: 1fr 1fr;
-    margin: 8em 10em 0em 10em;
+    grid-template-columns: 2fr 1fr;
+    padding: 8em 10em 0em 10em;
   }
 
   .CityPlaces {
@@ -242,4 +246,17 @@
     width: 25% !important;
     border-radius: 25px;
   }
+
+  .PLDetail {
+    height: 50em;
+  }
+
+  .AssetTl {
+    font-size: 3em;
+  }
+
+  .VerBt {
+    padding: 0.5em 0em 0.75em 0em;
+  }
+  
 }
