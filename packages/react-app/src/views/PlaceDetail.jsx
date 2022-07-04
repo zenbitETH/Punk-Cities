@@ -123,69 +123,56 @@ export default function MyPlaces() {
       <div class="PlaceAsset">
         <div class="AssetTl">
           <div class="">{`${ipfsResponse?.name} / ${ipfsResponse?.attributes[0].value}`}</div>
-          <div class="AssetLv">Level {placeLevel ?? "NA"}</div>
-          <div class=""></div>
         </div>
         <img src={`${ipfsResponse?.image3D}`} class="PLDetail" />
         <div class="AssetData">
+          <div class="AssetLv">Level {placeLevel ?? "NA"}</div>
+          <div class="RgAddress">
+            <div>Registered by</div> {displayAddress ?? "NA"}
+          </div>
           <a class="GMaps" href={`${ipfsResponse?.address}`}>
             IRL Location{" "}
           </a>
-          <div class="RgAddress">
-            <div class="AssetRg">Registered by</div> {displayAddress ?? "NA"}
-          </div>
+          
         </div>
       </div>
 
       <div class="PlaceVer">
-        <div class="SolVer">
-          {" "}
-          {solarpunkVerificationsPerPlaceId}/25 Solarpunk <div class="AssetRg">to upgrade</div>
-        </div>
-        <div class="CybVer">
-          {" "}
-          {cyberpunkVerificationsPerPlaceId}/25 Cyberpunk <div class="AssetRg">to upgrade</div>
-        </div>
-        <a class="VerBt" href={`../VerifyPlace/${placeId}`}>
-          👍 Verify
-        </a>
-        <div class="SolVer">
-          {energy ?? "0"}/2⚡Energy<div class="AssetRg">to upgrade</div>
-        </div>
-        <div class="CybVer">
-          {chip ?? "0"}/2💽 Chips<div class="AssetRg">to upgrade</div>
-        </div>
-        <a class="VerBt" href={`../UpgradePlace/${placeId}`}>
-          ⚡Deposit 💽
-        </a>
-
         <div class="Verigrid">
           <div class="VeriTl">Verifiers</div>
           {verifiers.map((verifier, i) => (
             <React.Fragment>
               <div>{formatAddress(verifier)}</div>
-              <div>{questTypePerVerifiers[i] ?? ""}</div>
-              <div></div>
-              <div></div>
-              <div>0⚡</div>
+              {/*questTypePerVerifiers[i] ?? ""*/}
             </React.Fragment>
           ))}
-
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+        </div>
+        <div class="SolVer">
+          {" "}
+          <div class="bigIcon3">
+            <div>👍</div>{solarpunkVerificationsPerPlaceId}/2 
+          </div>
+          <div class="AssetRg"> to upgrade</div>
+          <a href={`../VerifyPlace/${placeId}`}>
+            <div class="VerBt">👍Verify</div>
+          </a>
+        </div>
+        {/*
+        <div class="CybVer">
+          {" "}
+          {cyberpunkVerificationsPerPlaceId}/25 Cyberpunk <div class="AssetRg">to upgrade</div>
+        </div>
+        */}
+        <div class="CybVer">
+          <div class="bigIcon2">
+            <div><div>⚡</div>{energy ?? "0"}/2</div>
+            <div><div>💽</div>{chip ?? "0"}/2</div>
+          </div>
+        
+          <div class="AssetRg">to upgrade</div>
+          <a href={`../UpgradePlace/${placeId}`}>
+            <div class="VerBt">⚡Deposit 💽</div>
+          </a>
         </div>
       </div>
     </div>

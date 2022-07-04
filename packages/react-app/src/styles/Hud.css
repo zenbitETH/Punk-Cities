@@ -46,7 +46,19 @@ Nav {
   font-size: 1em;
 }
 
-.connect:hover, .disconnect2:hover {
+.VerBt {
+  background-color: #01304E;
+  border-radius: 25px 25px 0 0 ;
+  width: 60%;
+  padding: 0.6em 0em 0.65em 0em;
+  font-size: 1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+}
+
+
+.connect:hover, .disconnect2:hover, .VerBt:hover {
   background-color: #F6AF55;
   color: #01304E;
   cursor: pointer;
@@ -141,11 +153,13 @@ Nav {
 }
 
 .bigIcon2 {
-  font-size: 2em;
+  font-size: 4em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .bigIcon3 {
-  font-size: 6em;
+  font-size: 4em;
 }
 
 .huda, .hudb, .hudc, .hudd, .hude, .hudf{

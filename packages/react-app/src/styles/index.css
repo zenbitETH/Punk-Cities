@@ -424,11 +424,6 @@ select option:checked {
   font-size: 1.5em;
 }
 
-.CreateAcc:hover {
-  background-color: #f6af55;
-  color: #01304e;
-}
-
 .UploadBt {
   color: white;
   margin-top: 1.5em;
@@ -520,20 +515,9 @@ h1 {
 
 .CityDiv {
   display: grid;
-  grid-template-rows: 1fr 1fr;
   border-radius: 25px;
-  margin: 8em 2em 0 2em;
   gap: 1em;
-}
-
-.CityMenu {
-  border-radius: 25px 0px 0px 25px;
-  display: grid;
-  grid-template-rows: 150px 150px;
-  grid-gap: 1em;
-  align-items: center;
-  padding: 2em;
-  position: relative;
+  padding: 8em 1em 8em 1em;
 }
 
 .CityPlaces {
@@ -562,108 +546,66 @@ h1 {
   display: grid;
   align-items: center;
   grid-gap: 1em;
-  grid-template-columns: repeat(3, minmax(0, 1fr)); 
+  grid-template-columns: repeat(2, minmax(0, 1fr)); 
   grid-template-rows: repeat(6, minmax(0, 1fr)); 
 }
 
-.PlaceAsset {
-  background-color: #cbced10c;
-}
 
 .AssetTl {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 3fr 1fr;
-  padding-top: 1em;
   font-size: 2em;
-  text-align: left;
 }
 
 .AssetData {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   border-radius: 25px;
   font-size: 1.5em;
   grid-gap: 1em;
-  margin-bottom: 1.3em;
 }
 
-.GMaps {
+.GMaps, .RgAddress, .AssetLv {
   background-color: #cbced11e;
   border-radius: 25px;
-  padding-top: 0.5em;
 }
 
-.RgAddress {
-  background-color: #cbced11e;
-  border-radius: 25px;
+.GMaps, .AssetLv {
+  padding-top: 0.75em;
 }
 
 .SolVer {
-  background-color: #f6b05552;
-  border-radius: 25px 25px 0px 0;
-  padding: 0.8em 0em 0.8em 0em;
-  font-size: 1.5em;
+  background-color: #f6b055b7;
   border-radius: 25px;
+  color: #01304e;
+
 }
 
 .CybVer {
-  background-color: #11919552;
+  background-color: #119195b7;
   border-radius: 25px;
-  padding: 0.8em 0em 0.8em 0em;
-  font-size: 1.5em;
 }
 
-.VerBt {
-  background-color: #cbced11e;
-  border-radius: 25px;
-  padding: 1em 0em 1.4em 0em;
-  font-size: 1.5em;
-}
 
 .AssetRg {
-  font-size: 0.7em;
+  font-size: 1.5em;
 }
 
-.AssetLv {
-  grid-row: span 2;
-  background-color: #11919552;
-  background-size: 200% 200%;
-  animation: gradient 2s ease-in-out infinite;
-  padding-top: 0.75em;
-  text-align: center;
-}
 
 .PlaceVer {
-  background-color: #cbced10c;
-  border-radius: 0px 25px 25px 0px;
   display: grid;
-  align-items: center;
-  padding: 2em;
   grid-gap: 1em;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 0.5fr 0.5fr 3fr;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
 }
 
 .Verigrid {
-  display: grid;
-  grid-template-columns: 3fr 1fr 0.5fr 0.5fr 0.5fr;
-  grid-template-rows: repeat(auto-fit, minmax(25px, 0.5fr));
-  grid-column: span 3;
+  background-color: #AAA6A1;
+  vertical-align: top;
   font-size: 1.5em;
-  background-color: #cbced10c;
   border-radius: 25px;
-  height: 100%;
-  grid-gap: 1em;
-}
-
-.VeriTl {
-  grid-column: span 5;
+  color: #01304e;
 }
 
 .PLDetail {
-  height: 50em;
-  margin-top: -6em;
+  height: 25em;
 }
 
 .CityBT {
