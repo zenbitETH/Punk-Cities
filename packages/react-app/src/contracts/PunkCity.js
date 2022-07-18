@@ -648,11 +648,6 @@ const PunkCityABI = [
         name: "_hometown",
         type: "string",
       },
-      {
-        internalType: "string",
-        name: "_country",
-        type: "string",
-      },
     ],
     name: "registerUser",
     outputs: [],
