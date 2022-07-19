@@ -326,7 +326,7 @@ function App(props) {
         </Route>
 
         <Route exact path="/NewPlace">
-          <NewPlace tx={tx} writeContracts={writeContracts} readContracts={readContracts} />
+          <NewPlace tx={tx} writeContracts={writeContracts} readContracts={readContracts} address={address} />
         </Route>
 
         <Route exact path="/PlaceDetail/:id">
@@ -346,7 +346,7 @@ function App(props) {
         </Route>
 
         <Route exact path="/">
-          <NewGame tx={tx} writeContracts={writeContracts} />
+          <NewGame tx={tx} writeContracts={writeContracts} address={address} />
         </Route>
 
         <Route exact path="/debug">

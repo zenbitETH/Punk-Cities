@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { PunkCityABI } from "../contracts/PunkCity";
+import mime from "mime/lite";
+import { NFTStorage, File } from "nft.storage";
 require("dotenv").config();
+
+const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+const web3 = createAlchemyWeb3(alchemyKey);
+
+const contractAddressLocal = "0x7Afc190ea94f920563d057B868376fA7705D0f4C"; // to find a better way to retrieve this address
+const contractInstance = new web3.eth.Contract(PunkCityABI, contractAddressLocal);
 
 const IPFS = require("ipfs-mini");
 const ipfs = new IPFS({ host: "ipfs.infura.io", port: 5001, protocol: "https" });
@@ -136,12 +146,13 @@ const formatQuestType = questInput => {
   }
 };
 
-export default function NewPlace({ tx, writeContracts, readContracts }) {
+export default function NewPlace({ address }) {
   const [name, setName] = useState("");
   const [placeType, setPlaceType] = useState("");
-  const [address, setAddress] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
   const [tag, setTag] = useState("");
   const [questType, setQuestType] = useState("");
+  const [uploadedImage, setUploadedImage] = useState(null);
   const [buffer, setBuffer] = useState(null);
   const [image, setImage] = useState(null);
   const [Image3D, setImage3D] = useState(null);
@@ -152,15 +163,41 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
     const image3D = returnImagePerPlace(e.target.value);
     setImage3D(image3D);
     //Is this the correct way to set the 3d asset url? //
-    const image3DWithourUrl = image3D.replace("https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/", "ipfs://");
+    const image3DWithourUrl = image3D.replace(
+      "https://bafybeids5w4e7ybnw5mfpvvsevhllutfkjkbfhhfjft6ff36qwh3ldbj5q.ipfs.nftstorage.link/",
+      "ipfs://",
+    );
     setImage(image3DWithourUrl);
   };
-  const handleAddressChange = e => setAddress(e.target.value);
+  const handleAddressChange = e => setStreetAddress(e.target.value);
   const handleTagChange = e => setTag(e.target.value);
   const handleQuestTypeChange = e => setQuestType(e.target.value);
 
+  const captureFile = event => {
+    console.log("capturing file...");
+    const file = event.target.files[0]; // access to the file
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(file); // read the file as an ArrayBuffer so that it can be uplaode to ipfs
+    reader.onloadend = async () => {
+      const buffer = Buffer(reader.result);
+      setBuffer(buffer);
+      const image = new File([buffer], file.name, {
+        contentType: mime.getType(file.name),
+      });
+      setUploadedImage(image);
+      console.log(image);
+    };
+  };
+
   const registerPlace = async () => {
-    const placeId = (await tx(readContracts.PunkCity.placeId())).toString();
+    const client = new NFTStorage({ token: process.env.REACT_APP_NFT_STORAGE_TOKEN });
+    const placeId = await contractInstance.methods.placeId().call();
+
+    const imageURL = await client.store({
+      name: "image",
+      description: "image uploaded on punk cities",
+      image: uploadedImage,
+    });
 
     const metadata = {
       version: "1.0.0",
@@ -169,10 +206,11 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
       content: "Content",
       name: name,
       description: "This is a place description",
+      uploadedImage: imageURL.url,
       image: image,
       imageMimeType: "image/png",
       image3D: Image3D,
-      address: address,
+      address: streetAddress,
       tag: tag,
       attributes: [
         {
@@ -194,7 +232,18 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
     let placeInput = convertPlaceType(placeType);
     let questInput = convertQuestType(questType);
 
-    tx(writeContracts.PunkCity.registerPlace(placeInput, questInput, url));
+    try {
+      const transactionParams = {
+        from: address,
+        to: contractAddressLocal,
+        data: contractInstance.methods.registerPlace(placeInput, questInput, url).encodeABI(),
+      };
+      await web3.eth.sendTransaction(transactionParams);
+    } catch (err) {
+      console.log(err);
+    }
+
+    //tx(writeContracts.PunkCity.registerPlace(placeInput, questInput, url));
   };
 
   return (
@@ -232,7 +281,11 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
           <input type="text" placeholder="Paste the Address from google maps" onChange={handleAddressChange} />
 
           <label>Tags</label>
-            <input type="text" placeholder="Camping, Climbing, Nature" onChange={handleTagChange} />
+          <input type="text" placeholder="Camping, Climbing, Nature" onChange={handleTagChange} />
+          <label class="file">
+            Take and upload a photo to IPFS
+            <input type="file" onChange={captureFile} />
+          </label>
           <label>Choose your quest in this place:</label>
           <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handleQuestTypeChange}>
             <option disabled selected>
@@ -247,7 +300,6 @@ export default function NewPlace({ tx, writeContracts, readContracts }) {
           Register New Place
         </div>
       </div>
-      
     </div>
   );
 }
