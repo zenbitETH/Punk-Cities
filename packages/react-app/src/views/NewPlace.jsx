@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { PunkCityABI } from "../contracts/PunkCity";
+import mime from "mime/lite";
+import { NFTStorage, File } from "nft.storage";
 require("dotenv").config();
 
 const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
@@ -150,6 +152,7 @@ export default function NewPlace({ address }) {
   const [streetAddress, setStreetAddress] = useState("");
   const [tag, setTag] = useState("");
   const [questType, setQuestType] = useState("");
+  const [uploadedImage, setUploadedImage] = useState(null);
   const [buffer, setBuffer] = useState(null);
   const [image, setImage] = useState(null);
   const [Image3D, setImage3D] = useState(null);
@@ -170,9 +173,31 @@ export default function NewPlace({ address }) {
   const handleTagChange = e => setTag(e.target.value);
   const handleQuestTypeChange = e => setQuestType(e.target.value);
 
+  const captureFile = event => {
+    console.log("capturing file...");
+    const file = event.target.files[0]; // access to the file
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(file); // read the file as an ArrayBuffer so that it can be uplaode to ipfs
+    reader.onloadend = async () => {
+      const buffer = Buffer(reader.result);
+      setBuffer(buffer);
+      const image = new File([buffer], file.name, {
+        contentType: mime.getType(file.name),
+      });
+      setUploadedImage(image);
+      console.log(image);
+    };
+  };
+
   const registerPlace = async () => {
+    const client = new NFTStorage({ token: process.env.REACT_APP_NFT_STORAGE_TOKEN });
     const placeId = await contractInstance.methods.placeId().call();
-    //const placeId = (await tx(readContracts.PunkCity.placeId())).toString();
+
+    const imageURL = await client.store({
+      name: "image",
+      description: "image uploaded on punk cities",
+      image: uploadedImage,
+    });
 
     const metadata = {
       version: "1.0.0",
@@ -181,6 +206,7 @@ export default function NewPlace({ address }) {
       content: "Content",
       name: name,
       description: "This is a place description",
+      uploadedImage: imageURL.url,
       image: image,
       imageMimeType: "image/png",
       image3D: Image3D,
@@ -256,6 +282,10 @@ export default function NewPlace({ address }) {
 
           <label>Tags</label>
           <input type="text" placeholder="Camping, Climbing, Nature" onChange={handleTagChange} />
+          <label class="file">
+            Take and upload a photo to IPFS
+            <input type="file" onChange={captureFile} />
+          </label>
           <label>Choose your quest in this place:</label>
           <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handleQuestTypeChange}>
             <option disabled selected>
