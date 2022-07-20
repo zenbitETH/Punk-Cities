@@ -151,6 +151,7 @@ export default function NewPlace({ address }) {
   const [placeType, setPlaceType] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [tag, setTag] = useState("");
+  const [city, setCity] = useState("");
   const [questType, setQuestType] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null);
   const [buffer, setBuffer] = useState(null);
@@ -172,6 +173,7 @@ export default function NewPlace({ address }) {
   const handleAddressChange = e => setStreetAddress(e.target.value);
   const handleTagChange = e => setTag(e.target.value);
   const handleQuestTypeChange = e => setQuestType(e.target.value);
+  const handleCityChange = e => setCity(e.target.value);
 
   const captureFile = event => {
     console.log("capturing file...");
@@ -214,6 +216,10 @@ export default function NewPlace({ address }) {
       tag: tag,
       attributes: [
         {
+          trait_type: "city",
+          value:(city),
+        },
+        {
           trait_type: "place_type",
           value: formatPlaceType(placeType),
         },
@@ -251,34 +257,45 @@ export default function NewPlace({ address }) {
       <div class="container">
         <div class="NewGame-title">New Place</div>
         <div class="inputs">
-          <label for="TypeOfPlace">Type of place:</label>
-          <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handlePlaceTypeChange}>
-            <option disabled selected>
-              The place I want to register is...
-            </option>
-            <option>⛲ Public Park</option>
-            <option>🛹 Skate Park</option>
-            <option>⚽ Soccer Field</option>
-            <option>🏀 Basket Court</option>
-            <option>😄 Playground</option>
-            <option>🏋️‍♀️ Outdoor Gym</option>
-            <option>🎭 Art Gallery / Museum</option>
-            <option>🏟️ Stadium</option>
-            <option>🏖️ Beach</option>
-            <option>♻️ Recycling Deposit</option>
-            <option>🚏 Bus stop</option>
-            <option>📚 Library</option>
-            <option>🎓 University</option>
-            <option>⛪ Church or Temple</option>
-            <option>🗳️ Government Office</option>
-            <option>🌳 Tree</option>
-          </select>
-
-          <label>Name:</label>
-          <input type="text" placeholder="How this place is named in your city?" onChange={handleNameChange} />
-
+          <div class="split">
+            <label for="TypeOfPlace">Type of place:
+            <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handlePlaceTypeChange}>
+              <option disabled selected>
+                The place is a...
+              </option>
+              <option>⛲ Public Park</option>
+              <option>🛹 Skate Park</option>
+              <option>⚽ Soccer Field</option>
+              <option>🏀 Basket Court</option>
+              <option>😄 Playground</option>
+              <option>🏋️‍♀️ Outdoor Gym</option>
+              <option>🎭 Art Gallery / Museum</option>
+              <option>🏟️ Stadium</option>
+              <option>🏖️ Beach</option>
+              <option>♻️ Recycling Deposit</option>
+              <option>🚏 Bus stop</option>
+              <option>📚 Library</option>
+              <option>🎓 University</option>
+              <option>⛪ Church or Temple</option>
+              <option>🗳️ Government Office</option>
+              <option>🌳 Tree</option>
+            </select>
+            </label>
+            <label>Name:
+              <input type="text" placeholder="its name is..." onChange={handleNameChange} />
+            </label>
+          </div>
           <label>Address</label>
           <input type="text" placeholder="Paste the Address from google maps" onChange={handleAddressChange} />
+          
+          <select id="city" type="text" placeholder="Choose your city" onChange={handleCityChange}>
+            <option disabled selected>
+              Choose your city
+            </option>
+            <option>Querétaro, México</option>
+            <option>CDMX, México</option>
+            <option>Bogotá, Colombia</option>
+          </select>
 
           <label>Tags</label>
           <input type="text" placeholder="Camping, Climbing, Nature" onChange={handleTagChange} />
@@ -287,6 +304,7 @@ export default function NewPlace({ address }) {
             <input type="file" onChange={captureFile} />
           </label>
           <label>Choose your quest in this place:</label>
+          
           <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handleQuestTypeChange}>
             <option disabled selected>
               The quest defines the reward!
