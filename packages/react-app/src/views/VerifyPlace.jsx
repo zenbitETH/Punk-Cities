@@ -83,45 +83,67 @@ export default function VerifyPlace({ address }) {
   };
 
   return (
-    <div class="HomeDiv">
-      <div class="NewGame">
+    <div class="AllDiv">
+      <div class="verifyGrid">
+      
         <div class="container2">
-          <div class="VerifyPlace">👍</div>
-          <div class="NewGame-title">Verify this place</div>
-          <div class="PlaceData">
-            <div>Type of Place:{ipfsResponse?.attributes[0].value}</div>
-            <div>Name: {ipfsResponse?.name}</div>
-            <div>City:</div>
-            <div>Address: {ipfsResponse?.address}</div>
-            <div>Registered by: {register}</div>
-            <div>Current tags: {ipfsResponse?.tag}</div>
+          <div class="verifyTl">Verify this place in {ipfsResponse?.attributes[0].value}:</div>
+          <div class="AssetTl">
+            <div class="">
+              {`${ipfsResponse?.name} / ${ipfsResponse?.attributes[1].value}`}
+            </div>
+            <img src={`${ipfsResponse?.image3D}`} class="verifyIMG" />
           </div>
-          <div class="inputs2">
+            
+          <div class="PlaceData">
+            <div class="longData">Registered by: {register}</div>
+            <div class="longData">Tags: {ipfsResponse?.tag}</div>
+            <div class="addressData">
+              
+              <a class="verifyData" href={ipfsResponse?.address}>
+                <div>Verify adress in Google Maps</div>
+                <div>Is this adress correct?</div>
+              </a> 
+              <div class="checkAddress">
+                <input type="checkbox"/>
+              </div>
+            </div>
+            
+          </div>
+
+
+
             {/* <label>
               Confirm or add Tags
               <input type="text" placeholder="Camping, Climbing, Nature" onChange={handleTagChange} />
             </label> */}
 
-            <label>
-              Choose your quest in this place:
-              <select id="TypeOfPlace" type="text" placeholder="Park" onChange={handlePlaceTypeChange}>
-                <option disabled selected>
-                  The quest defines the reward!
-                </option>
-                <option>1 Solarpunk (+1⚡)</option>
-                <option>2 Cyberpunk (+1💽)</option>
-              </select>
-            </label>
-          </div>
+            
+          
           {/* <label class="file">
             Take and upload a photo to IPFS
             <input type="file" />
             <div class="UploadBt"> Upload to IPFS</div>
           </label> */}
-          <div class="CreatePL" type="submit" onClick={verifyPlace}>
-            Verify Place
-          </div>
+          
         </div>
+
+        <div class="PlaceAsset">
+          
+          {/*<img src="https://scontent.fgdl3-1.fna.fbcdn.net/v/t31.18172-8/14188557_1117437218340183_4220340886498305644_o.jpg?_nc_cat=109&ccb=1-7&_nc_sid=e3f864&_nc_ohc=3jKwNeLqRPUAX8njSEf&_nc_ht=scontent.fgdl3-1.fna&oh=00_AT8d6_cwYCVhqVB74dCHozGIpIDTIHFHQPieWomMS1Kmew&oe=62FF13F6" class="verifyIMG2" />*/}
+          <img src={ipfsResponse?.image} class="PLimage"/>
+        </div>
+        <div class="btContainer">
+        <label>
+              You will recieve this reward:
+              <div id="TypeOfPlace" type="text" onChange={handlePlaceTypeChange}>
+                1 Energy Unit (+1⚡)
+              </div>
+            </label>
+            <div class="CreatePL" type="submit" onClick={verifyPlace}>
+            Verify Place
+            </div>
+          </div>
       </div>
     </div>
   );

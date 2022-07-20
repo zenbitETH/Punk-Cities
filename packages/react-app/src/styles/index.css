@@ -31,7 +31,7 @@ a:visited {
 
 a:hover {
   text-decoration: none;
-  color: #ffb34f;
+  color: #AAA6A1;
 }
 
 body {
@@ -42,6 +42,7 @@ body {
   text-align: center;
   font-family: "Exo 2";
   color: white;
+  
 }
 
 .networkAlert {
@@ -96,6 +97,8 @@ body {
   place-items: center;
   display: flex;
   font-family: "Exo 2";
+  background: linear-gradient(90deg, #f6af55, #11919500);
+  border-radius: 25px;
 }
 
 .AllDiv {
@@ -116,6 +119,7 @@ body {
   transform: translateX(-50%);
   top: 20%;
 }
+
 
 .homevan {
   position: absolute;
@@ -155,22 +159,24 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  padding: 5em 5em 5em 5em;
+  padding: 2em 5em 2em 5em;
   box-sizing: border-box;
   border-radius: 75px;
   color: #fff;
   background-color: #AAA6A150;
 }
 
+
+
 .container2 {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 25px;
   padding: 2em;
   box-sizing: border-box;
-  background: #119195;
-
+  
+  text-align: left;
+  color: #01304e;
 }
 
 .container3 {
@@ -211,16 +217,6 @@ code {
   box-shadow: 7px 7px 10px #0f6164, -7px -7px 10px #13a7ac;
 }
 
-.VerifyPlace {
-  height: 100px;
-  width: 100px;
-  background-size: 100px;
-  margin: auto;
-  border-radius: 50%;
-  box-sizing: border-box;
-  font-size: 4em;
-  box-shadow: 7px 7px 10px #0f6164, -7px -7px 10px #13a7ac;
-}
 
 .UpgradePlace {
   height: 100px;
@@ -234,15 +230,29 @@ code {
 }
 
 .PlaceData {
-  display: grid;
-  column-gap: 1em;
-  grid-template-columns: 1fr;
   font-size: 1.5em;
-  margin-bottom: 2em;
-  background-color: #19191a71;
-  text-align: left;
-  padding: 0.5em;
-  border-radius: 15px;
+  
+}
+
+.longData {
+  grid-column: span 6 / span 6;
+}
+
+.verifyData {
+  grid-column: span 3 / span 3;
+}
+
+.checkAddress {
+  padding-top: 0.5em;
+  
+}
+
+.addressData {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  background: linear-gradient(90deg, #00000050, #11919500);
+  padding: 1em;
+  border-radius: 25px;
 }
 
 .Deposit2Up {
@@ -378,7 +388,6 @@ input {
 }
 
 select {
-  font-size: 1.2em !important;
   box-shadow: none !important;
   background-color: transparent !important;
   border: 0 !important;
@@ -488,12 +497,15 @@ input[type="file"]:hover {
   border-radius: 20px;
   cursor: pointer;
   transition: 0.5s;
+  text-align: center;
   font-size: 1.5em;
 }
 
 .CreatePL:hover {
   background-color: #124b6e;
 }
+
+
 
 h1 {
   position: absolute;
@@ -548,6 +560,10 @@ h1 {
   grid-gap: 1em;
   grid-template-columns: repeat(2, minmax(0, 1fr)); 
   grid-template-rows: repeat(6, minmax(0, 1fr)); 
+}
+
+.verifyTl {
+  font-size: 1.75em;
 }
 
 
@@ -606,6 +622,15 @@ h1 {
 
 .PLDetail {
   height: 25em;
+}
+
+.verifyIMG {
+  width: 30%;
+}
+
+.verifyIMG2 {
+  width: 90%;
+  border-radius: 25px;
 }
 
 .CityBT {

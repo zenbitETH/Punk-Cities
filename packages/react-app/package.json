@@ -43,6 +43,7 @@
     "graphiql": "^1.4.7",
     "graphql": "^15.8.0",
     "ipfs": "^0.62.1",
+    "ipfs-car": "^0.7.0",
     "ipfs-fetch": "^0.2.1",
     "ipfs-http-client": "^55.0.0",
     "isomorphic-fetch": "^3.0.0",
