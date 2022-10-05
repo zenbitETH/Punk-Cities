@@ -137,6 +137,19 @@
   font-weight: 900; 
 }
 
+.verifyGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  background: linear-gradient(90deg, #f6af55, #f6af5525);
+  border-radius: 25px;
+  
+}
+.btContainer {
+  width: auto;
+  margin: 0 5em 2em 5em;
+}
+
+
 @media (min-width: 1280px) { 
   
   .connect {
@@ -171,6 +184,12 @@
 
   .HowGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr)); 
+  }
+  
+  .verifyGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    font-size: 1.25em;
+    
   }
 
   .logo {
@@ -220,7 +239,7 @@
 
   .HomeDiv {
     width: 40%;
-    top: 10%;
+    top: 5%;
   }
 
   .AllDiv {
@@ -257,6 +276,13 @@
 
   .VerBt {
     padding: 0.5em 0em 0.75em 0em;
+  }
+  
+  .btContainer {
+    margin: 0 40em 2em 40em;
+    grid-column: span 2 / span 2;
+    width: auto;
+
   }
   
 }

@@ -33,9 +33,9 @@ const { Text, Paragraph } = Typography;
 
   - Provide provider={userProvider} to display a wallet
   - Provide address={address} if you want to specify address, otherwise
-                                                    your default address will be used
+    your default address will be used
   - Provide ensProvider={mainnetProvider} and your address will be replaced by ENS name
-              (ex. "0xa870" => "user.eth") or you can enter directly ENS name instead of address
+    (ex. "0xa870" => "user.eth") or you can enter directly ENS name instead of address
   - Provide price={price} of ether and easily convert between USD and ETH
   - Provide color to specify the color of wallet icon
 **/

@@ -122,7 +122,7 @@ export default function MyPlaces() {
     <div class="CityDiv">
       <div class="PlaceAsset">
         <div class="AssetTl">
-          <div class="">{`${ipfsResponse?.name} / ${ipfsResponse?.attributes[0].value}`}</div>
+          <div class="">{`${ipfsResponse?.name} / ${ipfsResponse?.attributes[1].value}`}</div>
         </div>
         <img src={`${ipfsResponse?.image3D}`} class="PLDetail" />
         <div class="AssetData">
@@ -131,7 +131,7 @@ export default function MyPlaces() {
             <div>Registered by</div> {displayAddress ?? "NA"}
           </div>
           <a class="GMaps" href={`${ipfsResponse?.address}`}>
-            IRL Location{" "}
+          📍 {`${ipfsResponse?.attributes[0].value}`}
           </a>
           
         </div>
