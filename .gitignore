@@ -17,6 +17,7 @@ packages/**/data
 !packages/react-app/src/contracts/contracts.js
 
 
+
 # ts
 packages/hardhat-ts/cache
 # secrets
@@ -53,6 +54,7 @@ artifacts
 # misc
 .DS_Store
 .env*
+packages/react-app/src/constants.js*
 
 # debug
 npm-debug.log*

@@ -12730,10 +12730,10 @@ ipfs-car@^0.6.2:
     streaming-iterables "^6.0.0"
     uint8arrays "^3.0.0"
 
-ipfs-car@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/ipfs-car/-/ipfs-car-0.7.0.tgz#72955d2b6904e87edfa17bbe5c00c1b3fcb79bb9"
-  integrity sha512-9ser6WWZ1ZMTCGbcVkRXUzOrpQ4SIiLfzIEnk+3LQsXbV09yeZg3ijhRuEXozEIYE68Go9JmOFshamsK9iKlNQ==
+ipfs-car@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/ipfs-car/-/ipfs-car-0.8.1.tgz#09835c52f2124933b8a058c1e4b14ccbb2fa9599"
+  integrity sha512-ntRXBK5ZTaXgxAkSLvC6mXupJcwxxX9tusKoOJR+SRZWGfA+5j+WeJa5gCgdHEsGixIX93rZH8DSzdUUTYjNJg==
   dependencies:
     "@ipld/car" "^3.2.3"
     "@web-std/blob" "^3.0.1"
